@@ -8,6 +8,7 @@ package com.mycompany.tr_pbog;
  *
  * @author Made
  */
+import java.awt.Color;
 public class loginPage extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(loginPage.class.getName());
@@ -17,6 +18,35 @@ public class loginPage extends javax.swing.JFrame {
      */
     public loginPage() {
         initComponents();
+        
+        setDarkMode(DarkMode.isDarkMode);
+    }
+    
+    private void setDarkMode(boolean isDark) {
+        
+
+        if(isDark){
+            jPanel1.setBackground(new Color(44, 44, 44));
+            headerPanel.setBackground(new Color(44, 44, 44));
+            bodyPanel.setBackground(new Color(44, 44, 44));
+            labelUsername.setForeground(Color.WHITE);
+            labelPassword.setForeground(Color.WHITE);
+            titik2Username.setForeground(Color.WHITE);
+            titik2Password.setForeground(Color.WHITE);
+        }else{
+            jPanel1.setBackground(new Color (204,204,204));
+            headerPanel.setBackground(new Color (204,204,204));
+            bodyPanel.setBackground(new Color (204,204,204));
+            labelUsername.setForeground(Color.BLACK);
+            labelPassword.setForeground(Color.BLACK);
+            titik2Username.setForeground(Color.BLACK);
+            titik2Password.setForeground(Color.BLACK);
+        }
+        
+        
+        
+       
+        
     }
 
     /**
@@ -28,7 +58,7 @@ public class loginPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new com.mycompany.tr_pbog.GradientPanel();
+        jPanel1 = new javax.swing.JPanel();
         headerPanel = new javax.swing.JPanel();
         siasatLogo = new javax.swing.JLabel();
         bodyPanel = new javax.swing.JPanel();
@@ -40,19 +70,17 @@ public class loginPage extends javax.swing.JFrame {
         loginBtn = new javax.swing.JButton();
         titik2Username = new javax.swing.JLabel();
         titik2Password = new javax.swing.JLabel();
+        darkModeToggle = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new java.awt.BorderLayout());
-
-        headerPanel.setOpaque(false);
 
         siasatLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/siasat.png"))); // NOI18N
         headerPanel.add(siasatLogo);
 
         jPanel1.add(headerPanel, java.awt.BorderLayout.NORTH);
 
-        bodyPanel.setOpaque(false);
         bodyPanel.setPreferredSize(new java.awt.Dimension(640, 280));
 
         labelUsername.setText("NIM / NIDN");
@@ -85,32 +113,41 @@ public class loginPage extends javax.swing.JFrame {
 
         titik2Password.setText("      :");
 
+        darkModeToggle.setText("Dark Mode");
+        darkModeToggle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                darkModeToggleActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout bodyPanelLayout = new javax.swing.GroupLayout(bodyPanel);
         bodyPanel.setLayout(bodyPanelLayout);
         bodyPanelLayout.setHorizontalGroup(
             bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bodyPanelLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bodyPanelLayout.createSequentialGroup()
-                        .addComponent(lupaPasswordBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
-                        .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bodyPanelLayout.createSequentialGroup()
-                        .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(bodyPanelLayout.createSequentialGroup()
-                                .addComponent(labelPassword)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(titik2Password, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(bodyPanelLayout.createSequentialGroup()
-                                .addComponent(labelUsername)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(titik2Username, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(inputUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                            .addComponent(inputPassword))))
-                .addContainerGap())
+                .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(darkModeToggle, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bodyPanelLayout.createSequentialGroup()
+                            .addComponent(lupaPasswordBtn)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                            .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bodyPanelLayout.createSequentialGroup()
+                            .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(bodyPanelLayout.createSequentialGroup()
+                                    .addComponent(labelPassword)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(titik2Password, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(bodyPanelLayout.createSequentialGroup()
+                                    .addComponent(labelUsername)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(titik2Username, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(18, 18, 18)
+                            .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(inputUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                                .addComponent(inputPassword)))))
+                .addContainerGap(342, Short.MAX_VALUE))
         );
         bodyPanelLayout.setVerticalGroup(
             bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,7 +166,9 @@ public class loginPage extends javax.swing.JFrame {
                 .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginBtn)
                     .addComponent(lupaPasswordBtn))
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addComponent(darkModeToggle)
+                .addGap(43, 43, 43))
         );
 
         jPanel1.add(bodyPanel, java.awt.BorderLayout.CENTER);
@@ -161,6 +200,18 @@ public class loginPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_loginBtnActionPerformed
 
+    private void darkModeToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darkModeToggleActionPerformed
+        // TODO add your handling code here:
+        setDarkMode(darkModeToggle.isSelected());
+        DarkMode.isDarkMode = darkModeToggle.isSelected();
+        
+        if (darkModeToggle.isSelected()) {
+        darkModeToggle.setText("Light Mode");
+    } else {
+        darkModeToggle.setText("Dark Mode");
+    }
+    }//GEN-LAST:event_darkModeToggleActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -188,6 +239,7 @@ public class loginPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bodyPanel;
+    private javax.swing.JToggleButton darkModeToggle;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JPasswordField inputPassword;
     private javax.swing.JTextField inputUsername;
