@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.tr_pbog;
 
-/**
- *
- * @author Made
- */
 import java.awt.Color;
 public class loginPage extends javax.swing.JFrame {
     
@@ -34,9 +26,9 @@ public class loginPage extends javax.swing.JFrame {
             titik2Username.setForeground(Color.WHITE);
             titik2Password.setForeground(Color.WHITE);
         }else{
-            jPanel1.setBackground(new Color (204,204,204));
-            headerPanel.setBackground(new Color (204,204,204));
-            bodyPanel.setBackground(new Color (204,204,204));
+            jPanel1.setBackground(new Color(249, 248, 246));
+            headerPanel.setBackground(new Color(249, 248, 246));
+            bodyPanel.setBackground(new Color(249, 248, 246));
             labelUsername.setForeground(Color.BLACK);
             labelPassword.setForeground(Color.BLACK);
             titik2Username.setForeground(Color.BLACK);
@@ -74,15 +66,20 @@ public class loginPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(249, 248, 246));
         jPanel1.setLayout(new java.awt.BorderLayout());
+
+        headerPanel.setBackground(new java.awt.Color(249, 248, 246));
 
         siasatLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/siasat.png"))); // NOI18N
         headerPanel.add(siasatLogo);
 
         jPanel1.add(headerPanel, java.awt.BorderLayout.NORTH);
 
+        bodyPanel.setBackground(new java.awt.Color(249, 248, 246));
         bodyPanel.setPreferredSize(new java.awt.Dimension(640, 280));
 
+        labelUsername.setForeground(new java.awt.Color(0, 0, 0));
         labelUsername.setText("NIM / NIDN");
 
         inputUsername.addActionListener(new java.awt.event.ActionListener() {
@@ -91,9 +88,11 @@ public class loginPage extends javax.swing.JFrame {
             }
         });
 
+        labelPassword.setForeground(new java.awt.Color(0, 0, 0));
         labelPassword.setText("Password ");
 
         lupaPasswordBtn.setBackground(new java.awt.Color(255, 51, 51));
+        lupaPasswordBtn.setForeground(new java.awt.Color(0, 0, 0));
         lupaPasswordBtn.setText("Lupa Password");
         lupaPasswordBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,6 +101,7 @@ public class loginPage extends javax.swing.JFrame {
         });
 
         loginBtn.setBackground(new java.awt.Color(51, 255, 0));
+        loginBtn.setForeground(new java.awt.Color(0, 0, 0));
         loginBtn.setText("Login");
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,8 +109,10 @@ public class loginPage extends javax.swing.JFrame {
             }
         });
 
+        titik2Username.setForeground(new java.awt.Color(0, 0, 0));
         titik2Username.setText("      :");
 
+        titik2Password.setForeground(new java.awt.Color(0, 0, 0));
         titik2Password.setText("      :");
 
         darkModeToggle.setText("Dark Mode");
