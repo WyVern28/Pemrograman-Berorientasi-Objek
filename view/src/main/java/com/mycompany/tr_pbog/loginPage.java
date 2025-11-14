@@ -1,6 +1,8 @@
 package com.mycompany.tr_pbog;
 
 import java.awt.Color;
+
+import javax.swing.JOptionPane;
 public class loginPage extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(loginPage.class.getName());
@@ -90,6 +92,12 @@ public class loginPage extends javax.swing.JFrame {
 
         labelPassword.setForeground(new java.awt.Color(0, 0, 0));
         labelPassword.setText("Password ");
+
+        inputPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputPasswordActionPerformed(evt);
+            }
+        });
 
         lupaPasswordBtn.setBackground(new java.awt.Color(255, 51, 51));
         lupaPasswordBtn.setForeground(new java.awt.Color(0, 0, 0));
@@ -194,12 +202,41 @@ public class loginPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_inputUsernameActionPerformed
 
+
     private void lupaPasswordBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lupaPasswordBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_lupaPasswordBtnActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        // TODO add your handling code here:
+        String username = inputUsername.getText();
+        String password = new String(inputPassword.getPassword());
+        if(username.isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Tolong Isi Username!", "Login", JOptionPane.WARNING_MESSAGE);
+            return;
+        }if(password.isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Tolong Isi Password!", "Login", JOptionPane.WARNING_MESSAGE);
+            return;
+        }if(username.equals("admin") && password.equals("admin")){
+            JOptionPane.showMessageDialog(rootPane, "Login Berhasil", "Login", JOptionPane.ERROR_MESSAGE);
+            inputUsername.setText("");
+            inputPassword.setText("");
+            new AdminHomePage().setVisible(true);
+            this.dispose();
+        }if(username.equals("dosen") && password.equals("1234")){
+            JOptionPane.showMessageDialog(rootPane, "Login Berhasil", "Login", JOptionPane.ERROR_MESSAGE);
+            inputUsername.setText("");
+            inputPassword.setText("");
+            new DosenHomePage().setVisible(true);
+            this.dispose();
+        }if(username.equals("672024125") && password.equals("12345")){
+            JOptionPane.showMessageDialog(rootPane, "Login Berhasil", "Login", JOptionPane.ERROR_MESSAGE);
+            inputUsername.setText("");
+            inputPassword.setText("");
+            new MahasiswaHomePage().setVisible(true);
+            this.dispose();       
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Login Gagal", "Login", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void darkModeToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darkModeToggleActionPerformed
@@ -213,6 +250,10 @@ public class loginPage extends javax.swing.JFrame {
         darkModeToggle.setText("Dark Mode");
     }
     }//GEN-LAST:event_darkModeToggleActionPerformed
+
+    private void inputPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputPasswordActionPerformed
 
     /**
      * @param args the command line arguments
