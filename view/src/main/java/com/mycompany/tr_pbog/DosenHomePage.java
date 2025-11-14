@@ -47,7 +47,7 @@ private void initDateTime() {
     Locale localeIndonesia = Locale.of("id", "ID");
 
     //Format terpisah untuk setiap JLabel
-    DateTimeFormatter formatTanggal = DateTimeFormatter.ofPattern("EEEE d MMMM yyyy", localeIndonesia);
+    DateTimeFormatter formatTanggal = DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", localeIndonesia);
     DateTimeFormatter formatJam = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     //Timer untuk memperbarui semuanya
@@ -140,7 +140,7 @@ private void initDateTime() {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(siasatLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(537, Short.MAX_VALUE))
+                .addContainerGap(1101, Short.MAX_VALUE))
         );
         headerPanelLayout.setVerticalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,12 +211,17 @@ private void initDateTime() {
         sidebarMenuPanel.setLayout(sidebarMenuPanelLayout);
         sidebarMenuPanelLayout.setHorizontalGroup(
             sidebarMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dashboardBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(classBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(sidebarMenuPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(darkModeToggle))
+                .addGroup(sidebarMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dashboardBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(classBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(sidebarMenuPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(darkModeToggle)))
+                .addGap(6, 6, 6))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebarMenuPanelLayout.createSequentialGroup()
+                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         sidebarMenuPanelLayout.setVerticalGroup(
             sidebarMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,9 +230,9 @@ private void initDateTime() {
                 .addComponent(dashboardBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(classBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addGap(18, 18, 18)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(18, 18, 18)
                 .addComponent(darkModeToggle)
                 .addContainerGap())
         );
@@ -282,11 +287,11 @@ private void initDateTime() {
                     .addComponent(clockLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(namaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nidLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addContainerGap(717, Short.MAX_VALUE))
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(mainPanelLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(salamLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                    .addComponent(salamLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 1068, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         mainPanelLayout.setVerticalGroup(
@@ -302,12 +307,12 @@ private void initDateTime() {
                 .addComponent(namaLabel)
                 .addGap(10, 10, 10)
                 .addComponent(nidLabel)
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addContainerGap(449, Short.MAX_VALUE))
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(mainPanelLayout.createSequentialGroup()
                     .addGap(80, 80, 80)
                     .addComponent(salamLabel)
-                    .addContainerGap(232, Short.MAX_VALUE)))
+                    .addContainerGap(530, Short.MAX_VALUE)))
         );
 
         BackPanel.add(mainPanel, java.awt.BorderLayout.CENTER);
@@ -320,7 +325,7 @@ private void initDateTime() {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BackPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+            .addComponent(BackPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

@@ -49,7 +49,7 @@ private void initDateTime() {
     Locale localeIndonesia = Locale.of("id", "ID");
 
     //Format terpisah untuk setiap JLabel
-    DateTimeFormatter formatTanggal = DateTimeFormatter.ofPattern("EEEE d MMMM yyyy", localeIndonesia);
+    DateTimeFormatter formatTanggal = DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", localeIndonesia);
     DateTimeFormatter formatJam = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     //Timer untuk memperbarui semuanya
@@ -146,7 +146,7 @@ private void initDateTime() {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(siasatLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(537, Short.MAX_VALUE))
+                .addContainerGap(1101, Short.MAX_VALUE))
         );
         headerPanelLayout.setVerticalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,11 +254,11 @@ private void initDateTime() {
                 .addComponent(jadwalBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(nilaiBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addGap(18, 18, 18)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(darkModeToggle)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(324, Short.MAX_VALUE))
         );
 
         sidebarPanel.add(sidebarMenuPanel, java.awt.BorderLayout.CENTER);
@@ -306,11 +306,11 @@ private void initDateTime() {
                     .addComponent(nidLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nidLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nidLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addContainerGap(717, Short.MAX_VALUE))
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(mainPanelLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(salamLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                    .addComponent(salamLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 1068, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         mainPanelLayout.setVerticalGroup(
@@ -330,12 +330,12 @@ private void initDateTime() {
                 .addComponent(nidLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nidLabel2)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(401, Short.MAX_VALUE))
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(mainPanelLayout.createSequentialGroup()
                     .addGap(80, 80, 80)
                     .addComponent(salamLabel)
-                    .addContainerGap(232, Short.MAX_VALUE)))
+                    .addContainerGap(530, Short.MAX_VALUE)))
         );
 
         BackPanel.add(mainPanel, java.awt.BorderLayout.CENTER);
@@ -348,7 +348,7 @@ private void initDateTime() {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BackPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+            .addComponent(BackPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
