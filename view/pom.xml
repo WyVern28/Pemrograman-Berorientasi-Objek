@@ -8,4 +8,12 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>view</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.mycompany</groupId>
+            <artifactId>controller</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>
