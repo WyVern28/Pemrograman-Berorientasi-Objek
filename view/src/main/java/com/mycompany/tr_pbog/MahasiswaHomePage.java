@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import javax.swing.Timer;
 
-public class DosenHomePage extends javax.swing.JFrame {
+public class MahasiswaHomePage extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DosenHomePage.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MahasiswaHomePage.class.getName());
 
     /**
      * Creates new form DosenHomePage
@@ -32,12 +32,14 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         // Biarkan tombolnya tanpa ikon jika gambar tidak ditemukan
     }
 }
-    public DosenHomePage() {
+    public MahasiswaHomePage() {
         initComponents();
         setDarkMode(DarkMode.isDarkMode);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         setButtonIcon(dashboardBtn, "/image/dashboard.png", 24, 24);
         setButtonIcon(classBtn, "/image/teaching.png", 24, 24);
+        setButtonIcon(jadwalBtn, "/image/calendar.png", 24, 24);
+        setButtonIcon(nilaiBtn, "/image/exam.png", 24, 24);
         initDateTime();
     }
     
@@ -115,6 +117,8 @@ private void initDateTime() {
         sidebarMenuPanel = new javax.swing.JPanel();
         dashboardBtn = new javax.swing.JButton();
         classBtn = new javax.swing.JButton();
+        jadwalBtn = new javax.swing.JButton();
+        nilaiBtn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
         darkModeToggle = new javax.swing.JToggleButton();
         mainPanel = new javax.swing.JPanel();
@@ -124,6 +128,8 @@ private void initDateTime() {
         salamLabel = new javax.swing.JLabel();
         nidLabel = new javax.swing.JLabel();
         namaLabel = new javax.swing.JLabel();
+        nidLabel1 = new javax.swing.JLabel();
+        nidLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,6 +160,7 @@ private void initDateTime() {
 
         sidebarPanel.setBackground(new java.awt.Color(0, 255, 255));
         sidebarPanel.setPreferredSize(new java.awt.Dimension(200, 338));
+        sidebarPanel.setLayout(new java.awt.BorderLayout());
 
         navTitlePanel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         navTitlePanel.setOpaque(false);
@@ -167,15 +174,17 @@ private void initDateTime() {
         navTitlePanel.setLayout(navTitlePanelLayout);
         navTitlePanelLayout.setHorizontalGroup(
             navTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(navTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+            .addComponent(navTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         navTitlePanelLayout.setVerticalGroup(
             navTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(navTitlePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(navTitle)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        sidebarPanel.add(navTitlePanel, java.awt.BorderLayout.PAGE_START);
 
         sidebarMenuPanel.setPreferredSize(new java.awt.Dimension(200, 100));
 
@@ -186,10 +195,24 @@ private void initDateTime() {
             }
         });
 
-        classBtn.setText("Kelas Saya");
+        classBtn.setText("Ambil Kelas");
         classBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 classBtnActionPerformed(evt);
+            }
+        });
+
+        jadwalBtn.setText("Jadwal Kuliah");
+        jadwalBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jadwalBtnActionPerformed(evt);
+            }
+        });
+
+        nilaiBtn.setText("Transkrip Nilai");
+        nilaiBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nilaiBtnActionPerformed(evt);
             }
         });
 
@@ -213,6 +236,8 @@ private void initDateTime() {
             sidebarMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(dashboardBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(classBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jadwalBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(nilaiBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(sidebarMenuPanelLayout.createSequentialGroup()
                 .addContainerGap()
@@ -226,26 +251,17 @@ private void initDateTime() {
                 .addGap(2, 2, 2)
                 .addComponent(classBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
+                .addComponent(jadwalBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(nilaiBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(18, 18, 18)
                 .addComponent(darkModeToggle)
-                .addContainerGap())
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout sidebarPanelLayout = new javax.swing.GroupLayout(sidebarPanel);
-        sidebarPanel.setLayout(sidebarPanelLayout);
-        sidebarPanelLayout.setHorizontalGroup(
-            sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(navTitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(sidebarMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        sidebarPanelLayout.setVerticalGroup(
-            sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sidebarPanelLayout.createSequentialGroup()
-                .addComponent(navTitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(sidebarMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        sidebarPanel.add(sidebarMenuPanel, java.awt.BorderLayout.CENTER);
 
         BackPanel.add(sidebarPanel, java.awt.BorderLayout.WEST);
 
@@ -265,10 +281,16 @@ private void initDateTime() {
         salamLabel.setText("Selamat Datang di Sistem Administrasi");
 
         nidLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        nidLabel.setText("NID: [NID Pengguna]");
+        nidLabel.setText("Prodi: [Prodi Pengguna]");
 
         namaLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         namaLabel.setText("Nama: [nama lengkap pengguna]");
+
+        nidLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        nidLabel1.setText("NIM: [NIM Pengguna]");
+
+        nidLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        nidLabel2.setText("Total SKS: [SKS Pengguna]");
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -281,7 +303,9 @@ private void initDateTime() {
                     .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(clockLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(namaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nidLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nidLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nidLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nidLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(153, Short.MAX_VALUE))
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(mainPanelLayout.createSequentialGroup()
@@ -300,9 +324,13 @@ private void initDateTime() {
                 .addComponent(biodataLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(namaLabel)
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nidLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nidLabel)
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nidLabel2)
+                .addContainerGap(103, Short.MAX_VALUE))
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(mainPanelLayout.createSequentialGroup()
                     .addGap(80, 80, 80)
@@ -347,6 +375,14 @@ private void initDateTime() {
         // TODO add your handling code here:
     }//GEN-LAST:event_dashboardBtnActionPerformed
 
+    private void jadwalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jadwalBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jadwalBtnActionPerformed
+
+    private void nilaiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nilaiBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nilaiBtnActionPerformed
+
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
         loginPage login = new loginPage();
@@ -376,7 +412,7 @@ private void initDateTime() {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new DosenHomePage().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new MahasiswaHomePage().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -388,12 +424,16 @@ private void initDateTime() {
     private javax.swing.JButton dashboardBtn;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JPanel headerPanel;
+    private javax.swing.JButton jadwalBtn;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JLabel namaLabel;
     private javax.swing.JLabel navTitle;
     private javax.swing.JPanel navTitlePanel;
     private javax.swing.JLabel nidLabel;
+    private javax.swing.JLabel nidLabel1;
+    private javax.swing.JLabel nidLabel2;
+    private javax.swing.JButton nilaiBtn;
     private javax.swing.JLabel salamLabel;
     private javax.swing.JLabel siasatLogo;
     private javax.swing.JPanel sidebarMenuPanel;
