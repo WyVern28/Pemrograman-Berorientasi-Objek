@@ -44,7 +44,15 @@ public class DaftarKelasPanel extends javax.swing.JPanel implements Listener {
             {"IF-203-B", "IF-203: Struktur Data (Kelas B)"},
             {"IF-505-A", "IF-505: Kecerdasan Buatan (Kelas A)"},
             {"IF-101-C", "IF-101: Algoritma dan Pemrograman (Kelas C)"},
-            {"IF-602-A", "IF-602: Proyek Perangkat Lunak (Kelas A)"}
+            {"IF-602-A", "IF-602: Proyek Perangkat Lunak (Kelas A)"},
+            {"IF-702-B", "IF-702: Pengenalan Teknologi Informasi"},
+            {"IF-401-A", "IF-401: Pemrograman Berorientasi Objek (Kelas A)"},
+            {"IF-203-B", "IF-203: Struktur Data (Kelas B)"},
+            {"IF-505-A", "IF-505: Kecerdasan Buatan (Kelas A)"},
+            {"IF-101-C", "IF-101: Algoritma dan Pemrograman (Kelas C)"},
+            {"IF-602-A", "IF-602: Proyek Perangkat Lunak (Kelas A)"},
+            {"IF-702-B", "IF-702: Pengenalan Teknologi Informasi"}
+
         };
 
         for (String[] kelas : dummyKelasDosen) {
