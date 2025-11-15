@@ -161,7 +161,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="dashboardBtn" min="-2" pref="200" max="-2" attributes="0"/>
-                      <Component id="classBtn" min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="ambilKelasBtn" min="-2" pref="200" max="-2" attributes="0"/>
                       <Component id="jadwalBtn" min="-2" pref="200" max="-2" attributes="0"/>
                       <Component id="nilaiBtn" min="-2" pref="200" max="-2" attributes="0"/>
                       <Component id="logoutBtn" min="-2" pref="200" max="-2" attributes="0"/>
@@ -177,7 +177,7 @@
                           <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
                           <Component id="dashboardBtn" min="-2" pref="39" max="-2" attributes="0"/>
                           <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                          <Component id="classBtn" min="-2" pref="39" max="-2" attributes="0"/>
+                          <Component id="ambilKelasBtn" min="-2" pref="39" max="-2" attributes="0"/>
                           <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                           <Component id="jadwalBtn" min="-2" pref="39" max="-2" attributes="0"/>
                           <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
@@ -200,12 +200,12 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dashboardBtnActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="classBtn">
+                <Component class="javax.swing.JButton" name="ambilKelasBtn">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Ambil Kelas"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="classBtnActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ambilKelasBtnActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jadwalBtn">

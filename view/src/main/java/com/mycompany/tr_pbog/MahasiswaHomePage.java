@@ -33,7 +33,7 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         setDarkMode(DarkMode.isDarkMode);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         setButtonIcon(dashboardBtn, "/image/dashboard.png", 24, 24);
-        setButtonIcon(classBtn, "/image/teaching.png", 24, 24);
+        setButtonIcon(ambilKelasBtn, "/image/teaching.png", 24, 24);
         setButtonIcon(jadwalBtn, "/image/calendar.png", 24, 24);
         setButtonIcon(nilaiBtn, "/image/exam.png", 24, 24);
         dashboardBtnActionPerformed(null);
@@ -81,7 +81,7 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         navTitle = new javax.swing.JLabel();
         sidebarMenuPanel = new javax.swing.JPanel();
         dashboardBtn = new javax.swing.JButton();
-        classBtn = new javax.swing.JButton();
+        ambilKelasBtn = new javax.swing.JButton();
         jadwalBtn = new javax.swing.JButton();
         nilaiBtn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
@@ -152,10 +152,10 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
             }
         });
 
-        classBtn.setText("Ambil Kelas");
-        classBtn.addActionListener(new java.awt.event.ActionListener() {
+        ambilKelasBtn.setText("Ambil Kelas");
+        ambilKelasBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                classBtnActionPerformed(evt);
+                ambilKelasBtnActionPerformed(evt);
             }
         });
 
@@ -192,7 +192,7 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         sidebarMenuPanelLayout.setHorizontalGroup(
             sidebarMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(dashboardBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(classBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(ambilKelasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jadwalBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(nilaiBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,7 +206,7 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
                 .addGap(1, 1, 1)
                 .addComponent(dashboardBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
-                .addComponent(classBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ambilKelasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jadwalBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
@@ -241,9 +241,9 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
     }// </editor-fold>//GEN-END:initComponents
         
     
-    private void classBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classBtnActionPerformed
+    private void ambilKelasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambilKelasBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_classBtnActionPerformed
+    }//GEN-LAST:event_ambilKelasBtnActionPerformed
 
     private void darkModeToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darkModeToggleActionPerformed
         // TODO add your handling code here:
@@ -294,6 +294,16 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
 
     private void nilaiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nilaiBtnActionPerformed
         // TODO add your handling code here:
+        TranskripNilaiPanel panelTranskrip = new TranskripNilaiPanel();
+
+        mainPanel.removeAll();
+
+        // 3. Tambahkan panel transkrip baru ke mainPanel
+        mainPanel.add(panelTranskrip, java.awt.BorderLayout.CENTER);
+
+        // 4. Muat ulang (refresh) mainPanel
+        mainPanel.revalidate();
+        mainPanel.repaint();
     }//GEN-LAST:event_nilaiBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -330,7 +340,7 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackPanel;
-    private javax.swing.JButton classBtn;
+    private javax.swing.JButton ambilKelasBtn;
     private javax.swing.JToggleButton darkModeToggle;
     private javax.swing.JButton dashboardBtn;
     private javax.swing.JPanel headerPanel;
