@@ -51,17 +51,26 @@ public class DosenKelasCardPanel extends javax.swing.JPanel implements Listener{
         lihatMhsButton = new javax.swing.JButton();
         inputNilaiButton = new javax.swing.JButton();
 
+        setMaximumSize(new java.awt.Dimension(32767, 60));
+        setMinimumSize(new java.awt.Dimension(282, 60));
+        setPreferredSize(new java.awt.Dimension(282, 60));
         setLayout(new java.awt.BorderLayout());
 
         namaKelasLabel.setText("[namaKelas]");
         namaKelasLabel.setToolTipText("");
         add(namaKelasLabel, java.awt.BorderLayout.CENTER);
 
+        buttonPanel.setMaximumSize(new java.awt.Dimension(32767, 23));
+        buttonPanel.setPreferredSize(new java.awt.Dimension(212, 23));
+        java.awt.GridBagLayout buttonPanelLayout = new java.awt.GridBagLayout();
+        buttonPanelLayout.columnWeights = new double[] {1.0};
+        buttonPanel.setLayout(buttonPanelLayout);
+
         lihatMhsButton.setText("Lihat Mahasiswa");
-        buttonPanel.add(lihatMhsButton);
+        buttonPanel.add(lihatMhsButton, new java.awt.GridBagConstraints());
 
         inputNilaiButton.setText("Input Nilai");
-        buttonPanel.add(inputNilaiButton);
+        buttonPanel.add(inputNilaiButton, new java.awt.GridBagConstraints());
 
         add(buttonPanel, java.awt.BorderLayout.EAST);
     }// </editor-fold>//GEN-END:initComponents
