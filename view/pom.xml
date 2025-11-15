@@ -15,5 +15,10 @@
             <artifactId>controller</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.mycompany</groupId>
+            <artifactId>model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>
