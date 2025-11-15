@@ -551,7 +551,9 @@ private void initDateTime() {
         
     
     private void dosenBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dosenBtnActionPerformed
-        // TODO add your handling code here:
+        AdminDosenPage dosenPage = new AdminDosenPage();
+        dosenPage.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_dosenBtnActionPerformed
 
     private void darkModeToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darkModeToggleActionPerformed
