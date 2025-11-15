@@ -2,10 +2,6 @@ package com.mycompany.tr_pbog;
 
 import java.awt.Color;
 import javax.swing.JFrame;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import javax.swing.Timer;
 
 public class DosenHomePage extends javax.swing.JFrame {
     
@@ -14,7 +10,7 @@ public class DosenHomePage extends javax.swing.JFrame {
     /**
      * Creates new form DosenHomePage
      */
-    
+    private String role = "dosen";
 private void setButtonIcon(javax.swing.JButton button, String path, int width, int height) {
     try {
 
@@ -38,30 +34,8 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         setButtonIcon(dashboardBtn, "/image/dashboard.png", 24, 24);
         setButtonIcon(classBtn, "/image/teaching.png", 24, 24);
-        initDateTime();
+        dashboardBtnActionPerformed(null);
     }
-    
-private void initDateTime() {
-
-    // lokalisasi Indonesia
-    Locale localeIndonesia = Locale.of("id", "ID");
-
-    //Format terpisah untuk setiap JLabel
-    DateTimeFormatter formatTanggal = DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", localeIndonesia);
-    DateTimeFormatter formatJam = DateTimeFormatter.ofPattern("HH:mm:ss");
-
-    //Timer untuk memperbarui semuanya
-    Timer timer = new Timer(1000, e -> {
-        // Kode berjalan setiap 1 detik
-        LocalDateTime now = LocalDateTime.now();
-
-        // Terapkan teks ke label masing-masing
-        dateLabel.setText(now.format(formatTanggal));
-        clockLabel.setText(now.format(formatJam));
-    });
-    
-    timer.start();
-}
     
     private void setDarkMode(boolean isDark) {
         
@@ -74,12 +48,6 @@ private void initDateTime() {
             sidebarMenuPanel.setBackground(new Color(50, 50, 52));
             navTitle.setForeground(Color.WHITE);
             mainPanel.setForeground(Color.WHITE);
-            dateLabel.setForeground(Color.WHITE);
-            clockLabel.setForeground(Color.WHITE);
-            salamLabel.setForeground(Color.WHITE);
-            biodataLabel.setForeground(Color.WHITE);
-            nidLabel.setForeground(Color.WHITE);
-            namaLabel.setForeground(Color.WHITE);
         }else{
             BackPanel.setBackground(new Color(249, 248, 246));
             headerPanel.setBackground(new Color(217, 207, 199));
@@ -89,12 +57,6 @@ private void initDateTime() {
             sidebarMenuPanel.setBackground(new Color(239, 233, 227));
             navTitle.setForeground(Color.BLACK);
             mainPanel.setForeground(Color.BLACK);
-            dateLabel.setForeground(Color.BLACK);
-            clockLabel.setForeground(Color.BLACK);
-            biodataLabel.setForeground(Color.BLACK);
-            salamLabel.setForeground(Color.BLACK);
-            nidLabel.setForeground(Color.BLACK);
-            namaLabel.setForeground(Color.BLACK);
         }
     }    
     /**
@@ -118,12 +80,6 @@ private void initDateTime() {
         logoutBtn = new javax.swing.JButton();
         darkModeToggle = new javax.swing.JToggleButton();
         mainPanel = new javax.swing.JPanel();
-        dateLabel = new javax.swing.JLabel();
-        clockLabel = new javax.swing.JLabel();
-        biodataLabel = new javax.swing.JLabel();
-        salamLabel = new javax.swing.JLabel();
-        nidLabel = new javax.swing.JLabel();
-        namaLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -255,66 +211,8 @@ private void initDateTime() {
         BackPanel.add(sidebarPanel, java.awt.BorderLayout.WEST);
 
         mainPanel.setBackground(new java.awt.Color(51, 255, 51));
-
-        dateLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        dateLabel.setText("dateLabel");
-        dateLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-
-        clockLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        clockLabel.setText("clockLabel");
-
-        biodataLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        biodataLabel.setText("Biodata:");
-
-        salamLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        salamLabel.setText("Selamat Datang di Sistem Administrasi");
-
-        nidLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        nidLabel.setText("NID: [NID Pengguna]");
-
-        namaLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        namaLabel.setText("Nama: [nama lengkap pengguna]");
-
-        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
-        mainPanel.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(biodataLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(clockLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(namaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nidLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(717, Short.MAX_VALUE))
-            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(mainPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(salamLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 1068, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        mainPanelLayout.setVerticalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(dateLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(clockLabel)
-                .addGap(58, 58, 58)
-                .addComponent(biodataLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(namaLabel)
-                .addGap(10, 10, 10)
-                .addComponent(nidLabel)
-                .addContainerGap(449, Short.MAX_VALUE))
-            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(mainPanelLayout.createSequentialGroup()
-                    .addGap(80, 80, 80)
-                    .addComponent(salamLabel)
-                    .addContainerGap(530, Short.MAX_VALUE)))
-        );
-
+        mainPanel.setOpaque(false);
+        mainPanel.setLayout(new java.awt.BorderLayout());
         BackPanel.add(mainPanel, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -332,10 +230,6 @@ private void initDateTime() {
     }// </editor-fold>//GEN-END:initComponents
         
     
-    private void classBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_classBtnActionPerformed
-
     private void darkModeToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darkModeToggleActionPerformed
         // TODO add your handling code here:
         setDarkMode(darkModeToggle.isSelected());
@@ -346,10 +240,27 @@ private void initDateTime() {
         } else {
             darkModeToggle.setText("Dark Mode");
         }
+        
+        if (mainPanel.getComponentCount() > 0) {
+            
+            // Ambil panel yang sedang aktif
+            java.awt.Component activePanel = mainPanel.getComponent(0);
+            
+            // Cek apakah panel itu mendengarkan
+            if (activePanel instanceof DarkMode.Listener) {
+                
+                // Panggil fungsi setDarkMode() milik panel aktif itu!
+                ((DarkMode.Listener) activePanel).setDarkMode(darkModeToggle.isSelected());
+            }
+        }
     }//GEN-LAST:event_darkModeToggleActionPerformed
 
     private void dashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardBtnActionPerformed
         // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new DosenDashboardPanel(), java.awt.BorderLayout.CENTER);
+        mainPanel.revalidate();
+        mainPanel.repaint();
     }//GEN-LAST:event_dashboardBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -358,6 +269,17 @@ private void initDateTime() {
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void classBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classBtnActionPerformed
+        // TODO add your handling code here:
+        DaftarKelasPanel DaftarKelas = new DaftarKelasPanel();
+        DaftarKelas.loadDataKelas(role);
+        mainPanel.removeAll();
+        mainPanel.add(DaftarKelas, java.awt.BorderLayout.CENTER);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+
+    }//GEN-LAST:event_classBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -386,20 +308,14 @@ private void initDateTime() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackPanel;
-    private javax.swing.JLabel biodataLabel;
     private javax.swing.JButton classBtn;
-    private javax.swing.JLabel clockLabel;
     private javax.swing.JToggleButton darkModeToggle;
     private javax.swing.JButton dashboardBtn;
-    private javax.swing.JLabel dateLabel;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JLabel namaLabel;
     private javax.swing.JLabel navTitle;
     private javax.swing.JPanel navTitlePanel;
-    private javax.swing.JLabel nidLabel;
-    private javax.swing.JLabel salamLabel;
     private javax.swing.JLabel siasatLogo;
     private javax.swing.JPanel sidebarMenuPanel;
     private javax.swing.JPanel sidebarPanel;

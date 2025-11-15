@@ -262,22 +262,21 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="biodataLabel" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="dateLabel" min="-2" pref="236" max="-2" attributes="0"/>
-                          <Component id="clockLabel" min="-2" pref="172" max="-2" attributes="0"/>
-                          <Component id="namaLabel" alignment="0" min="-2" pref="357" max="-2" attributes="0"/>
-                          <Component id="nidLabel" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
-                          <Component id="nidLabel1" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
-                          <Component id="nidLabel2" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="biodataLabel" min="-2" pref="130" max="-2" attributes="0"/>
+                                  <Component id="dateLabel" min="-2" pref="236" max="-2" attributes="0"/>
+                                  <Component id="clockLabel" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <Component id="namaLabel" alignment="0" min="-2" pref="357" max="-2" attributes="0"/>
+                                  <Component id="nidLabel" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
+                                  <Component id="nidLabel1" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
+                                  <Component id="nidLabel2" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="711" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="salamLabel" alignment="1" pref="1068" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="717" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="salamLabel" pref="1068" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -288,7 +287,9 @@
                       <Component id="dateLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="clockLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="salamLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="biodataLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="namaLabel" min="-2" max="-2" attributes="0"/>
@@ -299,13 +300,6 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="nidLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="401" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                          <Component id="salamLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="530" max="32767" attributes="0"/>
-                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>

@@ -217,23 +217,26 @@ public class loginPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Tolong Isi Password!", "Login", JOptionPane.WARNING_MESSAGE);
             return;
         }if(username.equals("admin") && password.equals("admin")){
-            JOptionPane.showMessageDialog(rootPane, "Login Berhasil", "Login", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Login Berhasil", "Login", JOptionPane.INFORMATION_MESSAGE);
             inputUsername.setText("");
             inputPassword.setText("");
             new AdminHomePage().setVisible(true);
             this.dispose();
+            return;
         }if(username.equals("dosen") && password.equals("1234")){
-            JOptionPane.showMessageDialog(rootPane, "Login Berhasil", "Login", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Login Berhasil", "Login", JOptionPane.INFORMATION_MESSAGE);
             inputUsername.setText("");
             inputPassword.setText("");
             new DosenHomePage().setVisible(true);
             this.dispose();
+            return;
         }if(username.equals("672024125") && password.equals("12345")){
-            JOptionPane.showMessageDialog(rootPane, "Login Berhasil", "Login", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Login Berhasil", "Login", JOptionPane.INFORMATION_MESSAGE);
             inputUsername.setText("");
             inputPassword.setText("");
             new MahasiswaHomePage().setVisible(true);
-            this.dispose();       
+            this.dispose();     
+            return;
         }else{
             JOptionPane.showMessageDialog(rootPane, "Login Gagal", "Login", JOptionPane.ERROR_MESSAGE);
         }
