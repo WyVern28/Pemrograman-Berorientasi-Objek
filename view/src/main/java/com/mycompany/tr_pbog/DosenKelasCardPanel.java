@@ -6,6 +6,7 @@ package com.mycompany.tr_pbog;
 
 import com.mycompany.tr_pbog.DarkMode.Listener;
 import java.awt.Color;
+import javax.swing.JButton;
 
 /**
  *
@@ -49,7 +50,6 @@ public class DosenKelasCardPanel extends javax.swing.JPanel implements Listener{
         namaKelasLabel = new javax.swing.JLabel();
         buttonPanel = new javax.swing.JPanel();
         lihatMhsButton = new javax.swing.JButton();
-        inputNilaiButton = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(32767, 60));
         setMinimumSize(new java.awt.Dimension(282, 60));
@@ -66,19 +66,29 @@ public class DosenKelasCardPanel extends javax.swing.JPanel implements Listener{
         buttonPanelLayout.columnWeights = new double[] {1.0};
         buttonPanel.setLayout(buttonPanelLayout);
 
-        lihatMhsButton.setText("Lihat Mahasiswa");
+        lihatMhsButton.setText("Lihat Mahasiswa dan Input Nilai");
+        lihatMhsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lihatMhsButtonActionPerformed(evt);
+            }
+        });
         buttonPanel.add(lihatMhsButton, new java.awt.GridBagConstraints());
-
-        inputNilaiButton.setText("Input Nilai");
-        buttonPanel.add(inputNilaiButton, new java.awt.GridBagConstraints());
 
         add(buttonPanel, java.awt.BorderLayout.EAST);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void lihatMhsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lihatMhsButtonActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_lihatMhsButtonActionPerformed
+
+    public JButton getLihatMhsButton() {
+        return lihatMhsButton;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel buttonPanel;
-    private javax.swing.JButton inputNilaiButton;
     private javax.swing.JButton lihatMhsButton;
     private javax.swing.JLabel namaKelasLabel;
     // End of variables declaration//GEN-END:variables

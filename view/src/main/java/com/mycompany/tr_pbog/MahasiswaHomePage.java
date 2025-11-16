@@ -289,7 +289,7 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
     private void jadwalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jadwalBtnActionPerformed
         // TODO add your handling code here:
         // 1. Buat panel daftar (yang SAMA persis)
-        DaftarKelasPanel panelJadwal = new DaftarKelasPanel();
+        DaftarKelasPanel panelJadwal = new DaftarKelasPanel(mainPanel);
 
         // 2. Muat data, tapi dengan role "mahasiswa"
         panelJadwal.loadDataKelas("mahasiswa"); 

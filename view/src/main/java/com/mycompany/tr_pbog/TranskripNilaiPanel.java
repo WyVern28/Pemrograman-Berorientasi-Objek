@@ -38,7 +38,7 @@ public class TranskripNilaiPanel extends javax.swing.JPanel implements Listener 
             {"3.", "TC513F", "DASAR-DASAR PEMROGRAMAN", "3", "A", "2024-2025/1"},
             // ... (sisa data dummy Anda) ...
             {null, "Total SKS", null, "35", null, null}, 
-            {null, "IPK", null, null, "3.85", null}   
+            {null, "IPK", null, null, "4", null}   
         };
         
         // --- TERAPKAN MODEL KE TABEL ---

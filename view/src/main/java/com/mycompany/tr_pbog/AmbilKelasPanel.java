@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 public class AmbilKelasPanel extends javax.swing.JPanel implements Listener {
 
     private CardLayout cardLayout; // Variabel untuk mengontrol CardLayout
-    private DefaultTableModel tableModel;
 
     public AmbilKelasPanel() {
         initComponents();
@@ -93,67 +92,83 @@ public class AmbilKelasPanel extends javax.swing.JPanel implements Listener {
     /**
      * Memuat tabel kelas detail (Tampilan 2)
      */
+// Ganti seluruh metode ini
     private void showKelasDetailView(String matkulID, String matkulName) {
         // 1. Atur judul
+        detailScrollPane.getViewport().setOpaque(false);
         detailJudulLabel.setText("Pilih Kelas untuk: " + matkulName);
         
-        // 2. Definisikan Kolom (DENGAN TAMBAHAN "MATA KULIAH")
-        String[] columnNames = {"Ambil", "Kode Kelas", "Mata Kuliah", "Hari", "Jam", "Ruang", "Dosen"};
+        // 2. Bersihkan daftar lama
+        kelasDetailContentPanel.removeAll();
         
-        // 3. Buat Dummy Data (DENGAN TAMBAHAN 'matkulName')
-        Object[][] data;
+        // 3. Buat Dummy Data (berdasarkan matkulID yang diklik)
+        String[][] data;
         if (matkulID.equals("IF-401")) {
-            data = new Object[][] {
-                {false, "IF-401-A", matkulName, "Senin", "08:00-10:30", "F-404", "Prof. Budi"},
-                {false, "IF-401-B", matkulName, "Selasa", "13:00-15:30", "F-405", "Prof. Budi"}
+            data = new String[][] {
+                {"IF-401-A", "Senin, 08:00-10:30, Ruang F-404, Dosen: Prof. Budi"},
+                {"IF-401-B", "Selasa, 13:00-15:30, Ruang F-405, Dosen: Prof. Budi"}
             };
         } else if (matkulID.equals("IF-203")) {
-            data = new Object[][] {
-                {false, "IF-203-A", matkulName, "Selasa", "08:00-10:30", "G-101", "Dr. Ani"},
-                {false, "IF-203-B", matkulName, "Rabu", "13:00-15:30", "G-101", "Dr. Ani"}
+            data = new String[][] {
+                {"IF-203-A", "Selasa, 08:00-10:30, Ruang G-101, Dosen: Dr. Ani"},
+                {"IF-203-B", "Rabu, 13:00-15:30, Ruang G-101, Dosen: Dr. Ani"}
             };
         } else {
-            data = new Object[][] {
-                {false, matkulID + "-A", matkulName, "Kamis", "10:00-12:30", "H-101", "Dosen X"}
+            data = new String[][] {
+                {matkulID + "-A", "Kamis, 10:00-12:30, Ruang H-101, Dosen: Dosen X"}
             };
         }
         
-        // 4. Buat Model (Kode ini tidak berubah)
-        tableModel = new DefaultTableModel(data, columnNames) {
-            @Override
-            public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 0) return Boolean.class;
-                return super.getColumnClass(columnIndex);
-            }
-            @Override
-            public boolean isCellEditable(int row, int column) {
-               return column == 0;
-            }
-        };
-        
-        availableKelasTable.setModel(tableModel);
-        
-        // 5. Atur tampilan tabel
-        availableKelasTable.setRowHeight(30);
-        availableKelasTable.getTableHeader().setReorderingAllowed(false);
-        availableKelasTable.getTableHeader().setResizingAllowed(false);
-        availableKelasTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        
-        // 6. ATUR LEBAR KOLOM (DENGAN TAMBAHAN 'Mata Kuliah')
-        javax.swing.table.TableColumnModel cm = availableKelasTable.getColumnModel();
-        cm.getColumn(0).setPreferredWidth(40);  // Ambil
-        cm.getColumn(1).setPreferredWidth(100); // Kode Kelas
-        cm.getColumn(2).setPreferredWidth(460); // <-- KOLOM BARU "Mata Kuliah"
-        cm.getColumn(3).setPreferredWidth(100); // Hari
-        cm.getColumn(4).setPreferredWidth(100); // Jam
-        cm.getColumn(5).setPreferredWidth(80);  // Ruang
-        cm.getColumn(6).setPreferredWidth(200); // Dosen
-        
-        // 7. Terapkan dark mode ke tabel
+        // 4. Loop dan Buat Kartu Detail
+        for (String[] kelas : data) {
+            String kodeKelas = kelas[0];
+            String infoText = kelas[1];
+            
+            // Buat kartu baru
+            kelasDetailCardPanel card = new kelasDetailCardPanel(kodeKelas, infoText);
+            
+            // --- INI KUNCINYA ---
+            // Tambahkan listener ke tombol "Ambil" di kartu
+            card.getAmbilButton().addActionListener(e -> {
+                // Panggil fungsi baru untuk menangani pengambilan
+                handleAmbilKelas(kodeKelas);
+            });
+            
+            // Tambahkan kartu ke panel (yang di dalam scroll pane)
+            kelasDetailContentPanel.add(card);
+        }
+
+        // 5. Terapkan dark mode
         setDarkMode(DarkMode.isDarkMode);
 
-        // 8. Pindahkan tampilan ke 'panelDetailView'
+        // 6. Pindahkan tampilan ke 'panelDetailView'
         cardLayout.show(this, "card3"); // (Nama ini sudah benar)
+        
+        kelasDetailContentPanel.revalidate();
+        kelasDetailContentPanel.repaint();
+    }
+    
+    /**
+     * Menangani logika saat tombol "Ambil" di kartu detail diklik.
+     * @param kodeKelas ID kelas yang dipilih (misal: "IF-401-A")
+     */
+    private void handleAmbilKelas(String kodeKelas) {
+        String konfirmasi = "Anda yakin ingin mengambil kelas:\n" + kodeKelas;
+        
+        int response = JOptionPane.showConfirmDialog(this, 
+                         konfirmasi, "Konfirmasi Pengambilan", JOptionPane.YES_NO_OPTION);
+        
+        if (response == JOptionPane.YES_OPTION) {
+            // TODO: Kirim 'kodeKelas' ke database
+            
+            JOptionPane.showMessageDialog(this, 
+                "Berhasil mengambil " + kodeKelas, 
+                "Registrasi Berhasil", JOptionPane.INFORMATION_MESSAGE);
+            
+            // Kembali ke halaman master
+            showMasterListView();
+        }
+        // Jika "NO", tidak terjadi apa-apa
     }
     private void showMasterListView() {
         cardLayout.show(this, "card2"); // "cardMaster" adalah nama panel
@@ -183,11 +198,12 @@ public class AmbilKelasPanel extends javax.swing.JPanel implements Listener {
         Color bgColor = isDark ? new Color(38, 38, 40) : new Color(249, 248, 246);
         Color cardBgColor = isDark ? new Color(50, 50, 52) : Color.WHITE;
         Color textColor = isDark ? Color.WHITE : Color.BLACK;
-        Color headerBgColor = isDark ? new Color(70, 70, 70) : new Color(230, 230, 230);
+        Color headerBgColor = isDark ? new Color(38, 38, 40) : new Color(249, 248, 246);
         Color gridColor = isDark ? new Color(80, 80, 80) : Color.LIGHT_GRAY;
 
         // Terapkan warna
         this.setBackground(bgColor);
+        judulLabel.setForeground(textColor);
         panelMasterList.setBackground(bgColor);
         panelDetailView.setBackground(bgColor);
         matkulListContentPanel.setBackground(bgColor);
@@ -205,15 +221,6 @@ public class AmbilKelasPanel extends javax.swing.JPanel implements Listener {
             }
         }
 
-        // Atur warna untuk Tabel
-        if (availableKelasTable != null) {
-            availableKelasTable.setBackground(cardBgColor);
-            availableKelasTable.setForeground(textColor);
-            availableKelasTable.setGridColor(gridColor);
-            availableKelasTable.setShowGrid(true);
-            availableKelasTable.getTableHeader().setBackground(headerBgColor);
-            availableKelasTable.getTableHeader().setForeground(textColor);
-        }
     }
 
     /**
@@ -226,25 +233,24 @@ public class AmbilKelasPanel extends javax.swing.JPanel implements Listener {
     private void initComponents() {
 
         panelMasterList = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        judulLabel = new javax.swing.JLabel();
         masterScrollPane = new javax.swing.JScrollPane();
         matkulListContentPanel = new javax.swing.JPanel();
         panelDetailView = new javax.swing.JPanel();
         detailJudulLabel = new javax.swing.JLabel();
         detailScrollPane = new javax.swing.JScrollPane();
-        availableKelasTable = new javax.swing.JTable();
+        kelasDetailContentPanel = new javax.swing.JPanel();
         detailBottomPanel = new javax.swing.JPanel();
         kembaliButton = new javax.swing.JButton();
-        submitButton = new javax.swing.JButton();
 
         setLayout(new java.awt.CardLayout());
 
         panelMasterList.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("PILIH MATA KULIAH");
-        panelMasterList.add(jLabel1, java.awt.BorderLayout.PAGE_START);
+        judulLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        judulLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        judulLabel.setText("PILIH MATA KULIAH");
+        panelMasterList.add(judulLabel, java.awt.BorderLayout.PAGE_START);
 
         matkulListContentPanel.setLayout(new javax.swing.BoxLayout(matkulListContentPanel, javax.swing.BoxLayout.Y_AXIS));
         masterScrollPane.setViewportView(matkulListContentPanel);
@@ -260,18 +266,9 @@ public class AmbilKelasPanel extends javax.swing.JPanel implements Listener {
         detailJudulLabel.setText("jLabel2");
         panelDetailView.add(detailJudulLabel, java.awt.BorderLayout.PAGE_START);
 
-        availableKelasTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        detailScrollPane.setViewportView(availableKelasTable);
+        kelasDetailContentPanel.setOpaque(false);
+        kelasDetailContentPanel.setLayout(new javax.swing.BoxLayout(kelasDetailContentPanel, javax.swing.BoxLayout.Y_AXIS));
+        detailScrollPane.setViewportView(kelasDetailContentPanel);
 
         panelDetailView.add(detailScrollPane, java.awt.BorderLayout.CENTER);
 
@@ -285,68 +282,10 @@ public class AmbilKelasPanel extends javax.swing.JPanel implements Listener {
         });
         detailBottomPanel.add(kembaliButton);
 
-        submitButton.setText("Ambil Kelas");
-        submitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitButtonActionPerformed(evt);
-            }
-        });
-        detailBottomPanel.add(submitButton);
-
         panelDetailView.add(detailBottomPanel, java.awt.BorderLayout.SOUTH);
 
         add(panelDetailView, "card3");
     }// </editor-fold>//GEN-END:initComponents
-
-    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        ArrayList<String> kelasDiambil = new ArrayList<>();
-        
-        // 1. Loop (Kode Anda sudah benar)
-        // Kumpulkan semua kelas yang dicentang
-        for (int i = 0; i < tableModel.getRowCount(); i++) {
-            Boolean isChecked = (Boolean) tableModel.getValueAt(i, 0);
-            if (isChecked) {
-                // Ambil kode kelas (misal: "IF-401-A")
-                String kodeKelas = (String) tableModel.getValueAt(i, 1);
-                kelasDiambil.add(kodeKelas);
-            }
-        }
-        
-        // --- 2. INI ADALAH LOGIKA VALIDASI BARU ---
-        
-        // Kasus 1: Pengguna tidak mencentang apa-apa
-        if (kelasDiambil.isEmpty()) {
-            JOptionPane.showMessageDialog(this, 
-                "Anda belum memilih kelas apapun.", 
-                "Informasi", 
-                JOptionPane.INFORMATION_MESSAGE);
-        
-        // Kasus 2: Pengguna mencentang LEBIH DARI SATU
-        } else if (kelasDiambil.size() > 1) { 
-            JOptionPane.showMessageDialog(this, 
-                "Anda hanya boleh mengambil SATU kelas (misal: A saja atau B saja) per mata kuliah.", 
-                "Kesalahan Validasi", 
-                JOptionPane.ERROR_MESSAGE);
-            
-            // PENTING: Jangan tutup halaman. Biarkan pengguna memperbaiki pilihannya.
-        
-        // Kasus 3: BERHASIL (Pengguna mencentang TEPAT SATU)
-        } else {
-            // Dapatkan satu-satunya kelas yang dipilih
-            String kodeKelas = kelasDiambil.get(0); 
-            
-            String konfirmasi = "Anda berhasil mengambil kelas:\n" + kodeKelas;
-            JOptionPane.showMessageDialog(this, 
-                konfirmasi, 
-                "Registrasi Berhasil", 
-                JOptionPane.INFORMATION_MESSAGE);
-            
-            // TODO: Di sini Anda akan mengirim 'kodeKelas' (String tunggal) ke database
-            
-            // Kembali ke halaman master
-            showMasterListView();
-        }
-    }//GEN-LAST:event_submitButtonActionPerformed
 
     private void kembaliButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kembaliButtonActionPerformed
         // TODO add your handling code here:
@@ -355,16 +294,15 @@ public class AmbilKelasPanel extends javax.swing.JPanel implements Listener {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable availableKelasTable;
     private javax.swing.JPanel detailBottomPanel;
     private javax.swing.JLabel detailJudulLabel;
     private javax.swing.JScrollPane detailScrollPane;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel judulLabel;
+    private javax.swing.JPanel kelasDetailContentPanel;
     private javax.swing.JButton kembaliButton;
     private javax.swing.JScrollPane masterScrollPane;
     private javax.swing.JPanel matkulListContentPanel;
     private javax.swing.JPanel panelDetailView;
     private javax.swing.JPanel panelMasterList;
-    private javax.swing.JButton submitButton;
     // End of variables declaration//GEN-END:variables
 }

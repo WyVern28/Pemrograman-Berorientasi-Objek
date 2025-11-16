@@ -1,30 +1,44 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.mycompany.tr_pbog;
 
-/**
- *
- * @author Made
- */
+import javax.swing.JLabel;
 import java.awt.Color;
 import com.mycompany.tr_pbog.DarkMode.Listener;
+import javax.swing.JPanel; // <-- IMPORT BARU
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JScrollPane;
+import java.awt.Font; // <-- IMPORT BARU
 
 public class DaftarKelasPanel extends javax.swing.JPanel implements Listener {
 
+    // Variabel untuk menyimpan mainPanel dari DosenHomePage
+    private JPanel mainPanel; 
+
     /**
-     * Creates new form DaftarKelasPanel
+     * Konstruktor Kustom (Diperbaiki)
+     * Menerima mainPanel dari DosenHomePage
      */
-    public DaftarKelasPanel() {
+    public DaftarKelasPanel(JPanel mainPanel) {
         initComponents();
+        this.mainPanel = mainPanel; // Simpan mainPanel
+        
+        // --- KODE TRANSPARANSI ---
         jScrollPane1.getViewport().setOpaque(false);
         jScrollPane1.setBorder(null);
         jScrollPane1.setOpaque(false);
         ContentPanel.setOpaque(false);
+        
+        // Atur transparansi untuk komponen tabel
+        if (jScrollPane3 != null) {
+            jScrollPane3.getViewport().setOpaque(false);
+            jScrollPane3.setBorder(null);
+            jScrollPane3.setOpaque(false);
+        }
+        if (tableContainerPanel != null) {
+            tableContainerPanel.setOpaque(false);
+        }
+        // -------------------------
+        
+        setDarkMode(DarkMode.isDarkMode); // Atur warna awal
     }
 
     @Override
@@ -57,110 +71,91 @@ public class DaftarKelasPanel extends javax.swing.JPanel implements Listener {
 
         }
     }
-    public void loadDataKelas(String role) {
+ public void loadDataKelas(String role) {
     
+        if (role.equals("dosen")) {
+            judulLabel.setText("KELAS SAYA");
+            judulLabel.setVisible(true);
+            ContentPanel.removeAll(); 
 
-    if (role.equals("dosen")) {
-        judulLabel.setText("");
-        judulLabel.setVisible(false);
-        ContentPanel.removeAll();
-        // --- INI ADALAH DUMMY DATA ---
-        String[][] dummyKelasDosen = {
-            {"IF-401-A", "IF-401: Pemrograman Berorientasi Objek (Kelas A)"},
-            {"IF-203-B", "IF-203: Struktur Data (Kelas B)"},
-            {"IF-505-A", "IF-505: Kecerdasan Buatan (Kelas A)"},
-            {"IF-101-C", "IF-101: Algoritma dan Pemrograman (Kelas C)"},
-            {"IF-602-A", "IF-602: Proyek Perangkat Lunak (Kelas A)"},
-            {"IF-702-B", "IF-702: Pengenalan Teknologi Informasi"},
-            {"IF-401-A", "IF-401: Pemrograman Berorientasi Objek (Kelas A)"},
-            {"IF-203-B", "IF-203: Struktur Data (Kelas B)"},
-            {"IF-505-A", "IF-505: Kecerdasan Buatan (Kelas A)"},
-            {"IF-101-C", "IF-101: Algoritma dan Pemrograman (Kelas C)"},
-            {"IF-602-A", "IF-602: Proyek Perangkat Lunak (Kelas A)"},
-            {"IF-702-B", "IF-702: Pengenalan Teknologi Informasi"}
+            String[][] dummyKelasDosen = {
+                {"IF-401-A", "IF-401: PBO (Kelas A)"},
+                {"IF-203-B", "IF-203: Struktur Data (Kelas B)"},
+                {"IF-505-A", "IF-505: Kecerdasan Buatan (Kelas A)"},
+                // ... (sisa data)
+            };
 
-        };
+            for (String[] kelas : dummyKelasDosen) {
+                String idKelas = kelas[0];
+                String namaKelas = kelas[1];
+                
+                DosenKelasCardPanel card = new DosenKelasCardPanel(idKelas, namaKelas);
+                
+            // Kita panggil satu-satunya tombol yang ada ("Lihat Mhs dan Input Nilai")
+            // menggunakan getter yang baru saja kita buat
+            card.getLihatMhsButton().addActionListener(e -> {
+                // Panggil metode baru untuk menampilkan detail
+                showMahasiswaListView(idKelas, namaKelas);
+            });
 
-        for (String[] kelas : dummyKelasDosen) {
-            // Buat Card baru, kirim ID sama Nama
-            DosenKelasCardPanel card = new DosenKelasCardPanel(kelas[0], kelas[1]);
-            ContentPanel.add(card);
-
+                ContentPanel.add(card); // HANYA SATU KALI
+            }
             
-            //Tambah Card ke ContentPanel
-            ContentPanel.add(card);
-            //Tampilkan ContentPanel di dalam scroll pane
+            // PINDAHKAN INI KE LUAR LOOP
             jScrollPane1.setViewportView(ContentPanel);
-        }
-        
-    } else if (role.equals("mahasiswa")) {
-        // 1. Definisikan Kolom
+            
+        } else if (role.equals("mahasiswa")) {
             judulLabel.setText("JADWAL KULIAH");
             judulLabel.setVisible(true);
-            String[] columnNames = {"No", "Kode", "Mata Kuliah", "Dosen", "Ruang", "Hari", "Mulai", "Selesai"};
             
-            // 2. Buat Dummy Data
+            String[] columnNames = {"No", "Kode", "Mata Kuliah", "Dosen", "Ruang", "Hari", "Mulai", "Selesai"};
             Object[][] data = {
-                {1, "IF-401", "Pemrograman Berorientasi Objek", "Prof. Budi", "F-404", "Senin", "08:00", "10:30"},
+                {1, "IF-401", "PBO", "Prof. Budi", "F-404", "Senin", "08:00", "10:30"},
                 {2, "IF-203", "Struktur Data", "Dr. Ani", "G-101", "Selasa", "13:00", "15:00"},
-                {3, "UM-101", "Pancasila", "Pak Eko", "H-202", "Rabu", "10:00", "12:00"},
-                {4, "IF-505", "Kecerdasan Buatan", "Prof. Budi", "F-404", "Kamis", "08:00", "10:30"},
-                {5, "IF-101", "Algoritma dan Pemrograman", "Dr. Ani", "G-101", "Jumat", "13:00", "15:00"}
+                // ... (sisa data)
             };
-            // 3. Buat Model dan set ke JTable
+            
             DefaultTableModel model = new DefaultTableModel(data, columnNames) {
-                //Buat tabel tidak bisa diedit
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                   return false;
-                }
+                @Override public boolean isCellEditable(int row, int column) { return false; }
             };
+            
             jadwalTable.setRowHeight(30);
-            jadwalTable.setModel(model); // Terapkan model ke JTable agar tabel muncul di gui
+            jadwalTable.setModel(model);
             jadwalTable.getTableHeader().setResizingAllowed(false);
             jadwalTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-            // Dapatkan model kolom 
+            javax.swing.table.TableColumnModel cm = jadwalTable.getColumnModel();
+            cm.getColumn(0).setPreferredWidth(30);  // No
+            cm.getColumn(1).setPreferredWidth(100);  // Kode
+            cm.getColumn(2).setPreferredWidth(430); // Matakuliah
+            cm.getColumn(3).setPreferredWidth(200);  // Dosen
+            cm.getColumn(4).setPreferredWidth(100);  // Ruang
+            cm.getColumn(5).setPreferredWidth(120); // Hari
+            cm.getColumn(6).setPreferredWidth(50); //Mulai
+            cm.getColumn(7).setPreferredWidth(50); //Mulai
             javax.swing.table.TableColumnModel columnModel = jadwalTable.getColumnModel();
-
-            // 3. Atur lebar yang Anda inginkan untuk setiap kolom
-
-            // Kolom "No"
-            columnModel.getColumn(0).setPreferredWidth(30);
-
-            // Kolom "Kode"
-            columnModel.getColumn(1).setPreferredWidth(80); 
-
-            // Kolom "Mata Kuliah"
-            columnModel.getColumn(2).setPreferredWidth(350); 
-
-            // Kolom "Dosen" 
-            columnModel.getColumn(3).setPreferredWidth(285); 
-
-            // Kolom "Ruang"
-            columnModel.getColumn(4).setPreferredWidth(80); 
-
-            // Kolom "Hari"
-            columnModel.getColumn(5).setPreferredWidth(90); 
-
-            // Kolom "Mulai"
-            columnModel.getColumn(6).setPreferredWidth(80);
-
-            // Kolom "Selesai"
-            columnModel.getColumn(7).setPreferredWidth(80);
+            // ... (kode atur lebar kolom Anda sudah benar) ...
             
-            //Tampilkan jadwalTable di dalam scroll pane
+            // Tampilkan pembungkus tabel di scroll pane
             jScrollPane1.setViewportView(tableContainerPanel);
         }
         
-        // Terapkan warna Dark Mode ke komponen yang baru dimuat
         setDarkMode(DarkMode.isDarkMode);
 
-        // Perbarui UI
         this.revalidate();
         this.repaint();
     }
-
+    private void showMahasiswaListView(String classID, String className) {
+        
+        // 1. Buat panel detail baru
+        // Kirim 'mainPanel', 'this' (DaftarKelasPanel), dan info kelas
+        DaftarMahasiswaPanel detailPanel = new DaftarMahasiswaPanel(mainPanel, this, classID, className);
+        
+        // 2. Ganti isi mainPanel
+        mainPanel.removeAll();
+        mainPanel.add(detailPanel, java.awt.BorderLayout.CENTER);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
