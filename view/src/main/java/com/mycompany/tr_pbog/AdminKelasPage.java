@@ -17,9 +17,9 @@ import javax.swing.Timer;
  *
  * @author Windows
  */
-public class AdminMahasiswaPage extends javax.swing.JFrame {
+public class AdminKelasPage extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminMahasiswaPage.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminKelasPage.class.getName());
 
     /**
      * Creates new form AdminDosenPage
@@ -42,7 +42,7 @@ public class AdminMahasiswaPage extends javax.swing.JFrame {
         }
     }
         
-    public AdminMahasiswaPage() {
+    public AdminKelasPage() {
         initComponents();
         setButtonIcon(dashboardBtn, "/image/dashboard.png", 24, 24);
         setButtonIcon(dosenBtn, "/image/teacher.png", 24, 24);
@@ -68,12 +68,14 @@ public class AdminMahasiswaPage extends javax.swing.JFrame {
         jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         javax.swing.table.TableColumnModel cm = jTable2.getColumnModel();
         cm.getColumn(0).setPreferredWidth(30);  // No
-        cm.getColumn(1).setPreferredWidth(100);  // NIM
-        cm.getColumn(2).setPreferredWidth(331); // Nama Mahasiswa
-        cm.getColumn(3).setPreferredWidth(250);  // Email
+        cm.getColumn(1).setPreferredWidth(100);  // Kode Kelas
+        cm.getColumn(2).setPreferredWidth(281); // Nama Kelas
+        cm.getColumn(3).setPreferredWidth(220);  // Nama Dosen
         cm.getColumn(4).setPreferredWidth(100);  // Progdi
-        cm.getColumn(5).setPreferredWidth(140); // Status
-        cm.getColumn(6).setPreferredWidth(120); //Aksi
+        cm.getColumn(5).setPreferredWidth(100); // Ruang
+        cm.getColumn(6).setPreferredWidth(90); //Hari
+        cm.getColumn(7).setPreferredWidth(75); //Jam Mulai
+        cm.getColumn(8).setPreferredWidth(75); //Jam Selesai
     }
     
     private void initDateTime() {
@@ -376,19 +378,19 @@ public class AdminMahasiswaPage extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "672024125", "William Prasetyo", "672024125@student.uksw.edu", "S1 TI", "Aktif", null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                { new Integer(1), "TC212G", "Pemrograman Berbasis Obyek G", "Pratyaks Ocsa N. Saian", "S1 TI", "FTI455", "Senin", "13.00", "16.00"},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "No", "NIM", "Mahasiswa", "Email", "Program Studi", "Status", "Aksi"
+                "No", "Kode Kelas", "Nama Kelas", "Nama Dosen", "Program Studi", "Ruang", "Hari", "Jam Mulai", "Jam Selesai"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -416,12 +418,12 @@ public class AdminMahasiswaPage extends javax.swing.JFrame {
         clockLabel.setText("clockLabel");
 
         informationTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        informationTitle.setText("Data Mahasiswa");
+        informationTitle.setText("Data Kelas");
 
         jPanel3.setOpaque(false);
 
         tambahButton.setBackground(new java.awt.Color(0, 204, 0));
-        tambahButton.setText("Tambah Mahasiswa");
+        tambahButton.setText("Tambah Kelas");
         tambahButton.setActionCommand("tambahDosen");
         tambahButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -430,11 +432,11 @@ public class AdminMahasiswaPage extends javax.swing.JFrame {
         });
 
         editButton.setBackground(new java.awt.Color(0, 0, 255));
-        editButton.setText("Edit Mahasiswa");
+        editButton.setText("Edit Kelas");
         editButton.setActionCommand("editDosen");
 
         hapusButton.setBackground(new java.awt.Color(255, 0, 0));
-        hapusButton.setText("Hapus Mahasiswa");
+        hapusButton.setText("Hapus Kelas");
         hapusButton.setActionCommand("hapusDosen");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -461,9 +463,9 @@ public class AdminMahasiswaPage extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        cariDosenLabel.setText("Cari Mahasiswa :");
+        cariDosenLabel.setText("Cari Kelas: ");
 
-        jTextField1.setText("Cari Nama");
+        jTextField1.setText("Cari Kelas");
         jTextField1.setActionCommand("Search");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -505,7 +507,7 @@ public class AdminMahasiswaPage extends javax.swing.JFrame {
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cariButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(203, 203, 203))))
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -645,7 +647,7 @@ public class AdminMahasiswaPage extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AdminMahasiswaPage().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new AdminKelasPage().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

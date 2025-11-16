@@ -168,7 +168,6 @@
                       <Component id="mahasiswaBtn" min="-2" pref="200" max="-2" attributes="0"/>
                       <Component id="manajemenAkademikLabel" min="-2" pref="200" max="-2" attributes="0"/>
                       <Component id="matkulBtn" min="-2" pref="200" max="-2" attributes="0"/>
-                      <Component id="bukaRegisBtn" min="-2" pref="200" max="-2" attributes="0"/>
                       <Component id="logoutBtn" min="-2" pref="200" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
@@ -191,9 +190,7 @@
                           <Component id="manajemenAkademikLabel" min="-2" pref="43" max="-2" attributes="0"/>
                           <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                           <Component id="matkulBtn" min="-2" pref="43" max="-2" attributes="0"/>
-                          <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                          <Component id="bukaRegisBtn" min="-2" pref="43" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                           <Component id="logoutBtn" min="-2" pref="43" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="darkModeToggle" min="-2" max="-2" attributes="0"/>
@@ -251,11 +248,6 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="matkulBtnActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="bukaRegisBtn">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Buka Registrasi"/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JButton" name="logoutBtn">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Log Out"/>
@@ -304,10 +296,7 @@
                                   <Component id="shortcut3" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="shortcut2" min="-2" pref="153" max="-2" attributes="0"/>
-                                  <Component id="shortcut4" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="shortcut2" min="-2" pref="153" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -330,10 +319,7 @@
                           <Component id="shortcut2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="shortcut3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="shortcut4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="shortcut3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="288" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -617,14 +603,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="shortcut3ActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="shortcut4">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Buka / Tutup Registrasi"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="shortcut4ActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

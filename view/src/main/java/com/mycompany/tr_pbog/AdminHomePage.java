@@ -17,22 +17,22 @@ public class AdminHomePage extends javax.swing.JFrame {
      */
     
 private void setButtonIcon(javax.swing.JButton button, String path, int width, int height) {
-    try {
+        try {
 
-        javax.swing.ImageIcon originalIcon = new javax.swing.ImageIcon(getClass().getResource(path));
+            javax.swing.ImageIcon originalIcon = new javax.swing.ImageIcon(getClass().getResource(path));
 
-        // Ubah ukuran ikon
-        java.awt.Image originalImage = originalIcon.getImage();
-        java.awt.Image resizedImage = originalImage.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
+            // Ubah ukuran ikon
+            java.awt.Image originalImage = originalIcon.getImage();
+            java.awt.Image resizedImage = originalImage.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
 
-        // menampilkan ikon baru yang sudah di-resize
-        button.setIcon(new javax.swing.ImageIcon(resizedImage));
-        
-    } catch (Exception e) {
-        System.err.println("Error loading icon: " + path);
-        // Biarkan tombolnya tanpa ikon jika gambar tidak ditemukan
+            // menampilkan ikon baru yang sudah di-resize
+            button.setIcon(new javax.swing.ImageIcon(resizedImage));
+
+        } catch (Exception e) {
+            System.err.println("Error loading icon: " + path);
+            // Biarkan tombolnya tanpa ikon jika gambar tidak ditemukan
+        }
     }
-}
     public AdminHomePage() {
         initComponents();
         setDarkMode(DarkMode.isDarkMode);
@@ -41,7 +41,6 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         setButtonIcon(dosenBtn, "/image/teacher.png", 24, 24);
         setButtonIcon(mahasiswaBtn, "/image/graduated.png", 24, 24);
         setButtonIcon(matkulBtn, "/image/higher-education.png", 24, 24);
-        setButtonIcon(bukaRegisBtn, "/image/digital-signature.png", 24, 24);
         initDateTime();
     }
     
@@ -147,7 +146,6 @@ private void initDateTime() {
         mahasiswaBtn = new javax.swing.JButton();
         manajemenAkademikLabel = new javax.swing.JLabel();
         matkulBtn = new javax.swing.JButton();
-        bukaRegisBtn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
         darkModeToggle = new javax.swing.JToggleButton();
         mainPanel = new javax.swing.JPanel();
@@ -168,7 +166,6 @@ private void initDateTime() {
         shortcut1 = new javax.swing.JButton();
         shortcut2 = new javax.swing.JButton();
         shortcut3 = new javax.swing.JButton();
-        shortcut4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1280, 720));
@@ -261,8 +258,6 @@ private void initDateTime() {
             }
         });
 
-        bukaRegisBtn.setText("Buka Registrasi");
-
         logoutBtn.setText("Log Out");
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,7 +282,6 @@ private void initDateTime() {
             .addComponent(mahasiswaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(manajemenAkademikLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(matkulBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(bukaRegisBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(sidebarMenuPanelLayout.createSequentialGroup()
                 .addContainerGap()
@@ -308,9 +302,7 @@ private void initDateTime() {
                 .addComponent(manajemenAkademikLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(matkulBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(bukaRegisBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(63, 63, 63)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(darkModeToggle)
@@ -484,13 +476,6 @@ private void initDateTime() {
             }
         });
 
-        shortcut4.setText("Buka / Tutup Registrasi");
-        shortcut4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                shortcut4ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
@@ -507,9 +492,7 @@ private void initDateTime() {
                             .addComponent(shortcut1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(shortcut3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(shortcut2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(shortcut4))))
+                        .addComponent(shortcut2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
@@ -527,9 +510,7 @@ private void initDateTime() {
                     .addComponent(shortcut1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(shortcut2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(shortcut3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(shortcut4))
+                .addComponent(shortcut3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(288, Short.MAX_VALUE))
         );
 
@@ -570,14 +551,24 @@ private void initDateTime() {
 
     private void dashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardBtnActionPerformed
         // TODO add your handling code here:
+        AdminHomePage adminPage = new AdminHomePage();
+        adminPage.setVisible(true);
+        this.dispose();
+        
     }//GEN-LAST:event_dashboardBtnActionPerformed
 
     private void mahasiswaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mahasiswaBtnActionPerformed
         // TODO add your handling code here:
+        AdminMahasiswaPage MahasiswaPage = new AdminMahasiswaPage();
+        MahasiswaPage.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_mahasiswaBtnActionPerformed
 
     private void matkulBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matkulBtnActionPerformed
         // TODO add your handling code here:
+        AdminKelasPage MahasiswaPage = new AdminKelasPage();
+        MahasiswaPage.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_matkulBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -598,10 +589,6 @@ private void initDateTime() {
     private void shortcut3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shortcut3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_shortcut3ActionPerformed
-
-    private void shortcut4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shortcut4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_shortcut4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -630,7 +617,6 @@ private void initDateTime() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackPanel;
-    private javax.swing.JButton bukaRegisBtn;
     private javax.swing.JLabel clockLabel;
     private javax.swing.JToggleButton darkModeToggle;
     private javax.swing.JButton dashboardBtn;
@@ -660,7 +646,6 @@ private void initDateTime() {
     private javax.swing.JButton shortcut1;
     private javax.swing.JButton shortcut2;
     private javax.swing.JButton shortcut3;
-    private javax.swing.JButton shortcut4;
     private javax.swing.JLabel siasatLogo;
     private javax.swing.JPanel sidebarMenuPanel;
     private javax.swing.JPanel sidebarPanel;
