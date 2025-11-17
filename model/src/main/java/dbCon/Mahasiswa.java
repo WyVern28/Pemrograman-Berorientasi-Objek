@@ -1,9 +1,17 @@
 package dbCon;
 
-public class mahasiswa {
+public class Mahasiswa {
     private String nim, nama, id_prodi;
     private float ipk;
     private int totalSks;
+
+    public Mahasiswa(String nim, String nama, String id_prodi, float ipk, int totalSks) {
+        this.nim = nim;
+        this.nama = nama;
+        this.id_prodi = id_prodi;
+        this.ipk = ipk;
+        this.totalSks = totalSks;
+    }
 
     public String getNim() {
         return nim;

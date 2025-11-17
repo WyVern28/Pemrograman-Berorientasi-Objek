@@ -1,7 +1,12 @@
 package dbCon;
 
-public class fakultas {
-    public String id_fakultas, nama_fakultas;
+public class Fakultas {
+    private String id_fakultas, nama_fakultas;
+
+    public Fakultas(String id_fakultas, String nama_fakultas) {
+        this.id_fakultas = id_fakultas;
+        this.nama_fakultas = nama_fakultas;
+    }
 
     public String getId_fakultas() {
         return id_fakultas;
