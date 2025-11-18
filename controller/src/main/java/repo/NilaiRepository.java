@@ -52,4 +52,19 @@ public class NilaiRepository {
         }
         return listNilai;
     }
+
+    public boolean updateNilai(String idKelas,String nim,double nilai){
+        int update = 0;
+        String sql = "update nilai set nilai_akhir = ?, status = true where nim = ? and id_kelas = ? and status = false";
+        try(Connection conn = db_config.getConn();PreparedStatement prep = conn.prepareStatement(sql)) {
+            prep.setDouble(1, nilai);
+            prep.setString(2, nim);
+            prep.setString(3, idKelas);
+            update = prep.executeUpdate();
+        } catch (SQLException e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return update == 1;
+    }
 }

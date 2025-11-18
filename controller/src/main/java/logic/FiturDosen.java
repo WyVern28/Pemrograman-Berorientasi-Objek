@@ -40,4 +40,17 @@ public class FiturDosen {
         }
         return listMahasiswa;
     }
+
+    /**
+     * 
+     * @param idKelas -> String kasihnya idKelasnya aja
+     * @param nim -> String kasihnya nimnya aja
+     * @param nilai -> double kasih nilai yang di input dosen
+     */
+    public void kasihNilai(String idKelas,String nim,double nilai){
+        NilaiRepository nilaiRepo = new NilaiRepository();
+        if(!nilaiRepo.updateNilai(idKelas, nim, nilai)){
+            throw new RuntimeException("Gagal Kasih Nilai");
+        }
+    }
 }
