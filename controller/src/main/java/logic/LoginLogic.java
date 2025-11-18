@@ -13,7 +13,7 @@ public class LoginLogic {
         UserRepository user = new UserRepository();
         String role = user.Login(username.trim(), password.trim());
         if(role == null){
-            throw new RuntimeException("Username/Password salah");
+            return null;
         }
         return role;
     }
