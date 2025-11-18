@@ -3,6 +3,12 @@ package com.mycompany.tr_pbog;
 import java.awt.Color;
 
 import javax.swing.JOptionPane;
+
+import dbCon.Dosen;
+import dbCon.Mahasiswa;
+import dbCon.SuperAdmin;
+import logic.CreateObject;
+import logic.LoginLogic;
 public class loginPage extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(loginPage.class.getName());
@@ -208,6 +214,8 @@ public class loginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_lupaPasswordBtnActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+        LoginLogic loginLogic = new LoginLogic();
+        CreateObject ObjectUser = new CreateObject();
         String username = inputUsername.getText();
         String password = new String(inputPassword.getPassword());
         if(username.isEmpty()){
@@ -216,30 +224,32 @@ public class loginPage extends javax.swing.JFrame {
         }if(password.isEmpty()){
             JOptionPane.showMessageDialog(rootPane, "Tolong Isi Password!", "Login", JOptionPane.WARNING_MESSAGE);
             return;
-        }if(username.equals("admin") && password.equals("admin")){
-            JOptionPane.showMessageDialog(rootPane, "Login Berhasil", "Login", JOptionPane.INFORMATION_MESSAGE);
+        }
+        String role = loginLogic.getRole(username, password);
+        if (role == null) {
+            JOptionPane.showMessageDialog(rootPane, "Username atau Password salah!", "Login", JOptionPane.ERROR_MESSAGE);
             inputUsername.setText("");
             inputPassword.setText("");
-            new AdminHomePage().setVisible(true);
+        }
+        if (role.equals("mahasiswa")) {
+            Mahasiswa mhs = ObjectUser.createMahasiswa(username);
+            new MahasiswaHomePage(mhs).setVisible(true);
             this.dispose();
-            return;
-        }if(username.equals("dosen") && password.equals("1234")){
-            JOptionPane.showMessageDialog(rootPane, "Login Berhasil", "Login", JOptionPane.INFORMATION_MESSAGE);
-            inputUsername.setText("");
-            inputPassword.setText("");
+        }
+        if (role.equals("dosen")) {
+            Dosen dsn = ObjectUser.createDosen(username);
             new DosenHomePage().setVisible(true);
             this.dispose();
-            return;
-        }if(username.equals("672024125") && password.equals("12345")){
-            JOptionPane.showMessageDialog(rootPane, "Login Berhasil", "Login", JOptionPane.INFORMATION_MESSAGE);
-            inputUsername.setText("");
-            inputPassword.setText("");
-            new MahasiswaHomePage().setVisible(true);
-            this.dispose();     
-            return;
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "Login Gagal", "Login", JOptionPane.ERROR_MESSAGE);
         }
+        if (role.equals("superadmin")) {
+            SuperAdmin sa = ObjectUser.createSuperAdmin(username);
+            new AdminHomePage().setVisible(true);
+            this.dispose();
+        }
+
+        // else{
+        //     JOptionPane.showMessageDialog(rootPane, "Login Gagal", "Login", JOptionPane.ERROR_MESSAGE);
+        // }
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void darkModeToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darkModeToggleActionPerformed
