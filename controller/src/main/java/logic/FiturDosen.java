@@ -14,6 +14,7 @@ public class FiturDosen {
     /**
      * 
      * @param dosen -> object dosen
+     * @return -> kalo listKelas ga ada isinya return list kosong
      * @return -> list pake tipe data Kelas dari model
      */
     public List<Kelas> lihatKelas(Dosen dosen){
@@ -28,6 +29,7 @@ public class FiturDosen {
     /**
      * 
      * @param kelas -> object kelas
+     * @return -> kalo listMahasiswa ga ada isinya return list kosong
      * @return -> list pake tipe data mahasiswa dari object
      */
     public List<Mahasiswa> lihatMahasiswa(Kelas kelas){

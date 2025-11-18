@@ -7,6 +7,7 @@ public class LoginLogic {
      * 
      * @param username 
      * @param password
+     * @return kalo role ga ketemu return null
      * @return role -> dataType String
      */
     public String getRole(String username,String password){
