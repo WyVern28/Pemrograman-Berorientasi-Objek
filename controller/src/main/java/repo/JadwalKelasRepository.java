@@ -39,4 +39,26 @@ public class JadwalKelasRepository {
         }
         return listJadwal;
     }
+    public Jadwal_kelas getJadwalByIdKelas(String idKelas){
+        Jadwal_kelas jadwal = null;
+        String sql = "select * from jadwal_kelas where id_kelas = ?";
+        try(Connection conn = db_config.getConn();PreparedStatement prep = conn.prepareStatement(sql)) {
+            prep.setString(1, idKelas);
+            ResultSet res = prep.executeQuery();
+            while (res.next()) {
+                jadwal = new Jadwal_kelas(
+                    res.getString("id_jadwal"),
+                    res.getString("id_kelas"),
+                    res.getString("id_ruangan"),
+                    Hari.valueOf(res.getString("hari").toLowerCase()),
+                    res.getTime("jam_mulai").toLocalTime(),
+                    res.getTime("jam_selesai").toLocalTime()
+                    );
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return jadwal;
+    }
 }
