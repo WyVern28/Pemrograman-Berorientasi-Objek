@@ -2,6 +2,7 @@ package com.mycompany.tr_pbog;
 
 import java.awt.Color;
 import javax.swing.JFrame;
+import dbCon.Dosen;
 
 public class DosenHomePage extends javax.swing.JFrame {
     
@@ -10,7 +11,7 @@ public class DosenHomePage extends javax.swing.JFrame {
     /**
      * Creates new form DosenHomePage
      */
-    private String role = "dosen";
+    private Dosen dosen;
 private void setButtonIcon(javax.swing.JButton button, String path, int width, int height) {
     try {
 
@@ -28,7 +29,8 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         // Biarkan tombolnya tanpa ikon jika gambar tidak ditemukan
     }
 }
-    public DosenHomePage() {
+    public DosenHomePage(Dosen dosen) {
+        this.dosen = dosen;
         initComponents();
         setDarkMode(DarkMode.isDarkMode);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -273,7 +275,7 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
     private void classBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classBtnActionPerformed
         // TODO add your handling code here:
         DaftarKelasPanel DaftarKelas = new DaftarKelasPanel(mainPanel);
-        DaftarKelas.loadDataKelas(role);
+        DaftarKelas.loadDataKelas(dosen);
         mainPanel.removeAll();
         mainPanel.add(DaftarKelas, java.awt.BorderLayout.CENTER);
         mainPanel.revalidate();
@@ -303,7 +305,7 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new DosenHomePage().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new DosenHomePage(null).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

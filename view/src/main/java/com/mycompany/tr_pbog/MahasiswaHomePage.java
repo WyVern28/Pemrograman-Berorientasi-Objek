@@ -295,7 +295,7 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         DaftarKelasPanel panelJadwal = new DaftarKelasPanel(mainPanel);
 
         // 2. Muat data, tapi dengan role "mahasiswa"
-        panelJadwal.loadDataKelas("mahasiswa"); 
+        panelJadwal.loadDataKelas(mhs); 
 
         // 3. Tampilkan di mainPanel
         mainPanel.removeAll();

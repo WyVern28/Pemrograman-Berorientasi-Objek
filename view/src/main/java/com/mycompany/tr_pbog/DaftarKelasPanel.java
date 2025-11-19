@@ -3,6 +3,12 @@ package com.mycompany.tr_pbog;
 import javax.swing.JLabel;
 import java.awt.Color;
 import com.mycompany.tr_pbog.DarkMode.Listener;
+import java.util.List;
+import dbCon.Dosen;
+import dbCon.Kelas;
+import dbCon.Mahasiswa;
+import logic.FiturDosen;
+
 import javax.swing.JPanel; // <-- IMPORT BARU
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -71,25 +77,29 @@ public class DaftarKelasPanel extends javax.swing.JPanel implements Listener {
 
         }
     }
- public void loadDataKelas(String role) {
-    
-        if (role.equals("dosen")) {
+ public void loadDataKelas(Object user) {
+        FiturDosen fDosen = new FiturDosen();
+        if (user instanceof Dosen) {
             judulLabel.setText("KELAS SAYA");
             judulLabel.setVisible(true);
             ContentPanel.removeAll(); 
 
-            String[][] dummyKelasDosen = {
-                {"IF-401-A", "IF-401: PBO (Kelas A)"},
-                {"IF-203-B", "IF-203: Struktur Data (Kelas B)"},
-                {"IF-505-A", "IF-505: Kecerdasan Buatan (Kelas A)"},
-                // ... (sisa data)
-            };
-
-            for (String[] kelas : dummyKelasDosen) {
-                String idKelas = kelas[0];
-                String namaKelas = kelas[1];
+            List<Kelas> lsKelas = fDosen.lihatKelas((Dosen) user);
+            
+            System.out.println("DEBUG: Jumlah kelas ditemukan: " + lsKelas.size());
+            
+            for (Kelas kelas : lsKelas) {
+                // ambil id dan nama dari objek Kelas (sesuaikan nama getter jika berbeda)
+                String idKelas = kelas.getId_kelas();
+                String namaKelas = kelas.getNama_kelas();
+                
+                System.out.println("DEBUG: Menambahkan kelas - ID: " + idKelas + ", Nama: " + namaKelas);
                 
                 DosenKelasCardPanel card = new DosenKelasCardPanel(idKelas, namaKelas);
+                
+                // Set ukuran card agar terlihat di BoxLayout
+                card.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 60));
+                card.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
                 
             // Kita panggil satu-satunya tombol yang ada ("Lihat Mhs dan Input Nilai")
             // menggunakan getter yang baru saja kita buat
@@ -98,13 +108,14 @@ public class DaftarKelasPanel extends javax.swing.JPanel implements Listener {
                 showMahasiswaListView(idKelas, namaKelas);
             });
 
-                ContentPanel.add(card); // HANYA SATU KALI
+                ContentPanel.add(card);
             }
             
             // PINDAHKAN INI KE LUAR LOOP
             jScrollPane1.setViewportView(ContentPanel);
             
-        } else if (role.equals("mahasiswa")) {
+        }
+        if (user instanceof Mahasiswa) {
             judulLabel.setText("JADWAL KULIAH");
             judulLabel.setVisible(true);
             

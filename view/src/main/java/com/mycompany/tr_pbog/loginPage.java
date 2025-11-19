@@ -238,7 +238,7 @@ public class loginPage extends javax.swing.JFrame {
         }
         if (role.equals("dosen")) {
             Dosen dsn = ObjectUser.createDosen(username);
-            new DosenHomePage().setVisible(true);
+            new DosenHomePage(dsn).setVisible(true);
             this.dispose();
         }
         if (role.equals("superadmin")) {
