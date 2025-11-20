@@ -49,6 +49,9 @@ public class FiturDosen {
      */
     public void kasihNilai(String idKelas,String nim,double nilai){
         NilaiRepository nilaiRepo = new NilaiRepository();
+        if(nilai < 0 & nilai > 100){
+            throw new RuntimeException("Nilai tidak boleh Kurang dari 0 dan lebih dari 100");
+        }
         if(!nilaiRepo.updateNilai(idKelas, nim, nilai)){
             throw new RuntimeException("Gagal Kasih Nilai");
         }
