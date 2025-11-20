@@ -3,7 +3,9 @@ package logic;
 import java.util.Collections;
 import java.util.List;
 
+import DTO.JadwalDTO;
 import DTO.RegistrasiKelas;
+import DTO.TranskripNilai;
 import dbCon.Jadwal_kelas;
 import dbCon.Mahasiswa;
 import dbCon.Matkul;
@@ -17,14 +19,11 @@ public class FiturMahasiswa {
      * 
      * @param mhs
      * @return kalo listNilai kosong return list kosong
-     * @return returnnya list yang tipe datanya array Object
-     * [0] -> index 0 untuk id_kelas
-     * [1] -> index 1 untuk nama_kelas
-     * [2] -> index 2 untuk nilai_akhir
+     * @return return list tipe data TranskripNiali dari model/DTO
      */
-    public List<Object[]> getTranskripNilaiByMahasiswa(Mahasiswa mhs){
+    public List<TranskripNilai> getTranskripNilaiByMahasiswa(Mahasiswa mhs){
         NilaiRepository nilaiRepo = new NilaiRepository();
-        List<Object[]> listNilai = nilaiRepo.getTranskripNilaiByNIM(mhs.getNim());
+        List<TranskripNilai> listNilai = nilaiRepo.getTranskripNilaiByNIM(mhs.getNim());
         if(listNilai.isEmpty()){
             return Collections.emptyList();
         }
@@ -35,11 +34,11 @@ public class FiturMahasiswa {
      * 
      * @param mhs
      * @return kalo mahasiswa ga punya jadwal kelas return list kosong
-     * @return list dengan data type Jadwal_Kelas
+     * @return list dengan data type JadwalDTO
      */
-    public List<Jadwal_kelas> getJadwalKelasByMahasiswa(Mahasiswa mhs){
+    public List<JadwalDTO> getJadwalKelasByMahasiswa(Mahasiswa mhs){
         JadwalKelasRepository jadwalRepo = new JadwalKelasRepository();
-        List<Jadwal_kelas> listJadwal = jadwalRepo.getJadwalKelasByNIM(mhs.getNim());
+        List<JadwalDTO> listJadwal = jadwalRepo.getJadwalKelasByNIM(mhs.getNim());
         if(listJadwal.isEmpty()){
             return Collections.emptyList();
         }
