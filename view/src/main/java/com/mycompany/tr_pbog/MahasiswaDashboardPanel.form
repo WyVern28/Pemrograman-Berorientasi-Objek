@@ -19,22 +19,33 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Component id="salamLabel" alignment="1" pref="1068" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="biodataLabel" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
                           <Component id="dateLabel" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
                           <Component id="clockLabel" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
-                          <Component id="namaLabel" alignment="0" min="-2" pref="357" max="-2" attributes="0"/>
-                          <Component id="prodiLabel" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
-                          <Component id="nimLabel" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
-                          <Component id="totalSKSLabel" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="nama" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="namaLabel" min="-2" pref="357" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="nim" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="nimLabel" min="-2" pref="301" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="IPK" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="totalIPKLabel" min="-2" pref="301" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="0" pref="711" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="salamLabel" alignment="1" pref="1068" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -52,25 +63,32 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="biodataLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="namaLabel" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="namaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="nama" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="nimLabel" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="nimLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="nim" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="prodiLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="totalSKSLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="401" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="totalIPKLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="IPK" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="427" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="totalSKSLabel">
+    <Component class="javax.swing.JLabel" name="totalIPKLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Total SKS: [SKS Pengguna]"/>
+        <Property name="text" type="java.lang.String" value="[IPK Pengguna]"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="dateLabel">
@@ -111,7 +129,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Nama: [nama lengkap pengguna]"/>
+        <Property name="text" type="java.lang.String" value="[nama lengkap pengguna]"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="nimLabel">
@@ -119,15 +137,31 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="NIM: [NIM Pengguna]"/>
+        <Property name="text" type="java.lang.String" value="[NIM Pengguna]"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="prodiLabel">
+    <Component class="javax.swing.JLabel" name="nama">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Prodi: [Prodi Pengguna]"/>
+        <Property name="text" type="java.lang.String" value="Nama: "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="nim">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="14" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="NIM: "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="IPK">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="14" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Total IPK: "/>
       </Properties>
     </Component>
   </SubComponents>

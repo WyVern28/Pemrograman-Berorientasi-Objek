@@ -5,6 +5,9 @@
 package com.mycompany.tr_pbog;
 
 import com.mycompany.tr_pbog.DarkMode.Listener;
+
+import dbCon.Mahasiswa;
+
 import java.awt.Color;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -43,7 +46,13 @@ public class MahasiswaDashboardPanel extends javax.swing.JPanel implements Liste
     timer.start();
 }
     
-    public MahasiswaDashboardPanel() {
+    public MahasiswaDashboardPanel(Mahasiswa mhs) {
+        String namaMhs = mhs.getNama();
+        String nim = mhs.getNim();
+        float ipk = mhs.getIpk();
+        namaLabel.setText(namaMhs);
+        nimLabel.setText(nim);
+        IPK.setText(Float.toString(ipk));
         initComponents();
         initDateTime();
         setDarkMode(DarkMode.isDarkMode);
@@ -57,19 +66,23 @@ public class MahasiswaDashboardPanel extends javax.swing.JPanel implements Liste
             clockLabel.setForeground(Color.WHITE);
             salamLabel.setForeground(Color.WHITE);
             biodataLabel.setForeground(Color.WHITE);
-            prodiLabel.setForeground(Color.WHITE);
+            nama.setForeground(Color.WHITE);
+            nim.setForeground(Color.WHITE);
+            IPK.setForeground(Color.WHITE);
             namaLabel.setForeground(Color.WHITE);
             nimLabel.setForeground(Color.WHITE);
-            totalSKSLabel.setForeground(Color.WHITE);
+            totalIPKLabel.setForeground(Color.WHITE);
         }else{
             dateLabel.setForeground(Color.BLACK);
             clockLabel.setForeground(Color.BLACK);
             biodataLabel.setForeground(Color.BLACK);
             salamLabel.setForeground(Color.BLACK);
-            prodiLabel.setForeground(Color.BLACK);
+            nama.setForeground(Color.BLACK);
+            nim.setForeground(Color.BLACK);
+            IPK.setForeground(Color.BLACK);
             namaLabel.setForeground(Color.BLACK);
             nimLabel.setForeground(Color.BLACK);
-            totalSKSLabel.setForeground(Color.BLACK);
+            totalIPKLabel.setForeground(Color.BLACK);
         }
     }    
     /**
@@ -81,19 +94,21 @@ public class MahasiswaDashboardPanel extends javax.swing.JPanel implements Liste
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        totalSKSLabel = new javax.swing.JLabel();
+        totalIPKLabel = new javax.swing.JLabel();
         dateLabel = new javax.swing.JLabel();
         clockLabel = new javax.swing.JLabel();
         salamLabel = new javax.swing.JLabel();
         biodataLabel = new javax.swing.JLabel();
         namaLabel = new javax.swing.JLabel();
         nimLabel = new javax.swing.JLabel();
-        prodiLabel = new javax.swing.JLabel();
+        nama = new javax.swing.JLabel();
+        nim = new javax.swing.JLabel();
+        IPK = new javax.swing.JLabel();
 
         setOpaque(false);
 
-        totalSKSLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        totalSKSLabel.setText("Total SKS: [SKS Pengguna]");
+        totalIPKLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        totalIPKLabel.setText("[IPK Pengguna]");
 
         dateLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         dateLabel.setText("dateLabel");
@@ -109,13 +124,19 @@ public class MahasiswaDashboardPanel extends javax.swing.JPanel implements Liste
         biodataLabel.setText("Biodata:");
 
         namaLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        namaLabel.setText("Nama: [nama lengkap pengguna]");
+        namaLabel.setText("[nama lengkap pengguna]");
 
         nimLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        nimLabel.setText("NIM: [NIM Pengguna]");
+        nimLabel.setText("[NIM Pengguna]");
 
-        prodiLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        prodiLabel.setText("Prodi: [Prodi Pengguna]");
+        nama.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        nama.setText("Nama: ");
+
+        nim.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        nim.setText("NIM: ");
+
+        IPK.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        IPK.setText("Total IPK: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -124,17 +145,25 @@ public class MahasiswaDashboardPanel extends javax.swing.JPanel implements Liste
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(salamLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1068, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(biodataLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(clockLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(namaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(prodiLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nimLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(totalSKSLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 711, Short.MAX_VALUE))
-                    .addComponent(salamLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1068, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(nama)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(namaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(nim)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nimLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(IPK)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(totalIPKLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -149,26 +178,32 @@ public class MahasiswaDashboardPanel extends javax.swing.JPanel implements Liste
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(biodataLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(namaLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(namaLabel)
+                    .addComponent(nama))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nimLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nimLabel)
+                    .addComponent(nim))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(prodiLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(totalSKSLabel)
-                .addContainerGap(401, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(totalIPKLabel)
+                    .addComponent(IPK))
+                .addContainerGap(427, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel IPK;
     private javax.swing.JLabel biodataLabel;
     private javax.swing.JLabel clockLabel;
     private javax.swing.JLabel dateLabel;
+    private javax.swing.JLabel nama;
     private javax.swing.JLabel namaLabel;
+    private javax.swing.JLabel nim;
     private javax.swing.JLabel nimLabel;
-    private javax.swing.JLabel prodiLabel;
     private javax.swing.JLabel salamLabel;
-    private javax.swing.JLabel totalSKSLabel;
+    private javax.swing.JLabel totalIPKLabel;
     // End of variables declaration//GEN-END:variables
 }
