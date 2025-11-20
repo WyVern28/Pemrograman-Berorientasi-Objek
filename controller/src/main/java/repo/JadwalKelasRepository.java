@@ -15,7 +15,7 @@ public class JadwalKelasRepository {
     public List<JadwalDTO> getJadwalKelasByNIM(String nim){
         List<JadwalDTO> listJadwal = new ArrayList<>();
         String sql = """
-                select id_jadwal,kelas.nama_kelas,id_ruangan,hari,jam_mulai,jam_selesai from jadwal_kelas
+                select kelas.nama_kelas,id_ruangan,hari,jam_mulai,jam_selesai from jadwal_kelas
                 inner join kelas on jadwal_kelas.id_kelas = kelas.id_kelas
                 inner join nilai on kelas.id_kelas = nilai.id_kelas
                 inner join mahasiswa on nilai.nim = mahasiswa.nim
@@ -26,7 +26,6 @@ public class JadwalKelasRepository {
             ResultSet res = prep.executeQuery();
             while (res.next()) {
                 listJadwal.add(new JadwalDTO(
-                    res.getString("id_jadwal"),
                     res.getString("nama_kelas"),
                     res.getString("id_ruangan"),
                     Hari.valueOf(res.getString("hari").toLowerCase()),
