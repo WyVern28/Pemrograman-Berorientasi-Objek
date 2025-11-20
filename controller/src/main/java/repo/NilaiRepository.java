@@ -133,4 +133,27 @@ public class NilaiRepository {
         }
         return row == 1;
     }
+
+    public boolean cekMatkulBisaAmbil(String nim, String idMatkul){
+        boolean bisaAmbil = true;
+        String sql = """
+                select nim, matkul.id_matkul from nilai 
+                inner join kelas on nilai.id_kelas = kelas.id_kelas
+                inner join matkul on kelas.id_matkul = matkul.id_matkul
+                where nim = ? and matkul.id_matkul = ? and status = false
+                """;
+        try(Connection conn = db_config.getConn();PreparedStatement prep = conn.prepareStatement(sql)) {
+            prep.setString(1, nim);
+            prep.setString(2, idMatkul);
+            ResultSet res = prep.executeQuery();
+            if(res.next()){
+                bisaAmbil = false;
+            }
+        } catch (SQLException e) {
+            // TODO: handle exception
+            e.printStackTrace();
+            bisaAmbil = false;
+        }
+        return bisaAmbil;
+    }
 }

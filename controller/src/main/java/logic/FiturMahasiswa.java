@@ -62,6 +62,19 @@ public class FiturMahasiswa {
 
     /**
      * 
+     * @param nim -> nim tipe data String
+     * @param idMatkul -> idMatkul tipe data String
+     * @return boolean -> kalo true ga ada matkul yang sama
+     * @return boolean -> kalo false ada matkul yang sama
+     */
+    public boolean bisaAmbilMatkul(String nim,String idMatkul){
+        NilaiRepository nilaiRepo = new NilaiRepository();
+
+        return nilaiRepo.cekMatkulBisaAmbil(nim, idMatkul);
+    }
+
+    /**
+     * 
      * @param matkul -> object matkul
      * @return List data typenya KelasDTO di model
      */
@@ -94,9 +107,8 @@ public class FiturMahasiswa {
      * @param nim
      * @param idKelas
      * @return kalo listKelasnya kosong (tidak ada kelas tedaftar) -> ga ada kelas yang tabrakan -> false
-     * @return kalo regisKelas sama kelas itu harinya sama dan jam selesai regis kelas itu setelah jam mulai jadwal 
-     *         dan jam mulai regis kelas sebelum jam jadwal selesai -> ada maka tabrakan -> true
-     * @return kalo ga memenuhi syarat yang ada didalam foreach maka tidak ada kelas tabrakan -> false
+     * @return boolean -> true -> tabrakan
+     * @return boolean -> false -> tidak ada tabrakan
      */
 
     public boolean cekTabrakanJadwal(String nim, String idKelas){
