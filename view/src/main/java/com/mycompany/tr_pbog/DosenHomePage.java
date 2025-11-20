@@ -260,7 +260,7 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
     private void dashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardBtnActionPerformed
         // TODO add your handling code here:
         mainPanel.removeAll();
-        mainPanel.add(new DosenDashboardPanel(), java.awt.BorderLayout.CENTER);
+        mainPanel.add(new DosenDashboardPanel(dosen), java.awt.BorderLayout.CENTER);
         mainPanel.revalidate();
         mainPanel.repaint();
     }//GEN-LAST:event_dashboardBtnActionPerformed

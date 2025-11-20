@@ -5,6 +5,9 @@
 package com.mycompany.tr_pbog;
 
 import com.mycompany.tr_pbog.DarkMode.Listener;
+
+import dbCon.Dosen;
+
 import java.awt.Color;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,10 +23,12 @@ public class DosenDashboardPanel extends javax.swing.JPanel implements Listener{
     /**
      * Creates new form DosenDashboardPanel
      */
-    public DosenDashboardPanel() {
+    public DosenDashboardPanel(Dosen dosen) {
         initComponents();
         initDateTime();
         setDarkMode(DarkMode.isDarkMode);
+        namaLabel.setText(dosen.getNama());
+        nidLabel.setText(dosen.getNid());
     }
        
     @Override
@@ -37,6 +42,8 @@ public class DosenDashboardPanel extends javax.swing.JPanel implements Listener{
             biodataLabel.setForeground(Color.WHITE);
             nidLabel.setForeground(Color.WHITE);
             namaLabel.setForeground(Color.WHITE);
+            jLabel1.setForeground(Color.WHITE);
+            jLabel2.setForeground(Color.WHITE);
         }else{
             DosenDashboardPanel.setBackground(new Color(249, 248, 246));
             dateLabel.setForeground(Color.BLACK);
@@ -45,6 +52,8 @@ public class DosenDashboardPanel extends javax.swing.JPanel implements Listener{
             salamLabel.setForeground(Color.BLACK);
             nidLabel.setForeground(Color.BLACK);
             namaLabel.setForeground(Color.BLACK);
+            jLabel1.setForeground(Color.BLACK);
+            jLabel2.setForeground(Color.BLACK);
         }
        }
     private void initDateTime() {
@@ -85,6 +94,8 @@ public class DosenDashboardPanel extends javax.swing.JPanel implements Listener{
         biodataLabel = new javax.swing.JLabel();
         namaLabel = new javax.swing.JLabel();
         nidLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setOpaque(false);
 
@@ -104,10 +115,14 @@ public class DosenDashboardPanel extends javax.swing.JPanel implements Listener{
         biodataLabel.setText("Biodata:");
 
         namaLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        namaLabel.setText("Nama: [nama lengkap pengguna]");
+        namaLabel.setText("[nama lengkap pengguna]");
 
         nidLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        nidLabel.setText("NID: [NID Pengguna]");
+        nidLabel.setText("[NID Pengguna]");
+
+        jLabel1.setText("Nama: ");
+
+        jLabel2.setText("NID:");
 
         javax.swing.GroupLayout DosenDashboardPanelLayout = new javax.swing.GroupLayout(DosenDashboardPanel);
         DosenDashboardPanel.setLayout(DosenDashboardPanelLayout);
@@ -120,9 +135,17 @@ public class DosenDashboardPanel extends javax.swing.JPanel implements Listener{
                     .addComponent(clockLabel)
                     .addComponent(salamLabel)
                     .addComponent(biodataLabel)
-                    .addComponent(namaLabel)
-                    .addComponent(nidLabel))
-                .addContainerGap(769, Short.MAX_VALUE))
+                    .addGroup(DosenDashboardPanelLayout.createSequentialGroup()
+                        .addGroup(DosenDashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(DosenDashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(DosenDashboardPanelLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(nidLabel))
+                            .addComponent(namaLabel))))
+                .addContainerGap(807, Short.MAX_VALUE))
         );
         DosenDashboardPanelLayout.setVerticalGroup(
             DosenDashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,9 +159,13 @@ public class DosenDashboardPanel extends javax.swing.JPanel implements Listener{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(biodataLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(namaLabel)
+                .addGroup(DosenDashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(namaLabel)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nidLabel)
+                .addGroup(DosenDashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nidLabel)
+                    .addComponent(jLabel2))
                 .addContainerGap(453, Short.MAX_VALUE))
         );
 
@@ -146,21 +173,15 @@ public class DosenDashboardPanel extends javax.swing.JPanel implements Listener{
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1080, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(DosenDashboardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(DosenDashboardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 635, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(DosenDashboardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(DosenDashboardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -170,6 +191,8 @@ public class DosenDashboardPanel extends javax.swing.JPanel implements Listener{
     private javax.swing.JLabel biodataLabel;
     private javax.swing.JLabel clockLabel;
     private javax.swing.JLabel dateLabel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel namaLabel;
     private javax.swing.JLabel nidLabel;
     private javax.swing.JLabel salamLabel;

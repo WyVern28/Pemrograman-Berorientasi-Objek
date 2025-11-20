@@ -34,34 +34,8 @@ public class MahasiswaNilaiCardPanel extends javax.swing.JPanel implements Liste
         
         // Simpan border default (yang null/No Border)
         this.defaultTextFieldBorder = this.nilaiField.getBorder();
-        
-        // Atur UI awal
-        setEditing(false); // Mode awal (read-only)
         setDarkMode(DarkMode.isDarkMode);
     }
-        
-        private void setEditing(boolean editing) {
-            this.isEditing = editing;
-
-            if (editing) {
-                // --- MASUK MODE EDIT ---
-                nilaiField.setEditable(true);
-                // Beri border agar terlihat aktif
-                nilaiField.setBorder(BorderFactory.createLineBorder(Color.BLUE, 1)); 
-                nilaiField.requestFocusInWindow(); // Pindahkan kursor ke sini
-                nilaiField.selectAll(); // Pilih semua teks
-                editButton.setText("OK");
-            } else {
-                // --- KELUAR MODE EDIT (READ-ONLY) ---
-                nilaiField.setEditable(false);
-                nilaiField.setBorder(defaultTextFieldBorder); // Kembalikan border
-                editButton.setText("Input Nilai");
-
-                // TODO: Di sini Anda akan menyimpan nilaiField.getText() ke database
-                // menggunakan this.studentID dan ID Kelas
-                System.out.println("Simpan Nilai: " + nilaiField.getText() + " untuk MHS: " + this.studentID);
-            }
-        }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -110,7 +84,7 @@ public class MahasiswaNilaiCardPanel extends javax.swing.JPanel implements Liste
 
         add(infoPanel, java.awt.BorderLayout.CENTER);
 
-        editButton.setText("jButton1");
+        editButton.setText("Input Nilai");
         editButton.setPreferredSize(new java.awt.Dimension(120, 23));
         editButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,7 +121,8 @@ public class MahasiswaNilaiCardPanel extends javax.swing.JPanel implements Liste
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         // TODO add your handling code here:
-        setEditing(!this.isEditing);
+        inputNilai inpt = new inputNilai();
+        inpt.setVisible(true);
     }//GEN-LAST:event_editButtonActionPerformed
 
 
