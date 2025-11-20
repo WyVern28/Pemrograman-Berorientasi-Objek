@@ -50,10 +50,10 @@ public class MahasiswaDashboardPanel extends javax.swing.JPanel implements Liste
         String namaMhs = mhs.getNama();
         String nim = mhs.getNim();
         float ipk = mhs.getIpk();
+        initComponents();
         namaLabel.setText(namaMhs);
         nimLabel.setText(nim);
-        IPK.setText(Float.toString(ipk));
-        initComponents();
+        totalIPKLabel.setText(Float.toString(ipk));
         initDateTime();
         setDarkMode(DarkMode.isDarkMode);
     }
