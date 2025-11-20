@@ -105,7 +105,7 @@ public class DaftarKelasPanel extends javax.swing.JPanel implements Listener {
             // menggunakan getter yang baru saja kita buat
             card.getLihatMhsButton().addActionListener(e -> {
                 // Panggil metode baru untuk menampilkan detail
-                showMahasiswaListView(idKelas, namaKelas);
+                showMahasiswaListView(idKelas, namaKelas, kelas);
             });
 
                 ContentPanel.add(card);
@@ -155,11 +155,11 @@ public class DaftarKelasPanel extends javax.swing.JPanel implements Listener {
         this.revalidate();
         this.repaint();
     }
-    private void showMahasiswaListView(String classID, String className) {
+    private void showMahasiswaListView(String classID, String className, Kelas kelas ) {
         
         // 1. Buat panel detail baru
         // Kirim 'mainPanel', 'this' (DaftarKelasPanel), dan info kelas
-        DaftarMahasiswaPanel detailPanel = new DaftarMahasiswaPanel(mainPanel, this, classID, className);
+        DaftarMahasiswaPanel detailPanel = new DaftarMahasiswaPanel(mainPanel, this, classID, className, kelas);
         
         // 2. Ganti isi mainPanel
         mainPanel.removeAll();

@@ -1,6 +1,12 @@
 package com.mycompany.tr_pbog;
 
 import com.mycompany.tr_pbog.DarkMode.Listener;
+
+import dbCon.Dosen;
+import dbCon.Kelas;
+import dbCon.Mahasiswa;
+import logic.FiturDosen;
+import java.util.List;
 import java.awt.Color;
 import javax.swing.JPanel; // Import JPanel
 
@@ -10,12 +16,13 @@ public class DaftarMahasiswaPanel extends javax.swing.JPanel implements Listener
     private JPanel mainPanel; 
     // Panel 'Daftar Kelas' (untuk kembali ke sana)
     private DaftarKelasPanel parentPanel; 
-
+    FiturDosen fDosen = new FiturDosen();
     /**
      * Konstruktor Kustom
      */
-    public DaftarMahasiswaPanel(JPanel mainPanel, DaftarKelasPanel parentPanel, String classID, String className) {
+    public DaftarMahasiswaPanel(JPanel mainPanel, DaftarKelasPanel parentPanel, String classID, String className, Kelas kelas) {
         initComponents();
+        
         this.mainPanel = mainPanel;
         this.parentPanel = parentPanel;
         
@@ -28,7 +35,7 @@ public class DaftarMahasiswaPanel extends javax.swing.JPanel implements Listener
         this.studentListContentPanel.setOpaque(false);
         
         // Muat data
-        loadMahasiswa(classID, className);
+        loadMahasiswa(classID, className, kelas);
         
         // Atur warna awal
         setDarkMode(DarkMode.isDarkMode);
@@ -37,21 +44,17 @@ public class DaftarMahasiswaPanel extends javax.swing.JPanel implements Listener
     /**
      * Memuat daftar mahasiswa ke panel ini
      */
-    public void loadMahasiswa(String classID, String className) {
+    public void loadMahasiswa(String classID, String className, Kelas kelas) {
         detailJudulLabel.setText("Daftar Mahasiswa - " + className);
         studentListContentPanel.removeAll();
+        List<Mahasiswa> mhs = fDosen.lihatMahasiswa(kelas);
+        System.out.println("DEBUG: Jumlah siswa ditemukan: " + mhs.size());
         
-        // Dummy data mahasiswa
-        String[][] dummyMahasiswa = {
-            {"672024001", "Ahmad", "A-"},
-            {"672024002", "Budi", "B+"},
-            {"672024003", "Citra", "-"},
-            {"672024004", "Dewi", "A"},
-            {"672024005", "Eka", "-"}
-        };
-        
-        for (String[] mhs : dummyMahasiswa) {
-            MahasiswaNilaiCardPanel card = new MahasiswaNilaiCardPanel(mhs[0], mhs[1], mhs[2]);
+        for (Mahasiswa mahasiswa: mhs) {
+            String studentID = mahasiswa.getNim();
+            String studentName = mahasiswa.getNama();
+            System.out.println("DEBUG: Menambahkan Mahasiswa - ID: " + studentID + ", Nama: " + studentName);
+            MahasiswaNilaiCardPanel card = new MahasiswaNilaiCardPanel(studentID, studentName, "");
             studentListContentPanel.add(card);
         }
         
