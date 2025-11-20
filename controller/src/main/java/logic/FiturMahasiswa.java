@@ -3,7 +3,9 @@ package logic;
 import java.util.Collections;
 import java.util.List;
 
+import DTO.JadwalDTO;
 import DTO.RegistrasiKelas;
+import DTO.TranskripNilai;
 import dbCon.Jadwal_kelas;
 import dbCon.Mahasiswa;
 import dbCon.Matkul;
@@ -17,14 +19,11 @@ public class FiturMahasiswa {
      * 
      * @param mhs
      * @return kalo listNilai kosong return list kosong
-     * @return returnnya list yang tipe datanya array Object
-     * [0] -> index 0 untuk id_kelas
-     * [1] -> index 1 untuk nama_kelas
-     * [2] -> index 2 untuk nilai_akhir
+     * @return return list tipe data TranskripNiali dari model/DTO
      */
-    public List<Object[]> getTranskripNilaiByMahasiswa(Mahasiswa mhs){
+    public List<TranskripNilai> getTranskripNilaiByMahasiswa(Mahasiswa mhs){
         NilaiRepository nilaiRepo = new NilaiRepository();
-        List<Object[]> listNilai = nilaiRepo.getTranskripNilaiByNIM(mhs.getNim());
+        List<TranskripNilai> listNilai = nilaiRepo.getTranskripNilaiByNIM(mhs.getNim());
         if(listNilai.isEmpty()){
             return Collections.emptyList();
         }
@@ -35,11 +34,11 @@ public class FiturMahasiswa {
      * 
      * @param mhs
      * @return kalo mahasiswa ga punya jadwal kelas return list kosong
-     * @return list dengan data type Jadwal_Kelas
+     * @return list dengan data type JadwalDTO
      */
-    public List<Jadwal_kelas> getJadwalKelasByMahasiswa(Mahasiswa mhs){
+    public List<JadwalDTO> getJadwalKelasByMahasiswa(Mahasiswa mhs){
         JadwalKelasRepository jadwalRepo = new JadwalKelasRepository();
-        List<Jadwal_kelas> listJadwal = jadwalRepo.getJadwalKelasByNIM(mhs.getNim());
+        List<JadwalDTO> listJadwal = jadwalRepo.getJadwalKelasByNIM(mhs.getNim());
         if(listJadwal.isEmpty()){
             return Collections.emptyList();
         }
@@ -58,6 +57,19 @@ public class FiturMahasiswa {
             return Collections.emptyList();
         }
         return listMatkul;
+    }
+
+    /**
+     * 
+     * @param nim -> nim tipe data String
+     * @param idMatkul -> idMatkul tipe data String
+     * @return boolean -> kalo true ga ada matkul yang sama
+     * @return boolean -> kalo false ada matkul yang sama
+     */
+    public boolean bisaAmbilMatkul(String nim,String idMatkul){
+        NilaiRepository nilaiRepo = new NilaiRepository();
+
+        return nilaiRepo.cekMatkulBisaAmbil(nim, idMatkul);
     }
 
     /**
@@ -94,9 +106,8 @@ public class FiturMahasiswa {
      * @param nim
      * @param idKelas
      * @return kalo listKelasnya kosong (tidak ada kelas tedaftar) -> ga ada kelas yang tabrakan -> false
-     * @return kalo regisKelas sama kelas itu harinya sama dan jam selesai regis kelas itu setelah jam mulai jadwal 
-     *         dan jam mulai regis kelas sebelum jam jadwal selesai -> ada maka tabrakan -> true
-     * @return kalo ga memenuhi syarat yang ada didalam foreach maka tidak ada kelas tabrakan -> false
+     * @return boolean -> true -> tabrakan
+     * @return boolean -> false -> tidak ada tabrakan
      */
 
     public boolean cekTabrakanJadwal(String nim, String idKelas){

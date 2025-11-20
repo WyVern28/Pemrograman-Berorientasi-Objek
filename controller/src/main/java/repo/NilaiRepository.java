@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import DTO.TranskripNilai;
 import dbCon.Mahasiswa;
 import dbCon.db_config;
 
@@ -29,22 +30,22 @@ public class NilaiRepository {
         return listMahasiswa;
     }
 
-    public List<Object[]> getTranskripNilaiByNIM(String nim){
-        List <Object[]> listNilai = new ArrayList<>();
+    public List<TranskripNilai> getTranskripNilaiByNIM(String nim){
+        List <TranskripNilai> listNilai = new ArrayList<>();
         String sql = """
             select nilai.id_kelas,nama_kelas,nilai_akhir from nilai 
             inner join kelas on nilai.id_kelas = kelas.id_kelas
             where nilai.nim = ? and nilai.status = true 
             """;
-            try(Connection conn = db_config.getConn();PreparedStatement prep = conn.prepareStatement(sql)) {
-                prep.setString(1, nim);
-                ResultSet res = prep.executeQuery();
-                while(res.next()){
-                Object[] obj = new Object[3];
-                obj[0] = res.getString("id_kelas");
-                obj[1] = res.getString("nama_kelas");
-                obj[2] = res.getInt("nilai_akhir");
-                listNilai.add(obj);
+        try(Connection conn = db_config.getConn();PreparedStatement prep = conn.prepareStatement(sql)) {
+            prep.setString(1, nim);
+            ResultSet res = prep.executeQuery();
+            while(res.next()){
+                listNilai.add(new TranskripNilai(
+                res.getString("id_kelas"),
+                res.getString("nama_kelas"),
+                res.getInt("nilai_akhir"))
+                );
             }
         } catch (SQLException e) {
             // TODO: handle exception
@@ -132,5 +133,28 @@ public class NilaiRepository {
             e.printStackTrace();
         }
         return row == 1;
+    }
+
+    public boolean cekMatkulBisaAmbil(String nim, String idMatkul){
+        boolean bisaAmbil = true;
+        String sql = """
+                select nim, matkul.id_matkul from nilai 
+                inner join kelas on nilai.id_kelas = kelas.id_kelas
+                inner join matkul on kelas.id_matkul = matkul.id_matkul
+                where nim = ? and matkul.id_matkul = ? and status = false
+                """;
+        try(Connection conn = db_config.getConn();PreparedStatement prep = conn.prepareStatement(sql)) {
+            prep.setString(1, nim);
+            prep.setString(2, idMatkul);
+            ResultSet res = prep.executeQuery();
+            if(res.next()){
+                bisaAmbil = false;
+            }
+        } catch (SQLException e) {
+            // TODO: handle exception
+            e.printStackTrace();
+            bisaAmbil = false;
+        }
+        return bisaAmbil;
     }
 }
