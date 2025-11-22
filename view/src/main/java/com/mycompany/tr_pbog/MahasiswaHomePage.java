@@ -246,7 +246,7 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
     
     private void ambilKelasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambilKelasBtnActionPerformed
         // TODO add your handling code here:
-        AmbilKelasPanel panelAmbilKelas = new AmbilKelasPanel();
+        MahasiswaAmbilKelas panelAmbilKelas = new MahasiswaAmbilKelas(mhs);
         mainPanel.removeAll();
         //Tambahkan panel "Ambil Kelas" baru ke mainPanel
         // (Pastikan mainPanel Anda menggunakan BorderLayout)
@@ -292,7 +292,7 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
     private void jadwalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jadwalBtnActionPerformed
         // TODO add your handling code here:
         // 1. Buat panel daftar (yang SAMA persis)
-        DaftarKelasPanel panelJadwal = new DaftarKelasPanel(mainPanel);
+        DasarListKelasDosenMahasiswa panelJadwal = new DasarListKelasDosenMahasiswa(mainPanel);
 
         // 2. Muat data, tapi dengan role "mahasiswa"
         panelJadwal.loadDataKelas(mhs); 
@@ -306,7 +306,7 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
 
     private void nilaiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nilaiBtnActionPerformed
         // TODO add your handling code here:
-        TranskripNilaiPanel panelTranskrip = new TranskripNilaiPanel();
+        MahasiswaTranskripNilai panelTranskrip = new MahasiswaTranskripNilai(mhs);
 
         mainPanel.removeAll();
 

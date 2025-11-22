@@ -3,18 +3,22 @@ package com.mycompany.tr_pbog;
 import javax.swing.JLabel;
 import java.awt.Color;
 import com.mycompany.tr_pbog.DarkMode.Listener;
+
+import DTO.JadwalDTO;
+
 import java.util.List;
 import dbCon.Dosen;
 import dbCon.Kelas;
 import dbCon.Mahasiswa;
 import logic.FiturDosen;
+import logic.FiturMahasiswa;
 
 import javax.swing.JPanel; // <-- IMPORT BARU
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Font; // <-- IMPORT BARU
 
-public class DaftarKelasPanel extends javax.swing.JPanel implements Listener {
+public class DasarListKelasDosenMahasiswa extends javax.swing.JPanel implements Listener {
 
     // Variabel untuk menyimpan mainPanel dari DosenHomePage
     private JPanel mainPanel; 
@@ -23,7 +27,7 @@ public class DaftarKelasPanel extends javax.swing.JPanel implements Listener {
      * Konstruktor Kustom (Diperbaiki)
      * Menerima mainPanel dari DosenHomePage
      */
-    public DaftarKelasPanel(JPanel mainPanel) {
+    public DasarListKelasDosenMahasiswa(JPanel mainPanel) {
         initComponents();
         this.mainPanel = mainPanel; // Simpan mainPanel
         
@@ -79,6 +83,7 @@ public class DaftarKelasPanel extends javax.swing.JPanel implements Listener {
     }
  public void loadDataKelas(Object user) {
         FiturDosen fDosen = new FiturDosen();
+        FiturMahasiswa fMahasiswa = new FiturMahasiswa();
         if (user instanceof Dosen) {
             judulLabel.setText("KELAS SAYA");
             judulLabel.setVisible(true);
@@ -118,13 +123,19 @@ public class DaftarKelasPanel extends javax.swing.JPanel implements Listener {
         if (user instanceof Mahasiswa) {
             judulLabel.setText("JADWAL KULIAH");
             judulLabel.setVisible(true);
-            
-            String[] columnNames = {"No", "Kode", "Mata Kuliah", "Dosen", "Ruang", "Hari", "Mulai", "Selesai"};
-            Object[][] data = {
-                {1, "IF-401", "PBO", "Prof. Budi", "F-404", "Senin", "08:00", "10:30"},
-                {2, "IF-203", "Struktur Data", "Dr. Ani", "G-101", "Selasa", "13:00", "15:00"},
-                // ... (sisa data)
-            };
+            List<JadwalDTO> lsKelas = fMahasiswa.getJadwalKelasByMahasiswa((Mahasiswa) user);
+            String[] columnNames = {"No","Mata Kuliah","Ruang", "Hari", "Mulai", "Selesai"};
+            // Konversi List<JadwalDTO> ke Object[][]
+            Object[][] data = new Object[lsKelas.size()][6];
+            for (int i = 0; i < lsKelas.size(); i++) {
+                JadwalDTO jadwal = lsKelas.get(i);
+                data[i][0] = i + 1; // Nomor urut
+                data[i][1] = jadwal.getNamaKelas();
+                data[i][2] = jadwal.getId_ruangan();
+                data[i][3] = jadwal.getHari();
+                data[i][4] = jadwal.getJam_mulai(); // atau jadwal.getJamMulai().toString()
+                data[i][5] = jadwal.getJam_selesai(); // atau jadwal.getJamSelesai().toString()
+            }
             
             DefaultTableModel model = new DefaultTableModel(data, columnNames) {
                 @Override public boolean isCellEditable(int row, int column) { return false; }
@@ -136,13 +147,11 @@ public class DaftarKelasPanel extends javax.swing.JPanel implements Listener {
             jadwalTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             javax.swing.table.TableColumnModel cm = jadwalTable.getColumnModel();
             cm.getColumn(0).setPreferredWidth(30);  // No
-            cm.getColumn(1).setPreferredWidth(100);  // Kode
-            cm.getColumn(2).setPreferredWidth(430); // Matakuliah
-            cm.getColumn(3).setPreferredWidth(200);  // Dosen
-            cm.getColumn(4).setPreferredWidth(100);  // Ruang
-            cm.getColumn(5).setPreferredWidth(120); // Hari
-            cm.getColumn(6).setPreferredWidth(50); //Mulai
-            cm.getColumn(7).setPreferredWidth(50); //Mulai
+            cm.getColumn(1).setPreferredWidth(550); // Matakuliah
+            cm.getColumn(2).setPreferredWidth(150);  // Ruang
+            cm.getColumn(3).setPreferredWidth(150); // Hari
+            cm.getColumn(4).setPreferredWidth(100); //Mulai
+            cm.getColumn(5).setPreferredWidth(100); //Mulai
             javax.swing.table.TableColumnModel columnModel = jadwalTable.getColumnModel();
             // ... (kode atur lebar kolom Anda sudah benar) ...
             

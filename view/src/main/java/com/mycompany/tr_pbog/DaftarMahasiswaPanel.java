@@ -2,9 +2,8 @@ package com.mycompany.tr_pbog;
 
 import com.mycompany.tr_pbog.DarkMode.Listener;
 
-import dbCon.Dosen;
+import DTO.LihatMahasiswa;
 import dbCon.Kelas;
-import dbCon.Mahasiswa;
 import logic.FiturDosen;
 import java.util.List;
 import java.awt.Color;
@@ -15,12 +14,12 @@ public class DaftarMahasiswaPanel extends javax.swing.JPanel implements Listener
     // Panel utama (mainPanel dari DosenHomePage)
     private JPanel mainPanel; 
     // Panel 'Daftar Kelas' (untuk kembali ke sana)
-    private DaftarKelasPanel parentPanel; 
+    private DasarListKelasDosenMahasiswa parentPanel; 
     FiturDosen fDosen = new FiturDosen();
     /**
      * Konstruktor Kustom
      */
-    public DaftarMahasiswaPanel(JPanel mainPanel, DaftarKelasPanel parentPanel, String classID, String className, Kelas kelas) {
+    public DaftarMahasiswaPanel(JPanel mainPanel, DasarListKelasDosenMahasiswa parentPanel, String classID, String className, Kelas kelas) {
         initComponents();
         
         this.mainPanel = mainPanel;
@@ -47,10 +46,10 @@ public class DaftarMahasiswaPanel extends javax.swing.JPanel implements Listener
     public void loadMahasiswa(String classID, String className, Kelas kelas) {
         detailJudulLabel.setText("Daftar Mahasiswa - " + className);
         studentListContentPanel.removeAll();
-        List<Mahasiswa> mhs = fDosen.lihatMahasiswa(kelas);
+        List<LihatMahasiswa> mhs = fDosen.lihatMahasiswa(kelas);
         System.out.println("DEBUG: Jumlah siswa ditemukan: " + mhs.size());
         
-        for (Mahasiswa mahasiswa: mhs) {
+        for (LihatMahasiswa mahasiswa: mhs) {
             String studentID = mahasiswa.getNim();
             String studentName = mahasiswa.getNama();
             System.out.println("DEBUG: Menambahkan Mahasiswa - ID: " + studentID + ", Nama: " + studentName);

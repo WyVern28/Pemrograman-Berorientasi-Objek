@@ -1,0 +1,12 @@
+logic\FiturMahasiswa.class
+repo\SuperAdminRepository.class
+repo\NilaiRepository.class
+logic\FiturDosen.class
+repo\MatkulRepository.class
+repo\UserRepository.class
+repo\DosenRepository.class
+repo\JadwalKelasRepository.class
+logic\LoginLogic.class
+repo\MahasiswaRepository.class
+logic\CreateObject.class
+repo\KelasRepository.class

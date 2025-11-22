@@ -21,7 +21,7 @@ public class kelasDetailCardPanel extends javax.swing.JPanel implements Listener
 
     public kelasDetailCardPanel(String classID, String infoText) {
         initComponents();
-        this.classID_Detail = classID;
+        this.kodeKelas.setText(classID);
         this.namaMatkulLabel.setText(infoText);
         
         // Atur warna awal
@@ -41,6 +41,7 @@ public class kelasDetailCardPanel extends javax.swing.JPanel implements Listener
 
         this.setBackground(bgColor);
         this.namaMatkulLabel.setForeground(textColor);
+        this.kodeKelas.setForeground(textColor);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,13 +52,17 @@ public class kelasDetailCardPanel extends javax.swing.JPanel implements Listener
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        kodeKelas = new javax.swing.JLabel();
         namaMatkulLabel = new javax.swing.JLabel();
         ambilButton = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(32767, 100));
         setMinimumSize(new java.awt.Dimension(129, 100));
         setPreferredSize(new java.awt.Dimension(400, 100));
-        setLayout(new java.awt.BorderLayout());
+        setLayout(new java.awt.BorderLayout(5, 0));
+
+        kodeKelas.setText("jLabel1");
+        add(kodeKelas, java.awt.BorderLayout.LINE_START);
 
         namaMatkulLabel.setText("jLabel1");
         add(namaMatkulLabel, java.awt.BorderLayout.CENTER);
@@ -78,6 +83,7 @@ public class kelasDetailCardPanel extends javax.swing.JPanel implements Listener
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ambilButton;
+    private javax.swing.JLabel kodeKelas;
     private javax.swing.JLabel namaMatkulLabel;
     // End of variables declaration//GEN-END:variables
 }

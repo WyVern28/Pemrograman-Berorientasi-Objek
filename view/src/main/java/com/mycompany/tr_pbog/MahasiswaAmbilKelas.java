@@ -3,17 +3,20 @@ package com.mycompany.tr_pbog;
 import com.mycompany.tr_pbog.DarkMode.Listener;
 import java.awt.CardLayout; // <-- Import CardLayout
 import java.awt.Color;
-import java.util.ArrayList;
+import dbCon.Matkul;
+import logic.FiturMahasiswa;
+import java.util.List;
+import dbCon.Mahasiswa;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class AmbilKelasPanel extends javax.swing.JPanel implements Listener {
+public class MahasiswaAmbilKelas extends javax.swing.JPanel implements Listener {
 
     private CardLayout cardLayout; // Variabel untuk mengontrol CardLayout
 
-    public AmbilKelasPanel() {
+    public MahasiswaAmbilKelas(Mahasiswa mhs) {
         initComponents();
         
         // 1. Dapatkan CardLayout (Anda sudah punya ini)
@@ -23,55 +26,27 @@ public class AmbilKelasPanel extends javax.swing.JPanel implements Listener {
         // 2. Tampilkan kartu 'master' secara default
         // "card2" adalah nama yang Anda berikan untuk 'panelMasterList'
         // di dalam initComponents() Anda
-        cardLayout.show(this, "card2"); 
+        cardLayout.show(this, "masterCard"); 
         // ---------------------------
         
         // 3. Setup transparansi
         setupTransparency();
         
         // 4. Muat daftar mata kuliah induk
-        loadMatkulMasterList();
+        loadMatkulMasterList(mhs);
         
         // 5. Atur warna awal
         setDarkMode(DarkMode.isDarkMode);
     }
 
-    private void loadMatkulMasterList() {
+    private void loadMatkulMasterList(Mahasiswa mhs) {
         matkulListContentPanel.removeAll(); // Bersihkan list
+        FiturMahasiswa fMahasiswa = new FiturMahasiswa();
+        List<Matkul> lsMatkul = fMahasiswa.getMatkul(mhs);
         
-        // Dummy data: [ID Matkul, Nama Matkul]
-        String[][] dummyMatkul = {
-            {"IF-401", "IF-401 | Pemrograman Berorientasi Objek"},
-            {"IF-203", "IF-203 | Struktur Data"},
-            {"UM-101", "UM-101 | Pancasila"},
-            {"IF-505", "IF-505 | Kecerdasan Buatan"},
-            {"IF-401", "IF-401 | Pemrograman Berorientasi Objek"},
-            {"IF-203", "IF-203 | Struktur Data"},
-            {"UM-101", "UM-101 | Pancasila"},
-            {"IF-505", "IF-505 | Kecerdasan Buatan"},
-            {"IF-505", "IF-505 | Kecerdasan Buatan"},
-            {"IF-401", "IF-401 | Pemrograman Berorientasi Objek"},
-            {"IF-203", "IF-203 | Struktur Data"},
-            {"UM-101", "UM-101 | Pancasila"},
-            {"IF-505", "IF-505 | Kecerdasan Buatan"},
-            {"IF-401", "IF-401 | Pemrograman Berorientasi Objek"},
-            {"IF-203", "IF-203 | Struktur Data"},
-            {"UM-101", "UM-101 | Pancasila"},
-            {"IF-505", "IF-505 | Kecerdasan Buatan"},
-            {"IF-401", "IF-401 | Pemrograman Berorientasi Objek"},
-            {"IF-203", "IF-203 | Struktur Data"},
-            {"UM-101", "UM-101 | Pancasila"},
-            {"IF-505", "IF-505 | Kecerdasan Buatan"},
-            {"IF-505", "IF-505 | Kecerdasan Buatan"},
-            {"IF-401", "IF-401 | Pemrograman Berorientasi Objek"},
-            {"IF-203", "IF-203 | Struktur Data"},
-            {"UM-101", "UM-101 | Pancasila"},
-            {"IF-505", "IF-505 | Kecerdasan Buatan"}
-        };
-        
-        for (String[] matkul : dummyMatkul) {
-            String matkulID = matkul[0];
-            String matkulName = matkul[1];
+        for (Matkul matkul : lsMatkul) {
+            String matkulID = matkul.getId_matkul();
+            String matkulName = matkul.getNama_matkul();
             
             // Buat kartu baru
             matkulIndukCardPanel card = new matkulIndukCardPanel(matkulID, matkulName);
@@ -142,7 +117,7 @@ public class AmbilKelasPanel extends javax.swing.JPanel implements Listener {
         setDarkMode(DarkMode.isDarkMode);
 
         // 6. Pindahkan tampilan ke 'panelDetailView'
-        cardLayout.show(this, "card3"); // (Nama ini sudah benar)
+        cardLayout.show(this, "detailCard"); // (Nama ini sudah benar)
         
         kelasDetailContentPanel.revalidate();
         kelasDetailContentPanel.repaint();
@@ -171,7 +146,7 @@ public class AmbilKelasPanel extends javax.swing.JPanel implements Listener {
         // Jika "NO", tidak terjadi apa-apa
     }
     private void showMasterListView() {
-        cardLayout.show(this, "card2"); // "cardMaster" adalah nama panel
+        cardLayout.show(this, "masterCard"); // "cardMaster" adalah nama panel
     }
     private void setupTransparency() {
         this.setOpaque(false);
@@ -257,7 +232,7 @@ public class AmbilKelasPanel extends javax.swing.JPanel implements Listener {
 
         panelMasterList.add(masterScrollPane, java.awt.BorderLayout.CENTER);
 
-        add(panelMasterList, "card2");
+        add(panelMasterList, "masterCard");
 
         panelDetailView.setLayout(new java.awt.BorderLayout());
 
@@ -284,7 +259,7 @@ public class AmbilKelasPanel extends javax.swing.JPanel implements Listener {
 
         panelDetailView.add(detailBottomPanel, java.awt.BorderLayout.SOUTH);
 
-        add(panelDetailView, "card3");
+        add(panelDetailView, "detailCard");
     }// </editor-fold>//GEN-END:initComponents
 
     private void kembaliButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kembaliButtonActionPerformed

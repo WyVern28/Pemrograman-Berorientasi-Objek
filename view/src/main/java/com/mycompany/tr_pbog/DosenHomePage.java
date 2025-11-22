@@ -274,7 +274,7 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
 
     private void classBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classBtnActionPerformed
         // TODO add your handling code here:
-        DaftarKelasPanel DaftarKelas = new DaftarKelasPanel(mainPanel);
+        DasarListKelasDosenMahasiswa DaftarKelas = new DasarListKelasDosenMahasiswa(mainPanel);
         DaftarKelas.loadDataKelas(dosen);
         mainPanel.removeAll();
         mainPanel.add(DaftarKelas, java.awt.BorderLayout.CENTER);

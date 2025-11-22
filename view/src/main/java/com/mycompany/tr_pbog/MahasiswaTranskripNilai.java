@@ -5,6 +5,10 @@
 package com.mycompany.tr_pbog;
 
 import com.mycompany.tr_pbog.DarkMode.Listener;
+import java.util.List;
+import dbCon.Mahasiswa;
+import logic.FiturMahasiswa;
+import DTO.TranskripNilai;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -13,14 +17,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Made
  */
-public class TranskripNilaiPanel extends javax.swing.JPanel implements Listener {
+public class MahasiswaTranskripNilai extends javax.swing.JPanel implements Listener {
 
     /**
      * Creates new form TranskripNilaiPanel
      */
-    public TranskripNilaiPanel() {
+    public MahasiswaTranskripNilai(Mahasiswa mhs) {
         initComponents();
-        loadTranskrip("672024085");
+        loadTranskrip(mhs);
         jScrollPane1.getViewport().setOpaque(false);
         jScrollPane1.setBorder(null);
         jScrollPane1.setOpaque(false);
@@ -28,18 +32,21 @@ public class TranskripNilaiPanel extends javax.swing.JPanel implements Listener 
         setDarkMode(DarkMode.isDarkMode);
     }
     
-    public void loadTranskrip(String mahasiswaID) {
+    public void loadTranskrip(Mahasiswa mhs) {
+        FiturMahasiswa fMahasiswa = new FiturMahasiswa();
+        List<TranskripNilai> lsNilai = fMahasiswa.getTranskripNilaiByMahasiswa(mhs);
+        String[] columnNames = {"No", "Kode", "Matakuliah", "Nilai"};
+    int jumlahMatkul = lsNilai.size();
+    Object[][] data = new Object[jumlahMatkul][4];
+
+    for (int i = 0; i < jumlahMatkul; i++) {
+        TranskripNilai nilai = lsNilai.get(i);
         
-        // --- DUMMY ---
-        String[] columnNames = {"No", "Kode", "Matakuliah", "Sks", "Nilai", "Tahun Ambil"};
-        Object[][] data = {
-            {"1.", "TC511D", "MATEMATIKA DISKRIT", "3", "A", "2024-2025/1"},
-            {"2.", "TC512A", "PENGANTAR TEKNOLOGI INFORMASI", "3", "A", "2024-2025/1"},
-            {"3.", "TC513F", "DASAR-DASAR PEMROGRAMAN", "3", "A", "2024-2025/1"},
-            // ... (sisa data dummy Anda) ...
-            {null, "Total SKS", null, "35", null, null}, 
-            {null, "IPK", null, null, "4", null}   
-        };
+        data[i][0] = (i + 1) + "."; // Nomor urut
+        data[i][1] = nilai.getIdKelas(); // Kode kelas
+        data[i][2] = nilai.getNamaKelas();
+        data[i][3] = nilai.getNilaiAkhir();
+    }
         
         // --- TERAPKAN MODEL KE TABEL ---
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
@@ -58,10 +65,8 @@ public class TranskripNilaiPanel extends javax.swing.JPanel implements Listener 
         javax.swing.table.TableColumnModel cm = transkripTable.getColumnModel();
         cm.getColumn(0).setPreferredWidth(30);  // No
         cm.getColumn(1).setPreferredWidth(100);  // Kode
-        cm.getColumn(2).setPreferredWidth(630); // Matakuliah
-        cm.getColumn(3).setPreferredWidth(100);  // Sks
-        cm.getColumn(4).setPreferredWidth(100);  // Nilai
-        cm.getColumn(5).setPreferredWidth(120); // Tahun Ambil
+        cm.getColumn(2).setPreferredWidth(750); // Matakuliah
+        cm.getColumn(3).setPreferredWidth(200);  // Nilai
         
         // Tampilkan tabel di scroll pane
         jScrollPane1.setViewportView(transkripTable);
