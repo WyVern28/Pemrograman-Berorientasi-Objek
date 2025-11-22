@@ -3,9 +3,9 @@ package logic;
 import java.util.Collections;
 import java.util.List;
 
+import DTO.LihatMahasiswa;
 import dbCon.Dosen;
 import dbCon.Kelas;
-import dbCon.Mahasiswa;
 import repo.KelasRepository;
 import repo.NilaiRepository;
 
@@ -30,11 +30,11 @@ public class FiturDosen {
      * 
      * @param kelas -> object kelas
      * @return -> kalo listMahasiswa ga ada isinya return list kosong
-     * @return -> list pake tipe data mahasiswa dari object
+     * @return -> list pake tipe data LihatMahasiswa dari DTO
      */
-    public List<Mahasiswa> lihatMahasiswa(Kelas kelas){
+    public List<LihatMahasiswa> lihatMahasiswa(Kelas kelas){
         NilaiRepository nilaiRepo = new NilaiRepository();
-        List<Mahasiswa> listMahasiswa = nilaiRepo.getMahasiswaByIdKelas(kelas.getId_kelas());
+        List<LihatMahasiswa> listMahasiswa = nilaiRepo.getMahasiswaByIdKelas(kelas.getId_kelas());
         if(listMahasiswa.isEmpty()){
             return Collections.emptyList();
         }
@@ -49,7 +49,7 @@ public class FiturDosen {
      */
     public void kasihNilai(String idKelas,String nim,double nilai){
         NilaiRepository nilaiRepo = new NilaiRepository();
-        if(nilai < 0 & nilai > 100){
+        if(nilai < 0 || nilai > 100){
             throw new RuntimeException("Nilai tidak boleh Kurang dari 0 dan lebih dari 100");
         }
         if(!nilaiRepo.updateNilai(idKelas, nim, nilai)){
