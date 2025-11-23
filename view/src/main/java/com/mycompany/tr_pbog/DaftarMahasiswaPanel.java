@@ -53,7 +53,7 @@ public class DaftarMahasiswaPanel extends javax.swing.JPanel implements Listener
             String studentID = mahasiswa.getNim();
             String studentName = mahasiswa.getNama();
             System.out.println("DEBUG: Menambahkan Mahasiswa - ID: " + studentID + ", Nama: " + studentName);
-            MahasiswaNilaiCardPanel card = new MahasiswaNilaiCardPanel(studentID, studentName, "");
+            MahasiswaNilaiCardPanel card = new MahasiswaNilaiCardPanel(studentID, studentName, kelas.getId_kelas());
             studentListContentPanel.add(card);
         }
         

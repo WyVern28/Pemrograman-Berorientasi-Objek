@@ -16,24 +16,17 @@ import javax.swing.border.Border;
 public class MahasiswaNilaiCardPanel extends javax.swing.JPanel implements Listener {
 
     private String studentID;
+    private String idKelas;
     private boolean isEditing = false; // Status untuk melacak mode edit
     private Border defaultTextFieldBorder; // Menyimpan border asli
     /**
      * Creates new form MahasiswaNilaiCardPanel
      */
-    public MahasiswaNilaiCardPanel(String studentID, String studentName, String initialNilai) {
+    public MahasiswaNilaiCardPanel(String studentID, String studentName, String idKelas) {
         initComponents();
+        this.idKelas = idKelas;
         this.studentID = studentID;
         this.namaMahasiswaLabel.setText(studentID + " - " + studentName);
-        
-        if (initialNilai == null || initialNilai.isEmpty() || initialNilai.equals("-")) {
-            this.nilaiField.setText("-");
-        } else {
-            this.nilaiField.setText(initialNilai);
-        }
-        
-        // Simpan border default (yang null/No Border)
-        this.defaultTextFieldBorder = this.nilaiField.getBorder();
         setDarkMode(DarkMode.isDarkMode);
     }
     /**
@@ -47,42 +40,28 @@ public class MahasiswaNilaiCardPanel extends javax.swing.JPanel implements Liste
 
         infoPanel = new javax.swing.JPanel();
         namaMahasiswaLabel = new javax.swing.JLabel();
-        nilaiPanel = new javax.swing.JPanel();
-        nilaiLabel = new javax.swing.JLabel();
-        nilaiField = new javax.swing.JTextField();
         editButton = new javax.swing.JButton();
 
+        setMaximumSize(new java.awt.Dimension(400, 50));
         setLayout(new java.awt.BorderLayout());
 
         infoPanel.setAlignmentX(0.0F);
-        infoPanel.setLayout(new javax.swing.BoxLayout(infoPanel, javax.swing.BoxLayout.Y_AXIS));
+        infoPanel.setOpaque(false);
+        infoPanel.setLayout(new java.awt.BorderLayout());
 
         namaMahasiswaLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        namaMahasiswaLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         namaMahasiswaLabel.setText("jLabel1");
-        infoPanel.add(namaMahasiswaLabel);
+        namaMahasiswaLabel.setAlignmentY(0.0F);
+        namaMahasiswaLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        infoPanel.add(namaMahasiswaLabel, java.awt.BorderLayout.CENTER);
 
-        nilaiPanel.setAlignmentX(0.0F);
-        nilaiPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-
-        nilaiLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        nilaiLabel.setText("Nilai: ");
-        nilaiPanel.add(nilaiLabel);
-
-        nilaiField.setEditable(false);
-        nilaiField.setColumns(5);
-        nilaiField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        nilaiField.setText("-");
-        nilaiField.setBorder(null);
-        nilaiField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nilaiFieldActionPerformed(evt);
-            }
-        });
-        nilaiPanel.add(nilaiField);
-
-        infoPanel.add(nilaiPanel);
-
+        setLayout(new java.awt.BorderLayout());
         add(infoPanel, java.awt.BorderLayout.CENTER);
+        java.awt.Dimension fixedSize = new java.awt.Dimension(2147483647, 80);
+        setMaximumSize(fixedSize);
+        setMinimumSize(new java.awt.Dimension(300, 80));
+        setPreferredSize(new java.awt.Dimension(500, 80));
 
         editButton.setText("Input Nilai");
         editButton.setPreferredSize(new java.awt.Dimension(120, 23));
@@ -92,6 +71,8 @@ public class MahasiswaNilaiCardPanel extends javax.swing.JPanel implements Liste
             }
         });
         add(editButton, java.awt.BorderLayout.EAST);
+
+        getAccessibleContext().setAccessibleName("nilai");
     }// </editor-fold>//GEN-END:initComponents
 
     @Override
@@ -99,29 +80,16 @@ public class MahasiswaNilaiCardPanel extends javax.swing.JPanel implements Liste
         // Tentukan warna
         Color bgColor = isDark ? new Color(50, 50, 52) : Color.WHITE;
         Color textColor = isDark ? Color.WHITE : Color.BLACK;
-        Color fieldBg = isDark ? new Color(60, 60, 60) : new Color(240, 240, 240);
-
+        
         this.setBackground(bgColor);
         this.infoPanel.setBackground(bgColor);
-        this.nilaiPanel.setBackground(bgColor);
         
         this.namaMahasiswaLabel.setForeground(textColor);
-        this.nilaiLabel.setForeground(textColor);
-        
-        // Atur warna text field
-        this.nilaiField.setBackground(fieldBg);
-        this.nilaiField.setForeground(textColor);
-        // Atur warna kursor (caret)
-        this.nilaiField.setCaretColor(textColor); 
     }
     
-    private void nilaiFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nilaiFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nilaiFieldActionPerformed
-
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         // TODO add your handling code here:
-        inputNilai inpt = new inputNilai();
+        inputNilai inpt = new inputNilai(this.studentID, this.idKelas);
         inpt.setVisible(true);
     }//GEN-LAST:event_editButtonActionPerformed
 
@@ -130,8 +98,5 @@ public class MahasiswaNilaiCardPanel extends javax.swing.JPanel implements Liste
     private javax.swing.JButton editButton;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JLabel namaMahasiswaLabel;
-    private javax.swing.JTextField nilaiField;
-    private javax.swing.JLabel nilaiLabel;
-    private javax.swing.JPanel nilaiPanel;
     // End of variables declaration//GEN-END:variables
 }

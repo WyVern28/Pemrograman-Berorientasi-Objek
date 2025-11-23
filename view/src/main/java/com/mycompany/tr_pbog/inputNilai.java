@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.tr_pbog;
-
+import logic.FiturDosen;
+import javax.swing.JOptionPane;
 import com.mycompany.tr_pbog.DarkMode.Listener;
 import java.awt.Color;
 
@@ -18,11 +19,17 @@ public class inputNilai extends javax.swing.JFrame implements Listener {
     /**
      * Creates new form inputNilai
      */
-    public inputNilai() {
+    private String nim;
+    private String idKelas;
+    public inputNilai(String nim, String idKelas) {
         initComponents();
+        this.nim = nim;
+        this.idKelas = idKelas;
         setDarkMode(DarkMode.isDarkMode);
+        judulLabel.setText("INPUT NILAI - " + nim);
     }
     
+
     @Override
     public void setDarkMode(boolean isDark) {
         
@@ -131,6 +138,23 @@ public class inputNilai extends javax.swing.JFrame implements Listener {
 
     private void okBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okBtnActionPerformed
         // TODO add your handling code here:
+        String nilaiText = inputNilai.getText().trim();
+        if(nilaiText.isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Nilai tidak boleh kosong", "Nilai", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            double nilai = Double.parseDouble(nilaiText);
+            if(nilai <0 || nilai > 100){
+                JOptionPane.showMessageDialog(rootPane, "Nilai harus 0-100", "Nilai", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            FiturDosen fDosen = new FiturDosen();
+            fDosen.kasihNilai(idKelas, nim, nilai);
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "ada error, mohon coba lagi", "Nilai", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_okBtnActionPerformed
 
     private void batalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batalBtnActionPerformed
@@ -141,27 +165,6 @@ public class inputNilai extends javax.swing.JFrame implements Listener {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new inputNilai().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton batalBtn;

@@ -12,11 +12,9 @@ import dbCon.Kelas;
 import dbCon.Mahasiswa;
 import logic.FiturDosen;
 import logic.FiturMahasiswa;
-
-import javax.swing.JPanel; // <-- IMPORT BARU
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.awt.Font; // <-- IMPORT BARU
 
 public class DasarListKelasDosenMahasiswa extends javax.swing.JPanel implements Listener {
 
@@ -30,14 +28,11 @@ public class DasarListKelasDosenMahasiswa extends javax.swing.JPanel implements 
     public DasarListKelasDosenMahasiswa(JPanel mainPanel) {
         initComponents();
         this.mainPanel = mainPanel; // Simpan mainPanel
-        
-        // --- KODE TRANSPARANSI ---
+        //transparansi
         jScrollPane1.getViewport().setOpaque(false);
         jScrollPane1.setBorder(null);
         jScrollPane1.setOpaque(false);
         ContentPanel.setOpaque(false);
-        
-        // Atur transparansi untuk komponen tabel
         if (jScrollPane3 != null) {
             jScrollPane3.getViewport().setOpaque(false);
             jScrollPane3.setBorder(null);
@@ -46,15 +41,13 @@ public class DasarListKelasDosenMahasiswa extends javax.swing.JPanel implements 
         if (tableContainerPanel != null) {
             tableContainerPanel.setOpaque(false);
         }
-        // -------------------------
-        
-        setDarkMode(DarkMode.isDarkMode); // Atur warna awal
+        setDarkMode(DarkMode.isDarkMode);
     }
 
     @Override
     public void setDarkMode(boolean isDark) {
         for (java.awt.Component card : ContentPanel.getComponents()) {
-            if (card instanceof Listener) { // Cek apakah kartu juga 'Listener'
+            if (card instanceof Listener) {
                 ((Listener) card).setDarkMode(isDark);
             }
         }
