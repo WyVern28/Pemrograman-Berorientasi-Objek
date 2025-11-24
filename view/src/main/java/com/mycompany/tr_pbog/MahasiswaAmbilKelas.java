@@ -53,7 +53,7 @@ public class MahasiswaAmbilKelas extends javax.swing.JPanel implements Listener 
         kelasDetailContentPanel.removeAll();
         String[][] data = null;
         for (RegistrasiKelas kelas : lstKelas){
-            data = new String[][] {{" " + kelas.getId_kelas(), kelas.getNama_kelas() +"   |   " + kelas.getNamaDosen() + "      " + "Kapasitas: " + kelas.getKapasitas()}};
+            data = new String[][] {{kelas.getId_kelas(), kelas.getNama_kelas() +"   |   " + kelas.getNamaDosen() + "      " + "Kapasitas: " + kelas.getKapasitas()}};
         }
         
         for (String[] kelas : data) {
@@ -66,11 +66,8 @@ public class MahasiswaAmbilKelas extends javax.swing.JPanel implements Listener 
             kelasDetailContentPanel.add(card);
         }
 
-        // 5. Terapkan dark mode
         setDarkMode(DarkMode.isDarkMode);
-
-        // 6. Pindahkan tampilan ke 'panelDetailView'
-        cardLayout.show(this, "detailCard"); // (Nama ini sudah benar)
+        cardLayout.show(this, "detailCard");
         
         kelasDetailContentPanel.revalidate();
         kelasDetailContentPanel.repaint();
@@ -83,15 +80,24 @@ public class MahasiswaAmbilKelas extends javax.swing.JPanel implements Listener 
     private void handleAmbilKelas(String kodeKelas, String nim) {
         FiturMahasiswa fMahasiswa = new FiturMahasiswa();
         boolean adaKelas = fMahasiswa.cekAdaKelas(kodeKelas);
-        System.out.println(adaKelas);
+        System.out.println("Kode Kelas: " + kodeKelas);
+        System.out.println("nilai adaKelas: " + adaKelas);
         if (adaKelas) {        
             int response = JOptionPane.showConfirmDialog(this, 
                          "Anda yakin ingin mengambil kelas:\n" + kodeKelas, "Konfirmasi Pengambilan", JOptionPane.YES_NO_OPTION);
             if (response == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(this, 
-                    "Berhasil mengambil " + kodeKelas, 
-                    "Registrasi Berhasil", JOptionPane.INFORMATION_MESSAGE);
-                showMasterListView();
+                boolean cekTabrakan = fMahasiswa.cekTabrakanJadwal(nim, kodeKelas);
+                System.out.println("Cek tabrakan: " + cekTabrakan);
+                if (!cekTabrakan) {
+                        fMahasiswa.regisKelas(nim, kodeKelas);
+                        JOptionPane.showMessageDialog(this, 
+                            "Berhasil mengambil " + kodeKelas, 
+                            "Registrasi Berhasil", JOptionPane.INFORMATION_MESSAGE);
+                        showMasterListView();   
+                } else {
+                    JOptionPane.showMessageDialog(this, "Kelas Tabrakan dengan kelas lain", "Registrasi Kelas", JOptionPane.INFORMATION_MESSAGE, null);
+                    JOptionPane.showMessageDialog(this, cekTabrakan);
+                }
             }
         } else {
             JOptionPane.showMessageDialog(this, "Kelas penuh", "Registrasi Kelas", JOptionPane.INFORMATION_MESSAGE, null);
@@ -99,7 +105,7 @@ public class MahasiswaAmbilKelas extends javax.swing.JPanel implements Listener 
         
     }
     private void showMasterListView() {
-        cardLayout.show(this, "masterCard"); // "cardMaster" adalah nama panel
+        cardLayout.show(this, "masterCard");
     }
     private void setupTransparency() {
         this.setOpaque(false);
