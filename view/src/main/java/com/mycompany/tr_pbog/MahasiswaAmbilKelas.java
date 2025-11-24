@@ -1,60 +1,38 @@
 package com.mycompany.tr_pbog;
 
 import com.mycompany.tr_pbog.DarkMode.Listener;
-import java.awt.CardLayout; // <-- Import CardLayout
+import java.awt.CardLayout;
 import java.awt.Color;
 import dbCon.Matkul;
 import logic.FiturMahasiswa;
 import java.util.List;
 import dbCon.Mahasiswa;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 public class MahasiswaAmbilKelas extends javax.swing.JPanel implements Listener {
 
-    private CardLayout cardLayout; // Variabel untuk mengontrol CardLayout
+    private CardLayout cardLayout;
 
     public MahasiswaAmbilKelas(Mahasiswa mhs) {
         initComponents();
-        
-        // 1. Dapatkan CardLayout (Anda sudah punya ini)
         cardLayout = (CardLayout) (this.getLayout());
-        
-        // --- TAMBAHKAN BARIS INI ---
-        // 2. Tampilkan kartu 'master' secara default
-        // "card2" adalah nama yang Anda berikan untuk 'panelMasterList'
-        // di dalam initComponents() Anda
-        cardLayout.show(this, "masterCard"); 
-        // ---------------------------
-        
-        // 3. Setup transparansi
+        cardLayout.show(this, "masterCard");
         setupTransparency();
-        
-        // 4. Muat daftar mata kuliah induk
         loadMatkulMasterList(mhs);
-        
-        // 5. Atur warna awal
         setDarkMode(DarkMode.isDarkMode);
     }
 
     private void loadMatkulMasterList(Mahasiswa mhs) {
-        matkulListContentPanel.removeAll(); // Bersihkan list
+        matkulListContentPanel.removeAll();
         FiturMahasiswa fMahasiswa = new FiturMahasiswa();
         List<Matkul> lsMatkul = fMahasiswa.getMatkul(mhs);
         
         for (Matkul matkul : lsMatkul) {
             String matkulID = matkul.getId_matkul();
             String matkulName = matkul.getNama_matkul();
-            
-            // Buat kartu baru
             matkulIndukCardPanel card = new matkulIndukCardPanel(matkulID, matkulName);
-            
-            // PENTING: Tambahkan listener ke tombol 'Pilih'
             card.getPilihButton().addActionListener(e -> {
-                // Saat 'Pilih' diklik, muat dan tampilkan detail
-                showKelasDetailView(matkulID, matkulName);
+                showKelasDetailView(matkulID, matkulName, mhs);
             });
             
             matkulListContentPanel.add(card);
@@ -63,20 +41,16 @@ public class MahasiswaAmbilKelas extends javax.swing.JPanel implements Listener 
         matkulListContentPanel.revalidate();
         matkulListContentPanel.repaint();
     }
-    
-    /**
-     * Memuat tabel kelas detail (Tampilan 2)
-     */
-// Ganti seluruh metode ini
-    private void showKelasDetailView(String matkulID, String matkulName) {
-        // 1. Atur judul
+    //daftar kelas dalam matkul
+    private void showKelasDetailView(String matkulID, String matkulName, Mahasiswa mhs) {
         detailScrollPane.getViewport().setOpaque(false);
+        FiturMahasiswa fMahasiswa = new FiturMahasiswa();
+        boolean bisaAmbil = fMahasiswa.bisaAmbilMatkul(mhs.getNim(), matkulID);
+        if (bisaAmbil) {
+        
         detailJudulLabel.setText("Pilih Kelas untuk: " + matkulName);
-        
-        // 2. Bersihkan daftar lama
         kelasDetailContentPanel.removeAll();
-        
-        // 3. Buat Dummy Data (berdasarkan matkulID yang diklik)
+
         String[][] data;
         if (matkulID.equals("IF-401")) {
             data = new String[][] {
@@ -121,6 +95,9 @@ public class MahasiswaAmbilKelas extends javax.swing.JPanel implements Listener 
         
         kelasDetailContentPanel.revalidate();
         kelasDetailContentPanel.repaint();
+        } else {
+            JOptionPane.showMessageDialog(this, "Sudah ambil kelas", matkulName, JOptionPane.INFORMATION_MESSAGE, null);
+        }
     }
     
     /**

@@ -248,11 +248,8 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         // TODO add your handling code here:
         MahasiswaAmbilKelas panelAmbilKelas = new MahasiswaAmbilKelas(mhs);
         mainPanel.removeAll();
-        //Tambahkan panel "Ambil Kelas" baru ke mainPanel
-        // (Pastikan mainPanel Anda menggunakan BorderLayout)
         mainPanel.add(panelAmbilKelas, java.awt.BorderLayout.CENTER);
-
-        //Muat ulang (refresh) mainPanel agar perubahan terlihat
+        //refresh main panel
         mainPanel.revalidate();
         mainPanel.repaint();
     }//GEN-LAST:event_ambilKelasBtnActionPerformed
@@ -268,14 +265,10 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
             darkModeToggle.setText("Dark Mode");
         }
         if (mainPanel.getComponentCount() > 0) {
-            
-            // Ambil panel yang sedang aktif
             java.awt.Component activePanel = mainPanel.getComponent(0);
             
-            // Cek apakah panel itu mendengarkan
             if (activePanel instanceof DarkMode.Listener) {
                 
-                // Panggil fungsi setDarkMode() milik panel aktif itu!
                 ((DarkMode.Listener) activePanel).setDarkMode(darkModeToggle.isSelected());
             }
         }
