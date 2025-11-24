@@ -15,7 +15,6 @@ public class MatkulRepository {
         String sql = """
                 select * from matkul
                 inner join prodi on matkul.id_prodi = prodi.id_prodi
-                inner join mahasiswa on prodi.id_prodi = mahasiswa.id_prodi
                 where matkul.id_prodi = ?
                 """;
         List<Matkul> listMatkul = new ArrayList<>();
