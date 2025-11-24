@@ -4,6 +4,7 @@ import com.mycompany.tr_pbog.DarkMode.Listener;
 import java.awt.CardLayout;
 import java.awt.Color;
 import dbCon.Matkul;
+import DTO.RegistrasiKelas;
 import logic.FiturMahasiswa;
 import java.util.List;
 import dbCon.Mahasiswa;
@@ -32,7 +33,7 @@ public class MahasiswaAmbilKelas extends javax.swing.JPanel implements Listener 
             String matkulName = matkul.getNama_matkul();
             matkulIndukCardPanel card = new matkulIndukCardPanel(matkulID, matkulName);
             card.getPilihButton().addActionListener(e -> {
-                showKelasDetailView(matkulID, matkulName, mhs);
+                showKelasDetailView(matkul, mhs);
             });
             
             matkulListContentPanel.add(card);
@@ -42,48 +43,26 @@ public class MahasiswaAmbilKelas extends javax.swing.JPanel implements Listener 
         matkulListContentPanel.repaint();
     }
     //daftar kelas dalam matkul
-    private void showKelasDetailView(String matkulID, String matkulName, Mahasiswa mhs) {
+    private void showKelasDetailView(Matkul matkul, Mahasiswa mhs) {
         detailScrollPane.getViewport().setOpaque(false);
         FiturMahasiswa fMahasiswa = new FiturMahasiswa();
-        boolean bisaAmbil = fMahasiswa.bisaAmbilMatkul(mhs.getNim(), matkulID);
+        boolean bisaAmbil = fMahasiswa.bisaAmbilMatkul(mhs.getNim(), matkul.getId_matkul());
         if (bisaAmbil) {
-        
-        detailJudulLabel.setText("Pilih Kelas untuk: " + matkulName);
+        List<RegistrasiKelas> lstKelas = fMahasiswa.getKelas(matkul);
+        detailJudulLabel.setText("Pilih Kelas untuk: " + matkul.getNama_matkul());
         kelasDetailContentPanel.removeAll();
-
-        String[][] data;
-        if (matkulID.equals("IF-401")) {
-            data = new String[][] {
-                {"IF-401-A", "Senin, 08:00-10:30, Ruang F-404, Dosen: Prof. Budi"},
-                {"IF-401-B", "Selasa, 13:00-15:30, Ruang F-405, Dosen: Prof. Budi"}
-            };
-        } else if (matkulID.equals("IF-203")) {
-            data = new String[][] {
-                {"IF-203-A", "Selasa, 08:00-10:30, Ruang G-101, Dosen: Dr. Ani"},
-                {"IF-203-B", "Rabu, 13:00-15:30, Ruang G-101, Dosen: Dr. Ani"}
-            };
-        } else {
-            data = new String[][] {
-                {matkulID + "-A", "Kamis, 10:00-12:30, Ruang H-101, Dosen: Dosen X"}
-            };
+        String[][] data = null;
+        for (RegistrasiKelas kelas : lstKelas){
+            data = new String[][] {{" " + kelas.getId_kelas(), kelas.getNama_kelas() +"   |   " + kelas.getNamaDosen() + "      " + "Kapasitas: " + kelas.getKapasitas()}};
         }
         
-        // 4. Loop dan Buat Kartu Detail
         for (String[] kelas : data) {
             String kodeKelas = kelas[0];
             String infoText = kelas[1];
-            
-            // Buat kartu baru
             kelasDetailCardPanel card = new kelasDetailCardPanel(kodeKelas, infoText);
-            
-            // --- INI KUNCINYA ---
-            // Tambahkan listener ke tombol "Ambil" di kartu
             card.getAmbilButton().addActionListener(e -> {
-                // Panggil fungsi baru untuk menangani pengambilan
-                handleAmbilKelas(kodeKelas);
+                handleAmbilKelas(kodeKelas, mhs.getNim());
             });
-            
-            // Tambahkan kartu ke panel (yang di dalam scroll pane)
             kelasDetailContentPanel.add(card);
         }
 
@@ -96,31 +75,28 @@ public class MahasiswaAmbilKelas extends javax.swing.JPanel implements Listener 
         kelasDetailContentPanel.revalidate();
         kelasDetailContentPanel.repaint();
         } else {
-            JOptionPane.showMessageDialog(this, "Sudah ambil kelas", matkulName, JOptionPane.INFORMATION_MESSAGE, null);
+            JOptionPane.showMessageDialog(this, "Sudah ambil kelas", matkul.getNama_matkul(), JOptionPane.INFORMATION_MESSAGE, null);
         }
     }
     
-    /**
-     * Menangani logika saat tombol "Ambil" di kartu detail diklik.
-     * @param kodeKelas ID kelas yang dipilih (misal: "IF-401-A")
-     */
-    private void handleAmbilKelas(String kodeKelas) {
-        String konfirmasi = "Anda yakin ingin mengambil kelas:\n" + kodeKelas;
-        
-        int response = JOptionPane.showConfirmDialog(this, 
-                         konfirmasi, "Konfirmasi Pengambilan", JOptionPane.YES_NO_OPTION);
-        
-        if (response == JOptionPane.YES_OPTION) {
-            // TODO: Kirim 'kodeKelas' ke database
-            
-            JOptionPane.showMessageDialog(this, 
-                "Berhasil mengambil " + kodeKelas, 
-                "Registrasi Berhasil", JOptionPane.INFORMATION_MESSAGE);
-            
-            // Kembali ke halaman master
-            showMasterListView();
+    // Menangani logika saat tombol "Ambil" di kartu detail diklik.
+    private void handleAmbilKelas(String kodeKelas, String nim) {
+        FiturMahasiswa fMahasiswa = new FiturMahasiswa();
+        boolean adaKelas = fMahasiswa.cekAdaKelas(kodeKelas);
+        System.out.println(adaKelas);
+        if (adaKelas) {        
+            int response = JOptionPane.showConfirmDialog(this, 
+                         "Anda yakin ingin mengambil kelas:\n" + kodeKelas, "Konfirmasi Pengambilan", JOptionPane.YES_NO_OPTION);
+            if (response == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(this, 
+                    "Berhasil mengambil " + kodeKelas, 
+                    "Registrasi Berhasil", JOptionPane.INFORMATION_MESSAGE);
+                showMasterListView();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Kelas penuh", "Registrasi Kelas", JOptionPane.INFORMATION_MESSAGE, null);
         }
-        // Jika "NO", tidak terjadi apa-apa
+        
     }
     private void showMasterListView() {
         cardLayout.show(this, "masterCard"); // "cardMaster" adalah nama panel
