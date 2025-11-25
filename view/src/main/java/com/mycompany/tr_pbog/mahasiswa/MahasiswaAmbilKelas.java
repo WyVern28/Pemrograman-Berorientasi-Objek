@@ -1,10 +1,11 @@
-package com.mycompany.tr_pbog;
+package com.mycompany.tr_pbog.mahasiswa;
 
 import com.mycompany.tr_pbog.DarkMode.Listener;
 import java.awt.CardLayout;
 import java.awt.Color;
 import dbCon.Matkul;
 import DTO.RegistrasiKelas;
+import com.mycompany.tr_pbog.DarkMode;
 import logic.FiturMahasiswa;
 import java.util.List;
 import dbCon.Mahasiswa;
@@ -75,8 +76,6 @@ public class MahasiswaAmbilKelas extends javax.swing.JPanel implements Listener 
             JOptionPane.showMessageDialog(this, "Sudah ambil kelas", matkul.getNama_matkul(), JOptionPane.INFORMATION_MESSAGE, null);
         }
     }
-    
-    // Menangani logika saat tombol "Ambil" di kartu detail diklik.
     private void handleAmbilKelas(String kodeKelas, String nim) {
         FiturMahasiswa fMahasiswa = new FiturMahasiswa();
         boolean adaKelas = fMahasiswa.cekAdaKelas(kodeKelas);
@@ -96,7 +95,6 @@ public class MahasiswaAmbilKelas extends javax.swing.JPanel implements Listener 
                         showMasterListView();   
                 } else {
                     JOptionPane.showMessageDialog(this, "Kelas Tabrakan dengan kelas lain", "Registrasi Kelas", JOptionPane.INFORMATION_MESSAGE, null);
-                    JOptionPane.showMessageDialog(this, cekTabrakan);
                 }
             }
         } else {
@@ -122,13 +120,8 @@ public class MahasiswaAmbilKelas extends javax.swing.JPanel implements Listener 
         detailScrollPane.getViewport().setOpaque(false);
         detailScrollPane.setBorder(null);
     }
-
-    /**
-     * Metode dari Interface DarkMode.Listener
-     */
     @Override
     public void setDarkMode(boolean isDark) {
-        // Tentukan warna
         Color bgColor = isDark ? new Color(38, 38, 40) : new Color(249, 248, 246);
         Color cardBgColor = isDark ? new Color(50, 50, 52) : Color.WHITE;
         Color textColor = isDark ? Color.WHITE : Color.BLACK;
@@ -147,8 +140,6 @@ public class MahasiswaAmbilKelas extends javax.swing.JPanel implements Listener 
         detailScrollPane.getViewport().setBackground(bgColor);
         
         detailJudulLabel.setForeground(textColor);
-        
-        // Atur warna untuk Kartu (jika ada)
         for (java.awt.Component card : matkulListContentPanel.getComponents()) {
             if (card instanceof Listener) {
                 ((Listener) card).setDarkMode(isDark);

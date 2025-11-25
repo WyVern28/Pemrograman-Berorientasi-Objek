@@ -1,5 +1,8 @@
 package com.mycompany.tr_pbog;
 
+import com.mycompany.tr_pbog.mahasiswa.MahasiswaHomePage;
+import com.mycompany.tr_pbog.dosen.DosenHomePage;
+import com.mycompany.tr_pbog.admin.AdminHomePage;
 import java.awt.Color;
 
 import javax.swing.JOptionPane;

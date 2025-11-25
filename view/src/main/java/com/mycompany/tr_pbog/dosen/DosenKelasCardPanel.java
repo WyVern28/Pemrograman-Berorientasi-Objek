@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.tr_pbog;
+package com.mycompany.tr_pbog.dosen;
 
+import com.mycompany.tr_pbog.DarkMode;
 import com.mycompany.tr_pbog.DarkMode.Listener;
 import java.awt.Color;
 import javax.swing.JButton;

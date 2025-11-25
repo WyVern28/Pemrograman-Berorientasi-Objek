@@ -1,47 +1,53 @@
-package com.mycompany.tr_pbog;
+package com.mycompany.tr_pbog.admin;
 
+import com.mycompany.tr_pbog.DarkMode;
+import com.mycompany.tr_pbog.loginPage;
 import java.awt.Color;
 import javax.swing.JFrame;
-import dbCon.Dosen;
+import javax.swing.BorderFactory;
 
-public class DosenHomePage extends javax.swing.JFrame {
+public class AdminHomePage extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DosenHomePage.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminHomePage.class.getName());
 
     /**
      * Creates new form DosenHomePage
      */
-    private Dosen dosen;
+    
 private void setButtonIcon(javax.swing.JButton button, String path, int width, int height) {
-    try {
+        try {
 
-        javax.swing.ImageIcon originalIcon = new javax.swing.ImageIcon(getClass().getResource(path));
+            javax.swing.ImageIcon originalIcon = new javax.swing.ImageIcon(getClass().getResource(path));
 
-        // Ubah ukuran ikon
-        java.awt.Image originalImage = originalIcon.getImage();
-        java.awt.Image resizedImage = originalImage.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
+            // Ubah ukuran ikon
+            java.awt.Image originalImage = originalIcon.getImage();
+            java.awt.Image resizedImage = originalImage.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
 
-        // menampilkan ikon baru yang sudah di-resize
-        button.setIcon(new javax.swing.ImageIcon(resizedImage));
-        
-    } catch (Exception e) {
-        System.err.println("Error loading icon: " + path);
-        // Biarkan tombolnya tanpa ikon jika gambar tidak ditemukan
+            // menampilkan ikon baru yang sudah di-resize
+            button.setIcon(new javax.swing.ImageIcon(resizedImage));
+
+        } catch (Exception e) {
+            System.err.println("Error loading icon: " + path);
+            // Biarkan tombolnya tanpa ikon jika gambar tidak ditemukan
+        }
     }
-}
-    public DosenHomePage(Dosen dosen) {
-        this.dosen = dosen;
+    public AdminHomePage() {
         initComponents();
         setDarkMode(DarkMode.isDarkMode);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         setButtonIcon(dashboardBtn, "/image/dashboard.png", 24, 24);
-        setButtonIcon(classBtn, "/image/teaching.png", 24, 24);
+        setButtonIcon(dosenBtn, "/image/teacher.png", 24, 24);
+        setButtonIcon(mahasiswaBtn, "/image/graduated.png", 24, 24);
+        setButtonIcon(matkulBtn, "/image/higher-education.png", 24, 24);
         dashboardBtnActionPerformed(null);
     }
+    
+
     
     private void setDarkMode(boolean isDark) {
         
         if(isDark){
+            navTitlePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
             BackPanel.setBackground(new Color(38, 38, 40));
             headerPanel.setBackground(new Color(50, 50, 52));
             mainPanel.setBackground(new Color(38, 38, 40));
@@ -50,7 +56,10 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
             sidebarMenuPanel.setBackground(new Color(50, 50, 52));
             navTitle.setForeground(Color.WHITE);
             mainPanel.setForeground(Color.WHITE);
+            manajemenAkunLabel.setForeground(Color.WHITE);
+            manajemenAkademikLabel.setForeground(Color.WHITE);
         }else{
+            navTitlePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));            
             BackPanel.setBackground(new Color(249, 248, 246));
             headerPanel.setBackground(new Color(217, 207, 199));
             mainPanel.setBackground(new Color(249, 248, 246));
@@ -59,6 +68,9 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
             sidebarMenuPanel.setBackground(new Color(239, 233, 227));
             navTitle.setForeground(Color.BLACK);
             mainPanel.setForeground(Color.BLACK);
+            manajemenAkunLabel.setForeground(Color.BLACK);
+            manajemenAkademikLabel.setForeground(Color.BLACK);
+            
         }
     }    
     /**
@@ -78,7 +90,11 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         navTitle = new javax.swing.JLabel();
         sidebarMenuPanel = new javax.swing.JPanel();
         dashboardBtn = new javax.swing.JButton();
-        classBtn = new javax.swing.JButton();
+        manajemenAkunLabel = new javax.swing.JLabel();
+        dosenBtn = new javax.swing.JButton();
+        mahasiswaBtn = new javax.swing.JButton();
+        manajemenAkademikLabel = new javax.swing.JLabel();
+        matkulBtn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
         darkModeToggle = new javax.swing.JToggleButton();
         mainPanel = new javax.swing.JPanel();
@@ -95,23 +111,23 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         headerPanel.setLayout(headerPanelLayout);
         headerPanelLayout.setHorizontalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(siasatLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1101, Short.MAX_VALUE))
+            .addGroup(headerPanelLayout.createSequentialGroup()
+                .addComponent(siasatLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1064, Short.MAX_VALUE))
         );
         headerPanelLayout.setVerticalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerPanelLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(siasatLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerPanelLayout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(siasatLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         BackPanel.add(headerPanel, java.awt.BorderLayout.PAGE_START);
 
         sidebarPanel.setBackground(new java.awt.Color(0, 255, 255));
         sidebarPanel.setPreferredSize(new java.awt.Dimension(200, 338));
+        sidebarPanel.setLayout(new java.awt.BorderLayout());
 
         navTitlePanel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         navTitlePanel.setOpaque(false);
@@ -125,15 +141,17 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         navTitlePanel.setLayout(navTitlePanelLayout);
         navTitlePanelLayout.setHorizontalGroup(
             navTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(navTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+            .addComponent(navTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         navTitlePanelLayout.setVerticalGroup(
             navTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(navTitlePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(navTitle)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        sidebarPanel.add(navTitlePanel, java.awt.BorderLayout.PAGE_START);
 
         sidebarMenuPanel.setPreferredSize(new java.awt.Dimension(200, 100));
 
@@ -144,10 +162,30 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
             }
         });
 
-        classBtn.setText("Kelas Saya");
-        classBtn.addActionListener(new java.awt.event.ActionListener() {
+        manajemenAkunLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        manajemenAkunLabel.setText("Manajemen Akun");
+
+        dosenBtn.setText("Dosen");
+        dosenBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                classBtnActionPerformed(evt);
+                dosenBtnActionPerformed(evt);
+            }
+        });
+
+        mahasiswaBtn.setText("Mahasiswa");
+        mahasiswaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mahasiswaBtnActionPerformed(evt);
+            }
+        });
+
+        manajemenAkademikLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        manajemenAkademikLabel.setText("Manajemen Akademik");
+
+        matkulBtn.setText("Kelola Matkul");
+        matkulBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                matkulBtnActionPerformed(evt);
             }
         });
 
@@ -169,51 +207,44 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         sidebarMenuPanel.setLayout(sidebarMenuPanelLayout);
         sidebarMenuPanelLayout.setHorizontalGroup(
             sidebarMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dashboardBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(manajemenAkunLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(dosenBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(mahasiswaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(manajemenAkademikLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(matkulBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(sidebarMenuPanelLayout.createSequentialGroup()
-                .addGroup(sidebarMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dashboardBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(classBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(sidebarMenuPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(darkModeToggle)))
-                .addGap(6, 6, 6))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebarMenuPanelLayout.createSequentialGroup()
-                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(darkModeToggle))
         );
         sidebarMenuPanelLayout.setVerticalGroup(
             sidebarMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidebarMenuPanelLayout.createSequentialGroup()
                 .addGap(1, 1, 1)
-                .addComponent(dashboardBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dashboardBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
-                .addComponent(classBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(manajemenAkunLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(dosenBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(mahasiswaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(manajemenAkademikLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(matkulBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
+                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(darkModeToggle)
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout sidebarPanelLayout = new javax.swing.GroupLayout(sidebarPanel);
-        sidebarPanel.setLayout(sidebarPanelLayout);
-        sidebarPanelLayout.setHorizontalGroup(
-            sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(navTitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(sidebarMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        sidebarPanelLayout.setVerticalGroup(
-            sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sidebarPanelLayout.createSequentialGroup()
-                .addComponent(navTitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(sidebarMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        sidebarPanel.add(sidebarMenuPanel, java.awt.BorderLayout.CENTER);
 
         BackPanel.add(sidebarPanel, java.awt.BorderLayout.WEST);
 
         mainPanel.setBackground(new java.awt.Color(51, 255, 51));
-        mainPanel.setOpaque(false);
         mainPanel.setLayout(new java.awt.BorderLayout());
         BackPanel.add(mainPanel, java.awt.BorderLayout.CENTER);
 
@@ -232,26 +263,25 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
     }// </editor-fold>//GEN-END:initComponents
         
     
+    private void dosenBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dosenBtnActionPerformed
+        mainPanel.removeAll();
+        mainPanel.add(new AdminDosenPanel(), java.awt.BorderLayout.CENTER);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }//GEN-LAST:event_dosenBtnActionPerformed
+
     private void darkModeToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darkModeToggleActionPerformed
         // TODO add your handling code here:
         setDarkMode(darkModeToggle.isSelected());
         DarkMode.isDarkMode = darkModeToggle.isSelected();
-
         if (darkModeToggle.isSelected()) {
             darkModeToggle.setText("Light Mode");
         } else {
             darkModeToggle.setText("Dark Mode");
         }
-        
         if (mainPanel.getComponentCount() > 0) {
-            
-            // Ambil panel yang sedang aktif
             java.awt.Component activePanel = mainPanel.getComponent(0);
-            
-            // Cek apakah panel itu mendengarkan
             if (activePanel instanceof DarkMode.Listener) {
-                
-                // Panggil fungsi setDarkMode() milik panel aktif itu!
                 ((DarkMode.Listener) activePanel).setDarkMode(darkModeToggle.isSelected());
             }
         }
@@ -260,10 +290,27 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
     private void dashboardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardBtnActionPerformed
         // TODO add your handling code here:
         mainPanel.removeAll();
-        mainPanel.add(new DosenDashboardPanel(dosen), java.awt.BorderLayout.CENTER);
+        mainPanel.add(new AdminDashboard(), java.awt.BorderLayout.CENTER);
         mainPanel.revalidate();
         mainPanel.repaint();
+        
     }//GEN-LAST:event_dashboardBtnActionPerformed
+
+    private void mahasiswaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mahasiswaBtnActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new AdminMahasiswaPanel(), java.awt.BorderLayout.CENTER);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }//GEN-LAST:event_mahasiswaBtnActionPerformed
+
+    private void matkulBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matkulBtnActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new AdminKelasPanel(), java.awt.BorderLayout.CENTER);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }//GEN-LAST:event_matkulBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
@@ -272,50 +319,19 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         this.dispose();
     }//GEN-LAST:event_logoutBtnActionPerformed
 
-    private void classBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classBtnActionPerformed
-        // TODO add your handling code here:
-        DasarListKelasDosenMahasiswa DaftarKelas = new DasarListKelasDosenMahasiswa(mainPanel);
-        DaftarKelas.loadDataKelas(dosen);
-        mainPanel.removeAll();
-        mainPanel.add(DaftarKelas, java.awt.BorderLayout.CENTER);
-        mainPanel.revalidate();
-        mainPanel.repaint();
-
-    }//GEN-LAST:event_classBtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new DosenHomePage(null).setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackPanel;
-    private javax.swing.JButton classBtn;
     private javax.swing.JToggleButton darkModeToggle;
     private javax.swing.JButton dashboardBtn;
+    private javax.swing.JButton dosenBtn;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JButton logoutBtn;
+    private javax.swing.JButton mahasiswaBtn;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JLabel manajemenAkademikLabel;
+    private javax.swing.JLabel manajemenAkunLabel;
+    private javax.swing.JButton matkulBtn;
     private javax.swing.JLabel navTitle;
     private javax.swing.JPanel navTitlePanel;
     private javax.swing.JLabel siasatLogo;

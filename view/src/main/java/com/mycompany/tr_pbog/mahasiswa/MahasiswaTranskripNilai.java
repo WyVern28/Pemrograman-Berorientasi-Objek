@@ -2,13 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.tr_pbog;
+package com.mycompany.tr_pbog.mahasiswa;
 
 import com.mycompany.tr_pbog.DarkMode.Listener;
 import java.util.List;
 import dbCon.Mahasiswa;
 import logic.FiturMahasiswa;
 import DTO.TranskripNilai;
+import com.mycompany.tr_pbog.DarkMode;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -42,39 +43,31 @@ public class MahasiswaTranskripNilai extends javax.swing.JPanel implements Liste
     for (int i = 0; i < jumlahMatkul; i++) {
         TranskripNilai nilai = lsNilai.get(i);
         
-        data[i][0] = (i + 1) + "."; // Nomor urut
-        data[i][1] = nilai.getIdKelas(); // Kode kelas
+        data[i][0] = (i + 1) + ".";
+        data[i][1] = nilai.getIdKelas();
         data[i][2] = nilai.getNamaKelas();
         data[i][3] = nilai.getNilaiAkhir();
     }
-        
-        // --- TERAPKAN MODEL KE TABEL ---
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
            @Override public boolean isCellEditable(int row, int column) { return false; }
         };
         
         transkripTable.setModel(model);
-        
-        // --- ATUR TAMPILAN TABEL ---
         transkripTable.setRowHeight(25);
         transkripTable.getTableHeader().setReorderingAllowed(false);
         transkripTable.getTableHeader().setResizingAllowed(false);
-        
-        // Atur lebar kolom
+        //atur lebar kolom
         transkripTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         javax.swing.table.TableColumnModel cm = transkripTable.getColumnModel();
         cm.getColumn(0).setPreferredWidth(30);  // No
         cm.getColumn(1).setPreferredWidth(100);  // Kode
         cm.getColumn(2).setPreferredWidth(750); // Matakuliah
         cm.getColumn(3).setPreferredWidth(200);  // Nilai
-        
-        // Tampilkan tabel di scroll pane
         jScrollPane1.setViewportView(transkripTable);
     }
     
     @Override
     public void setDarkMode(boolean isDark){
-         // Tentukan warna
        transkripTable.setShowGrid(true);
        if(isDark == true){
            this.setBackground(new Color(38, 38, 40));

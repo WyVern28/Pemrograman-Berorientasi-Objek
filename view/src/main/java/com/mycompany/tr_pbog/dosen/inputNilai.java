@@ -2,7 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.tr_pbog;
+package com.mycompany.tr_pbog.dosen;
+import com.mycompany.tr_pbog.DarkMode;
 import logic.FiturDosen;
 import javax.swing.JOptionPane;
 import com.mycompany.tr_pbog.DarkMode.Listener;
@@ -40,16 +41,12 @@ public class inputNilai extends javax.swing.JFrame implements Listener {
             centerPanel.setBackground(new Color(44, 44, 44));
             judulLabel.setForeground(Color.WHITE);
             labelInptNilai.setForeground(Color.WHITE);
-//            titik2Username.setForeground(Color.WHITE);
-//            titik2Password.setForeground(Color.WHITE);
         }else{
             panelDasar.setBackground(new Color(249, 248, 246));
             headerPanel.setBackground(new Color(249, 248, 246));
             centerPanel.setBackground(new Color(249, 248, 246));
             judulLabel.setForeground(Color.BLACK);
             labelInptNilai.setForeground(Color.BLACK);
-//            titik2Username.setForeground(Color.BLACK);
-//            titik2Password.setForeground(Color.BLACK);
         }
     }
     /**

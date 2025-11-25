@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.tr_pbog;
+package com.mycompany.tr_pbog.mahasiswa;
 
+import com.mycompany.tr_pbog.DarkMode;
 import com.mycompany.tr_pbog.DarkMode.Listener;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -27,8 +28,6 @@ public class matkulIndukCardPanel extends javax.swing.JPanel implements Listener
         setDarkMode(DarkMode.isDarkMode);
         this.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(200, 200, 200)));
     }
-    
-    // Metode ini kita buat agar AmbilKelasPanel bisa menambahkan listener
     public JButton getPilihButton() {
         return this.pilihButton;
     }

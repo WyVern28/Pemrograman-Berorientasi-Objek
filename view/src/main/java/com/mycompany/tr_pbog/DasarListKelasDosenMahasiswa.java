@@ -1,6 +1,7 @@
 package com.mycompany.tr_pbog;
 
-import javax.swing.JLabel;
+import com.mycompany.tr_pbog.dosen.DaftarMahasiswaPanel;
+import com.mycompany.tr_pbog.dosen.DosenKelasCardPanel;
 import java.awt.Color;
 import com.mycompany.tr_pbog.DarkMode.Listener;
 
@@ -18,17 +19,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class DasarListKelasDosenMahasiswa extends javax.swing.JPanel implements Listener {
 
-    // Variabel untuk menyimpan mainPanel dari DosenHomePage
     private JPanel mainPanel; 
 
-    /**
-     * Konstruktor Kustom (Diperbaiki)
-     * Menerima mainPanel dari DosenHomePage
-     */
     public DasarListKelasDosenMahasiswa(JPanel mainPanel) {
         initComponents();
-        this.mainPanel = mainPanel; // Simpan mainPanel
-        //transparansi
+        this.mainPanel = mainPanel;
         jScrollPane1.getViewport().setOpaque(false);
         jScrollPane1.setBorder(null);
         jScrollPane1.setOpaque(false);
@@ -67,10 +62,9 @@ public class DasarListKelasDosenMahasiswa extends javax.swing.JPanel implements 
                 judulLabel.setForeground(Color.WHITE);
                 jadwalTable.setGridColor(Color.WHITE);
                 tableContainerPanel.setBackground(new Color(38, 38, 40));
-                jadwalTable.setBackground(new Color(38, 38, 40)); // Latar sel tabel
-                jadwalTable.setForeground(Color.WHITE);   // Teks sel tabel
+                jadwalTable.setBackground(new Color(38, 38, 40));
+                jadwalTable.setForeground(Color.WHITE);
             }
-            // Atur header tabel
 
         }
     }
@@ -87,7 +81,6 @@ public class DasarListKelasDosenMahasiswa extends javax.swing.JPanel implements 
             System.out.println("DEBUG: Jumlah kelas ditemukan: " + lsKelas.size());
             
             for (Kelas kelas : lsKelas) {
-                // ambil id dan nama dari objek Kelas (sesuaikan nama getter jika berbeda)
                 String idKelas = kelas.getId_kelas();
                 String namaKelas = kelas.getNama_kelas();
                 
@@ -95,21 +88,16 @@ public class DasarListKelasDosenMahasiswa extends javax.swing.JPanel implements 
                 
                 DosenKelasCardPanel card = new DosenKelasCardPanel(idKelas, namaKelas);
                 
-                // Set ukuran card agar terlihat di BoxLayout
                 card.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 60));
                 card.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
                 
-            // Kita panggil satu-satunya tombol yang ada ("Lihat Mhs dan Input Nilai")
-            // menggunakan getter yang baru saja kita buat
             card.getLihatMhsButton().addActionListener(e -> {
-                // Panggil metode baru untuk menampilkan detail
                 showMahasiswaListView(idKelas, namaKelas, kelas);
             });
 
                 ContentPanel.add(card);
             }
             
-            // PINDAHKAN INI KE LUAR LOOP
             jScrollPane1.setViewportView(ContentPanel);
             
         }
@@ -118,17 +106,15 @@ public class DasarListKelasDosenMahasiswa extends javax.swing.JPanel implements 
             judulLabel.setVisible(true);
             List<JadwalDTO> lsKelas = fMahasiswa.getJadwalKelasByMahasiswa((Mahasiswa) user);
             String[] columnNames = {"No","Mata Kuliah","Ruang", "Hari", "Mulai", "Selesai"};
-            // Konversi List<JadwalDTO> ke Object[][]
             Object[][] data = new Object[lsKelas.size()][6];
             for (int i = 0; i < lsKelas.size(); i++) {
                 JadwalDTO jadwal = lsKelas.get(i);
-                data[i][0] = i + 1; // Nomor urut
+                data[i][0] = i + 1;
                 data[i][1] = jadwal.getNamaKelas();
                 data[i][2] = jadwal.getId_ruangan();
                 data[i][3] = jadwal.getHari();
-                data[i][4] = jadwal.getJam_mulai(); // atau jadwal.getJamMulai().toString()
-                data[i][5] = jadwal.getJam_selesai(); // atau jadwal.getJamSelesai().toString()
-            }
+                data[i][4] = jadwal.getJam_mulai();
+                data[i][5] = jadwal.getJam_selesai();            }
             
             DefaultTableModel model = new DefaultTableModel(data, columnNames) {
                 @Override public boolean isCellEditable(int row, int column) { return false; }
@@ -144,11 +130,8 @@ public class DasarListKelasDosenMahasiswa extends javax.swing.JPanel implements 
             cm.getColumn(2).setPreferredWidth(150);  // Ruang
             cm.getColumn(3).setPreferredWidth(150); // Hari
             cm.getColumn(4).setPreferredWidth(100); //Mulai
-            cm.getColumn(5).setPreferredWidth(100); //Mulai
+            cm.getColumn(5).setPreferredWidth(100); //Selesai
             javax.swing.table.TableColumnModel columnModel = jadwalTable.getColumnModel();
-            // ... (kode atur lebar kolom Anda sudah benar) ...
-            
-            // Tampilkan pembungkus tabel di scroll pane
             jScrollPane1.setViewportView(tableContainerPanel);
         }
         
@@ -158,12 +141,8 @@ public class DasarListKelasDosenMahasiswa extends javax.swing.JPanel implements 
         this.repaint();
     }
     private void showMahasiswaListView(String classID, String className, Kelas kelas ) {
-        
-        // 1. Buat panel detail baru
-        // Kirim 'mainPanel', 'this' (DaftarKelasPanel), dan info kelas
         DaftarMahasiswaPanel detailPanel = new DaftarMahasiswaPanel(mainPanel, this, classID, className, kelas);
         
-        // 2. Ganti isi mainPanel
         mainPanel.removeAll();
         mainPanel.add(detailPanel, java.awt.BorderLayout.CENTER);
         mainPanel.revalidate();

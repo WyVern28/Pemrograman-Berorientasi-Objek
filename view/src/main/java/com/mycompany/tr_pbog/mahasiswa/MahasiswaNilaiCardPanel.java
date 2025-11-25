@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.tr_pbog;
+package com.mycompany.tr_pbog.mahasiswa;
 
+import com.mycompany.tr_pbog.DarkMode;
 import com.mycompany.tr_pbog.DarkMode.Listener;
+import com.mycompany.tr_pbog.dosen.inputNilai;
 import java.awt.Color;
-import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
 /**
@@ -17,11 +18,7 @@ public class MahasiswaNilaiCardPanel extends javax.swing.JPanel implements Liste
 
     private String studentID;
     private String idKelas;
-    private boolean isEditing = false; // Status untuk melacak mode edit
-    private Border defaultTextFieldBorder; // Menyimpan border asli
-    /**
-     * Creates new form MahasiswaNilaiCardPanel
-     */
+
     public MahasiswaNilaiCardPanel(String studentID, String studentName, String idKelas) {
         initComponents();
         this.idKelas = idKelas;
@@ -77,7 +74,6 @@ public class MahasiswaNilaiCardPanel extends javax.swing.JPanel implements Liste
 
     @Override
     public void setDarkMode(boolean isDark) {
-        // Tentukan warna
         Color bgColor = isDark ? new Color(50, 50, 52) : Color.WHITE;
         Color textColor = isDark ? Color.WHITE : Color.BLACK;
         

@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.tr_pbog;
+package com.mycompany.tr_pbog.dosen;
 
+import com.mycompany.tr_pbog.DarkMode;
 import com.mycompany.tr_pbog.DarkMode.Listener;
 
 import dbCon.Dosen;
@@ -61,16 +62,11 @@ public class DosenDashboardPanel extends javax.swing.JPanel implements Listener{
     // lokalisasi Indonesia
     Locale localeIndonesia = Locale.of("id", "ID");
 
-    //Format terpisah untuk setiap JLabel
     DateTimeFormatter formatTanggal = DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", localeIndonesia);
     DateTimeFormatter formatJam = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-    //Timer untuk memperbarui semuanya
     Timer timer = new Timer(1000, e -> {
-        // Kode berjalan setiap 1 detik
         LocalDateTime now = LocalDateTime.now();
-
-        // Terapkan teks ke label masing-masing
         dateLabel.setText(now.format(formatTanggal));
         clockLabel.setText(now.format(formatJam));
     });

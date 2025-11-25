@@ -1,5 +1,8 @@
-package com.mycompany.tr_pbog;
+package com.mycompany.tr_pbog.mahasiswa;
 
+import com.mycompany.tr_pbog.DarkMode;
+import com.mycompany.tr_pbog.DasarListKelasDosenMahasiswa;
+import com.mycompany.tr_pbog.loginPage;
 import java.awt.Color;
 import javax.swing.JFrame;
 
@@ -21,13 +24,10 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         // Ubah ukuran ikon
         java.awt.Image originalImage = originalIcon.getImage();
         java.awt.Image resizedImage = originalImage.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
-
-        // menampilkan ikon baru yang sudah di-resize
         button.setIcon(new javax.swing.ImageIcon(resizedImage));
         
     } catch (Exception e) {
         System.err.println("Error loading icon: " + path);
-        // Biarkan tombolnya tanpa ikon jika gambar tidak ditemukan
     }
 }
     public MahasiswaHomePage(Mahasiswa mhs) {
@@ -284,13 +284,10 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
 
     private void jadwalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jadwalBtnActionPerformed
         // TODO add your handling code here:
-        // 1. Buat panel daftar (yang SAMA persis)
         DasarListKelasDosenMahasiswa panelJadwal = new DasarListKelasDosenMahasiswa(mainPanel);
 
-        // 2. Muat data, tapi dengan role "mahasiswa"
         panelJadwal.loadDataKelas(mhs); 
 
-        // 3. Tampilkan di mainPanel
         mainPanel.removeAll();
         mainPanel.add(panelJadwal, java.awt.BorderLayout.CENTER);
         mainPanel.revalidate();
@@ -303,10 +300,8 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
 
         mainPanel.removeAll();
 
-        // 3. Tambahkan panel transkrip baru ke mainPanel
         mainPanel.add(panelTranskrip, java.awt.BorderLayout.CENTER);
 
-        // 4. Muat ulang (refresh) mainPanel
         mainPanel.revalidate();
         mainPanel.repaint();
     }//GEN-LAST:event_nilaiBtnActionPerformed
@@ -317,31 +312,6 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_logoutBtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    // public static void main(String args[]) {
-    //     /* Set the Nimbus look and feel */
-    //     //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    //     /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-    //      * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-    //      */
-    //     try {
-    //         for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-    //             if ("Nimbus".equals(info.getName())) {
-    //                 javax.swing.UIManager.setLookAndFeel(info.getClassName());
-    //                 break;
-    //             }
-    //         }
-    //     } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-    //         logger.log(java.util.logging.Level.SEVERE, null, ex);
-    //     }
-    //     //</editor-fold>
-
-    //     /* Create and display the form */
-    //     java.awt.EventQueue.invokeLater(() -> new MahasiswaHomePage().setVisible(true));
-    // }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackPanel;
