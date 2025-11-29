@@ -9,9 +9,14 @@ import com.mycompany.tr_pbog.DarkMode.Listener;
 import java.awt.Color;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
+import dbCon.Mahasiswa;
+import repo.MahasiswaRepository;
 
 /**
  *
@@ -28,8 +33,35 @@ public class AdminMahasiswaPanel extends javax.swing.JPanel implements Listener{
         initDateTime();
         jScrollPane1.getViewport().setOpaque(false);
         setDarkMode(DarkMode.isDarkMode);
+        loadMahasiswaData();
     }
-    
+
+    private void loadMahasiswaData() {
+        MahasiswaRepository mhsRepo = new MahasiswaRepository();
+        List<Mahasiswa> listMahasiswa = mhsRepo.getAllMahasiswa();
+
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0); // Clear existing data
+
+        int no = 1;
+        for (Mahasiswa mhs : listMahasiswa) {
+            Object[] row = {
+                no++,
+                mhs.getNim(),
+                mhs.getNama(),
+                mhs.getNim() + "@student.uksw.edu", // Email generated from NIM
+                mhs.getId_prodi(),
+                "Aktif",
+                null // Aksi column
+            };
+            model.addRow(row);
+        }
+    }
+
+    private void refreshTable() {
+        loadMahasiswaData();
+    }
+
     private void initTableSize(){
         jTable2.getTableHeader().setResizingAllowed(false);
         jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -178,17 +210,27 @@ public class AdminMahasiswaPanel extends javax.swing.JPanel implements Listener{
         editButton.setBackground(new java.awt.Color(0, 0, 255));
         editButton.setText("Edit Mahasiswa");
         editButton.setActionCommand("editDosen");
+        editButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editButtonActionPerformed(evt);
+            }
+        });
 
         hapusButton.setBackground(new java.awt.Color(255, 0, 0));
         hapusButton.setText("Hapus Mahasiswa");
         hapusButton.setActionCommand("hapusDosen");
+        hapusButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(66, 66, 66)
                 .addComponent(tambahButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -198,13 +240,10 @@ public class AdminMahasiswaPanel extends javax.swing.JPanel implements Listener{
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tambahButton)
-                    .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(hapusButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(tambahButton)
+                .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(hapusButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         cariDosenLabel.setText("Cari Mahasiswa :");
@@ -251,16 +290,16 @@ public class AdminMahasiswaPanel extends javax.swing.JPanel implements Listener{
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cariButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(203, 203, 203))))
+                        .addGap(274, 274, 274))))
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(clockLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(833, Short.MAX_VALUE)))
+                    .addContainerGap(952, Short.MAX_VALUE)))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,20 +352,243 @@ public class AdminMahasiswaPanel extends javax.swing.JPanel implements Listener{
     }// </editor-fold>//GEN-END:initComponents
 
     private void tambahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahButtonActionPerformed
-        // TODO add your handling code here:
+        // Input dialog untuk menambah mahasiswa
+        String nim = JOptionPane.showInputDialog(this, "Masukkan NIM Mahasiswa:", "Tambah Mahasiswa", JOptionPane.PLAIN_MESSAGE);
+        if (nim == null || nim.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "NIM tidak boleh kosong!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String nama = JOptionPane.showInputDialog(this, "Masukkan Nama Mahasiswa:", "Tambah Mahasiswa", JOptionPane.PLAIN_MESSAGE);
+        if (nama == null || nama.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nama tidak boleh kosong!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Dropdown pilihan prodi
+        String[] prodiOptions = {
+            "TI067 - S1 Teknik Informatika",
+            "DKV069 - Desain Komunikasi Visual",
+            "SI068 - Sistem Informasi",
+            "BD084 - Bisnis Digital",
+            "D3TI056 - D3 Teknik Informatika",
+            "PR059 - Public Relations"
+        };
+        String selectedProdi = (String) JOptionPane.showInputDialog(
+            this,
+            "Pilih Program Studi:",
+            "Tambah Mahasiswa",
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            prodiOptions,
+            prodiOptions[0]
+        );
+
+        if (selectedProdi == null) {
+            return;
+        }
+
+        // Extract ID Prodi (ambil bagian sebelum " - ")
+        String idProdi = selectedProdi.split(" - ")[0];
+
+        String ipkStr = JOptionPane.showInputDialog(this, "Masukkan IPK (0.0 - 4.0):", "Tambah Mahasiswa", JOptionPane.PLAIN_MESSAGE);
+        if (ipkStr == null || ipkStr.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "IPK tidak boleh kosong!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String sksStr = JOptionPane.showInputDialog(this, "Masukkan Total SKS:", "Tambah Mahasiswa", JOptionPane.PLAIN_MESSAGE);
+        if (sksStr == null || sksStr.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Total SKS tidak boleh kosong!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String password = JOptionPane.showInputDialog(this, "Masukkan Password:", "Tambah Mahasiswa", JOptionPane.PLAIN_MESSAGE);
+        if (password == null || password.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Password tidak boleh kosong!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            float ipk = Float.parseFloat(ipkStr.trim());
+            int totalSks = Integer.parseInt(sksStr.trim());
+
+            if (ipk < 0 || ipk > 4.0) {
+                JOptionPane.showMessageDialog(this, "IPK harus antara 0.0 - 4.0!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            MahasiswaRepository mhsRepo = new MahasiswaRepository();
+            Mahasiswa mahasiswa = new Mahasiswa(nim.trim(), nama.trim(), idProdi.trim(), ipk, totalSks);
+
+            if (mhsRepo.createMahasiswa(mahasiswa, password)) {
+                JOptionPane.showMessageDialog(this, "Mahasiswa berhasil ditambahkan!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                refreshTable();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                    "Gagal menambahkan mahasiswa!\n\nKemungkinan penyebab:\n" +
+                    "1. NIM sudah terdaftar\n" +
+                    "2. ID Prodi tidak valid\n" +
+                    "3. Koneksi database bermasalah\n\n" +
+                    "Silakan cek console untuk detail error.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "IPK atau SKS tidak valid! Pastikan format angka benar.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                "Terjadi kesalahan: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_tambahButtonActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
+        // Search on Enter
+        cariButtonActionPerformed(evt);
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
+        // Combo box action
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void cariButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariButtonActionPerformed
-        // TODO add your handling code here:
+        String keyword = jTextField1.getText().trim().toLowerCase();
+
+        if (keyword.isEmpty() || keyword.equals("cari nama")) {
+            loadMahasiswaData();
+            return;
+        }
+
+        MahasiswaRepository mhsRepo = new MahasiswaRepository();
+        List<Mahasiswa> listMahasiswa = mhsRepo.getAllMahasiswa();
+
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+
+        int no = 1;
+        for (Mahasiswa mhs : listMahasiswa) {
+            if (mhs.getNim().toLowerCase().contains(keyword) ||
+                mhs.getNama().toLowerCase().contains(keyword) ||
+                mhs.getId_prodi().toLowerCase().contains(keyword)) {
+
+                Object[] row = {
+                    no++,
+                    mhs.getNim(),
+                    mhs.getNama(),
+                    mhs.getNim() + "@student.uksw.edu",
+                    mhs.getId_prodi(),
+                    "Aktif",
+                    null
+                };
+                model.addRow(row);
+            }
+        }
     }//GEN-LAST:event_cariButtonActionPerformed
+
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        int selectedRow = jTable2.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih mahasiswa yang akan diedit!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String nim = jTable2.getValueAt(selectedRow, 1).toString();
+        String namaLama = jTable2.getValueAt(selectedRow, 2).toString();
+        String prodiLama = jTable2.getValueAt(selectedRow, 4).toString();
+
+        String namaBaru = JOptionPane.showInputDialog(this, "Masukkan Nama Baru:", namaLama);
+        if (namaBaru == null || namaBaru.trim().isEmpty()) return;
+
+        // Dropdown pilihan prodi
+        String[] prodiOptions = {
+            "TI067 - S1 Teknik Informatika",
+            "DKV069 - Desain Komunikasi Visual",
+            "SI068 - Sistem Informasi",
+            "BD084 - Bisnis Digital",
+            "D3TI056 - D3 Teknik Informatika",
+            "PR059 - Public Relations"
+        };
+
+        // Find index of current prodi
+        int selectedIndex = 0;
+        for (int i = 0; i < prodiOptions.length; i++) {
+            if (prodiOptions[i].startsWith(prodiLama)) {
+                selectedIndex = i;
+                break;
+            }
+        }
+
+        String selectedProdi = (String) JOptionPane.showInputDialog(
+            this,
+            "Pilih Program Studi:",
+            "Edit Mahasiswa",
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            prodiOptions,
+            prodiOptions[selectedIndex]
+        );
+
+        if (selectedProdi == null) return;
+        String prodiBaru = selectedProdi.split(" - ")[0];
+
+        String ipkStr = JOptionPane.showInputDialog(this, "Masukkan IPK Baru (0.0 - 4.0):", "0.0");
+        if (ipkStr == null || ipkStr.trim().isEmpty()) return;
+
+        String sksStr = JOptionPane.showInputDialog(this, "Masukkan Total SKS Baru:", "0");
+        if (sksStr == null || sksStr.trim().isEmpty()) return;
+
+        try {
+            float ipk = Float.parseFloat(ipkStr.trim());
+            int totalSks = Integer.parseInt(sksStr.trim());
+
+            if (ipk < 0 || ipk > 4.0) {
+                JOptionPane.showMessageDialog(this, "IPK harus antara 0.0 - 4.0!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            MahasiswaRepository mhsRepo = new MahasiswaRepository();
+            Mahasiswa mahasiswa = new Mahasiswa(nim, namaBaru.trim(), prodiBaru.trim(), ipk, totalSks);
+
+            if (mhsRepo.updateMahasiswa(mahasiswa)) {
+                JOptionPane.showMessageDialog(this, "Mahasiswa berhasil diupdate!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                refreshTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal mengupdate mahasiswa!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "IPK atau SKS tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_editButtonActionPerformed
+
+    private void hapusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusButtonActionPerformed
+        int selectedRow = jTable2.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih mahasiswa yang akan dihapus!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String nim = jTable2.getValueAt(selectedRow, 1).toString();
+        String nama = jTable2.getValueAt(selectedRow, 2).toString();
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+            "Apakah Anda yakin ingin menghapus mahasiswa:\n" + nama + " (" + nim + ")?",
+            "Konfirmasi Hapus",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            MahasiswaRepository mhsRepo = new MahasiswaRepository();
+            if (mhsRepo.deleteMahasiswa(nim)) {
+                JOptionPane.showMessageDialog(this, "Mahasiswa berhasil dihapus!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                refreshTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal menghapus mahasiswa!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_hapusButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -11,48 +11,46 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
-import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
-import dbCon.Dosen;
-import repo.DosenRepository;
+import dbCon.Matkul;
+import repo.MatkulRepository;
 
 /**
  *
  * @author Made
  */
-public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
+public class AdminMatkulPanel extends javax.swing.JPanel implements Listener {
 
     /**
-     * Creates new form AdminDosenPanel
+     * Creates new form AdminMatkulPanel
      */
-    public AdminDosenPanel() {
+    public AdminMatkulPanel() {
         initComponents();
-        jScrollPane1.getViewport().setOpaque(false);
         initTableSize();
         initDateTime();
+        jScrollPane1.getViewport().setOpaque(false);
         setDarkMode(DarkMode.isDarkMode);
-        loadDosenData();
+        loadMatkulData();
     }
 
-    private void loadDosenData() {
-        DosenRepository dosenRepo = new DosenRepository();
-        List<Dosen> listDosen = dosenRepo.getAllDosen();
+    private void loadMatkulData() {
+        MatkulRepository matkulRepo = new MatkulRepository();
+        List<Matkul> listMatkul = matkulRepo.getAllMatkul();
 
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0); // Clear existing data
 
         int no = 1;
-        for (Dosen dosen : listDosen) {
+        for (Matkul matkul : listMatkul) {
             Object[] row = {
                 no++,
-                dosen.getNid(),
-                dosen.getNama(),
-                dosen.getNid() + "@uksw.edu", // Email generated from NID
-                dosen.getId_prodi(),
-                "Aktif",
+                matkul.getId_matkul(),
+                matkul.getNama_matkul(),
+                matkul.getId_prodi(),
+                matkul.getSks(),
                 null // Aksi column
             };
             model.addRow(row);
@@ -60,7 +58,19 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
     }
 
     private void refreshTable() {
-        loadDosenData();
+        loadMatkulData();
+    }
+
+    private void initTableSize(){
+        jTable2.getTableHeader().setResizingAllowed(false);
+        jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        javax.swing.table.TableColumnModel cm = jTable2.getColumnModel();
+        cm.getColumn(0).setPreferredWidth(30);  // No
+        cm.getColumn(1).setPreferredWidth(150);  // ID Mata Kuliah
+        cm.getColumn(2).setPreferredWidth(380); // Nama Mata Kuliah
+        cm.getColumn(3).setPreferredWidth(100);  // Prodi
+        cm.getColumn(4).setPreferredWidth(80);  // SKS
+        cm.getColumn(5).setPreferredWidth(120); // Aksi
     }
 
     private void initDateTime() {
@@ -81,27 +91,13 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
         timer.start();
     }
 
-    
-    private void initTableSize(){
-        jTable2.getTableHeader().setResizingAllowed(false);
-        jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        javax.swing.table.TableColumnModel cm = jTable2.getColumnModel();
-        cm.getColumn(0).setPreferredWidth(30);  // No
-        cm.getColumn(1).setPreferredWidth(100);  // NIDN
-        cm.getColumn(2).setPreferredWidth(331); // Nama Dosen
-        cm.getColumn(3).setPreferredWidth(250);  // Email
-        cm.getColumn(4).setPreferredWidth(100);  // Progdi
-        cm.getColumn(5).setPreferredWidth(140); // Status
-        cm.getColumn(6).setPreferredWidth(120); //Aksi
-    }
-    
     @Override
     public void setDarkMode(boolean isDark){
         if (isDark) {
             //dark mode
             jPanel2.setBackground(new Color(38, 38, 40));
             jPanel3.setForeground(Color.WHITE);
-            cariDosenLabel.setForeground(Color.WHITE);
+            cariMatkulLabel.setForeground(Color.WHITE);
             jTable2.setBackground(new Color(38, 38, 40));
             jTable2.setGridColor(Color.WHITE);
             jTable2.setForeground(Color.WHITE);
@@ -111,14 +107,14 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
         } else {
             // light mode
             jPanel2.setBackground(new Color(249, 248, 246));
-            cariDosenLabel.setForeground(Color.BLACK);
+            cariMatkulLabel.setForeground(Color.BLACK);
             jTable2.setBackground(new Color(249, 248, 246));
             jTable2.setGridColor(Color.BLACK);
             jTable2.setForeground(Color.BLACK);
             dateLabel.setForeground(Color.BLACK);
             clockLabel.setForeground(Color.BLACK);
             informationTitle.setForeground(Color.BLACK);
-            }
+        }
     }
 
     /**
@@ -139,10 +135,10 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
         clockLabel = new javax.swing.JLabel();
         informationTitle = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        hapusButton = new javax.swing.JButton();
-        editButton = new javax.swing.JButton();
         tambahButton = new javax.swing.JButton();
-        cariDosenLabel = new javax.swing.JLabel();
+        editButton = new javax.swing.JButton();
+        hapusButton = new javax.swing.JButton();
+        cariMatkulLabel = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
         cariButton = new javax.swing.JButton();
@@ -150,87 +146,82 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
         setOpaque(false);
 
         jPanel2.setOpaque(false);
-        jPanel2.setLayout(new java.awt.BorderLayout());
 
         jPanel4.setOpaque(false);
-        jPanel4.setLayout(new java.awt.BorderLayout());
-
-        jScrollPane1.setToolTipText("");
-        jScrollPane1.setViewportBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jScrollPane1.setOpaque(false);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "67096", "PRATYAKSA OCSA N. SAIAN", "pratyaksa.ocsa@uksw.edu", "S1 TI", "Aktif", null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "No", "NIDN", "Dosen", "Email", "Program Studi", "Status", "Aksi"
+                "No", "ID Mata Kuliah", "Nama Mata Kuliah", "Prodi", "SKS", "Aksi"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.setShowGrid(true);
         jScrollPane1.setViewportView(jTable2);
 
-        jPanel4.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1214, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE))
+        );
 
         jPanel2.add(jPanel4, java.awt.BorderLayout.CENTER);
 
         jPanel6.setOpaque(false);
 
-        dateLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        dateLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         dateLabel.setText("dateLabel");
-        dateLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         clockLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         clockLabel.setText("clockLabel");
 
         informationTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        informationTitle.setText("Data Dosen");
+        informationTitle.setText("Data Mata Kuliah");
 
         jPanel3.setOpaque(false);
 
-        hapusButton.setBackground(new java.awt.Color(255, 0, 0));
-        hapusButton.setText("Hapus Dosen");
-        hapusButton.setActionCommand("hapusDosen");
-        hapusButton.addActionListener(new java.awt.event.ActionListener() {
+        tambahButton.setBackground(new java.awt.Color(0, 204, 0));
+        tambahButton.setText("Tambah Mata Kuliah");
+        tambahButton.setActionCommand("tambahMatkul");
+        tambahButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hapusButtonActionPerformed(evt);
+                tambahButtonActionPerformed(evt);
             }
         });
 
         editButton.setBackground(new java.awt.Color(0, 0, 255));
-        editButton.setText("Edit Dosen");
-        editButton.setActionCommand("editDosen");
+        editButton.setText("Edit Mata Kuliah");
+        editButton.setActionCommand("editMatkul");
         editButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editButtonActionPerformed(evt);
             }
         });
 
-        tambahButton.setBackground(new java.awt.Color(0, 204, 0));
-        tambahButton.setText("Tambah Dosen");
-        tambahButton.setActionCommand("tambahDosen");
-        tambahButton.addActionListener(new java.awt.event.ActionListener() {
+        hapusButton.setBackground(new java.awt.Color(255, 0, 0));
+        hapusButton.setText("Hapus Mata Kuliah");
+        hapusButton.setActionCommand("hapusMatkul");
+        hapusButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tambahButtonActionPerformed(evt);
+                hapusButtonActionPerformed(evt);
             }
         });
 
@@ -239,23 +230,23 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addComponent(tambahButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(tambahButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(hapusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(hapusButton)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(tambahButton)
                 .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(hapusButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        cariDosenLabel.setText("Cari Dosen :");
+        cariMatkulLabel.setText("Cari Mata Kuliah :");
 
         jTextField1.setText("Cari Nama");
         jTextField1.setActionCommand("Search");
@@ -265,16 +256,15 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "S1 TI", "DKV", "SI", "BD" }));
-        jComboBox1.setActionCommand("List");
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
 
-        cariButton.setBackground(new java.awt.Color(0, 0, 255));
-        cariButton.setText("Cari");
+        cariButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cariButton.setText("🔎");
         cariButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cariButtonActionPerformed(evt);
@@ -292,8 +282,8 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
                         .addComponent(informationTitle)
                         .addGap(245, 245, 245))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(cariDosenLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cariMatkulLabel)
+                        .addGap(12, 12, 12)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,31 +291,28 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
                         .addComponent(cariButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(563, 563, 563))))
+                        .addGap(274, 274, 274))))
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(clockLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(1169, Short.MAX_VALUE)))
+                    .addContainerGap(952, Short.MAX_VALUE)))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(informationTitle)
-                        .addGap(9, 9, 9)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cariDosenLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cariButton))))
+                .addGap(53, 53, 53)
+                .addComponent(informationTitle)
+                .addGap(9, 9, 9)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cariMatkulLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cariButton)))
                 .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
@@ -342,40 +329,29 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1095, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1095, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 645, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void tambahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahButtonActionPerformed
-        // Input dialog untuk menambah dosen
-        String nid = JOptionPane.showInputDialog(this, "Masukkan NID Dosen:", "Tambah Dosen", JOptionPane.PLAIN_MESSAGE);
-        if (nid == null || nid.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "NID tidak boleh kosong!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        // Input dialog untuk menambah mata kuliah
+        String idMatkul = JOptionPane.showInputDialog(this, "Masukkan ID Mata Kuliah:", "Tambah Mata Kuliah", JOptionPane.PLAIN_MESSAGE);
+        if (idMatkul == null || idMatkul.trim().isEmpty()) return;
 
-        String nama = JOptionPane.showInputDialog(this, "Masukkan Nama Dosen:", "Tambah Dosen", JOptionPane.PLAIN_MESSAGE);
-        if (nama == null || nama.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nama tidak boleh kosong!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        String namaMatkul = JOptionPane.showInputDialog(this, "Masukkan Nama Mata Kuliah:", "Tambah Mata Kuliah", JOptionPane.PLAIN_MESSAGE);
+        if (namaMatkul == null || namaMatkul.trim().isEmpty()) return;
 
-        // Dropdown pilihan prodi (saat ini hanya ada 1 prodi)
-        // String[] prodiOptions = {["TI067 - S1 Teknik Informatika", "DKV069 - Desain Komunikasi Visual", "SI068 - Sistem Informasi", "BD084 - Bisnis Digital", "D3TI056 - D3 Teknik Informatika", "PR059 - Public Relations"];
+        // Dropdown pilihan prodi
         String[] prodiOptions = {
             "TI067 - S1 Teknik Informatika",
             "DKV069 - Desain Komunikasi Visual",
@@ -387,7 +363,7 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
         String selectedProdi = (String) JOptionPane.showInputDialog(
             this,
             "Pilih Program Studi:",
-            "Tambah Dosen",
+            "Tambah Mata Kuliah",
             JOptionPane.QUESTION_MESSAGE,
             null,
             prodiOptions,
@@ -398,38 +374,38 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
             return;
         }
 
-        // Extract ID Prodi (ambil bagian sebelum " - ")
+        // Extract ID Prodi
         String idProdi = selectedProdi.split(" - ")[0];
 
-        String password = JOptionPane.showInputDialog(this, "Masukkan Password:", "Tambah Dosen", JOptionPane.PLAIN_MESSAGE);
-        if (password == null || password.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Password tidak boleh kosong!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        String sksStr = JOptionPane.showInputDialog(this, "Masukkan SKS:", "Tambah Mata Kuliah", JOptionPane.PLAIN_MESSAGE);
+        if (sksStr == null || sksStr.trim().isEmpty()) return;
 
         try {
-            DosenRepository dosenRepo = new DosenRepository();
-            Dosen dosen = new Dosen(nid.trim(), nama.trim(), idProdi.trim());
+            int sks = Integer.parseInt(sksStr.trim());
 
-            if (dosenRepo.createDosen(dosen, password)) {
-                JOptionPane.showMessageDialog(this, "Dosen berhasil ditambahkan!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            if (sks < 1 || sks > 6) {
+                JOptionPane.showMessageDialog(this, "SKS harus antara 1-6!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            MatkulRepository matkulRepo = new MatkulRepository();
+            Matkul matkul = new Matkul(idMatkul.trim(), namaMatkul.trim(), idProdi.trim(), sks);
+
+            if (matkulRepo.createMatkul(matkul)) {
+                JOptionPane.showMessageDialog(this, "Mata kuliah berhasil ditambahkan!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
                 refreshTable();
             } else {
                 JOptionPane.showMessageDialog(this,
-                    "Gagal menambahkan dosen!\n\nKemungkinan penyebab:\n" +
-                    "1. NID sudah terdaftar\n" +
+                    "Gagal menambahkan mata kuliah!\n\nKemungkinan penyebab:\n" +
+                    "1. ID Mata Kuliah sudah terdaftar\n" +
                     "2. ID Prodi tidak valid\n" +
                     "3. Koneksi database bermasalah\n\n" +
                     "Silakan cek console untuk detail error.",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this,
-                "Terjadi kesalahan: " + e.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "SKS harus berupa angka!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_tambahButtonActionPerformed
 
@@ -445,30 +421,29 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
     private void cariButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariButtonActionPerformed
         String keyword = jTextField1.getText().trim().toLowerCase();
 
-        if (keyword.isEmpty()) {
-            loadDosenData();
+        if (keyword.isEmpty() || keyword.equals("cari nama")) {
+            loadMatkulData();
             return;
         }
 
-        DosenRepository dosenRepo = new DosenRepository();
-        List<Dosen> listDosen = dosenRepo.getAllDosen();
+        MatkulRepository matkulRepo = new MatkulRepository();
+        List<Matkul> listMatkul = matkulRepo.getAllMatkul();
 
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0);
 
         int no = 1;
-        for (Dosen dosen : listDosen) {
-            if (dosen.getNid().toLowerCase().contains(keyword) ||
-                dosen.getNama().toLowerCase().contains(keyword) ||
-                dosen.getId_prodi().toLowerCase().contains(keyword)) {
+        for (Matkul matkul : listMatkul) {
+            if (matkul.getId_matkul().toLowerCase().contains(keyword) ||
+                matkul.getNama_matkul().toLowerCase().contains(keyword) ||
+                matkul.getId_prodi().toLowerCase().contains(keyword)) {
 
                 Object[] row = {
                     no++,
-                    dosen.getNid(),
-                    dosen.getNama(),
-                    dosen.getNid() + "@uksw.edu",
-                    dosen.getId_prodi(),
-                    "Aktif",
+                    matkul.getId_matkul(),
+                    matkul.getNama_matkul(),
+                    matkul.getId_prodi(),
+                    matkul.getSks(),
                     null
                 };
                 model.addRow(row);
@@ -479,54 +454,98 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         int selectedRow = jTable2.getSelectedRow();
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih dosen yang akan diedit!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pilih mata kuliah yang akan diedit!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        String nid = jTable2.getValueAt(selectedRow, 1).toString();
+        String idMatkul = jTable2.getValueAt(selectedRow, 1).toString();
         String namaLama = jTable2.getValueAt(selectedRow, 2).toString();
-        String prodiLama = jTable2.getValueAt(selectedRow, 4).toString();
+        String prodiLama = jTable2.getValueAt(selectedRow, 3).toString();
+        String sksLama = jTable2.getValueAt(selectedRow, 4).toString();
 
-        String namaBaru = JOptionPane.showInputDialog(this, "Masukkan Nama Baru:", namaLama);
+        String namaBaru = JOptionPane.showInputDialog(this, "Masukkan Nama Mata Kuliah Baru:", namaLama);
         if (namaBaru == null || namaBaru.trim().isEmpty()) return;
 
-        String prodiBaru = JOptionPane.showInputDialog(this, "Masukkan ID Prodi Baru:", prodiLama);
-        if (prodiBaru == null || prodiBaru.trim().isEmpty()) return;
+        // Dropdown pilihan prodi
+        String[] prodiOptions = {
+            "TI067 - S1 Teknik Informatika",
+            "DKV069 - Desain Komunikasi Visual",
+            "SI068 - Sistem Informasi",
+            "BD084 - Bisnis Digital",
+            "D3TI056 - D3 Teknik Informatika",
+            "PR059 - Public Relations"
+        };
 
-        DosenRepository dosenRepo = new DosenRepository();
-        Dosen dosen = new Dosen(nid, namaBaru.trim(), prodiBaru.trim());
+        // Find index of current prodi
+        int selectedIndex = 0;
+        for (int i = 0; i < prodiOptions.length; i++) {
+            if (prodiOptions[i].startsWith(prodiLama)) {
+                selectedIndex = i;
+                break;
+            }
+        }
 
-        if (dosenRepo.updateDosen(dosen)) {
-            JOptionPane.showMessageDialog(this, "Dosen berhasil diupdate!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-            refreshTable();
-        } else {
-            JOptionPane.showMessageDialog(this, "Gagal mengupdate dosen!", "Error", JOptionPane.ERROR_MESSAGE);
+        String selectedProdi = (String) JOptionPane.showInputDialog(
+            this,
+            "Pilih Program Studi:",
+            "Edit Mata Kuliah",
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            prodiOptions,
+            prodiOptions[selectedIndex]
+        );
+
+        if (selectedProdi == null) return;
+        String prodiBaru = selectedProdi.split(" - ")[0];
+
+        String sksStr = JOptionPane.showInputDialog(this, "Masukkan SKS Baru:", sksLama);
+        if (sksStr == null || sksStr.trim().isEmpty()) return;
+
+        try {
+            int sks = Integer.parseInt(sksStr.trim());
+
+            if (sks < 1 || sks > 6) {
+                JOptionPane.showMessageDialog(this, "SKS harus antara 1-6!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            MatkulRepository matkulRepo = new MatkulRepository();
+            Matkul matkul = new Matkul(idMatkul, namaBaru.trim(), prodiBaru.trim(), sks);
+
+            if (matkulRepo.updateMatkul(matkul)) {
+                JOptionPane.showMessageDialog(this, "Mata kuliah berhasil diupdate!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                refreshTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal mengupdate mata kuliah!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "SKS harus berupa angka!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void hapusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusButtonActionPerformed
         int selectedRow = jTable2.getSelectedRow();
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih dosen yang akan dihapus!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pilih mata kuliah yang akan dihapus!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        String nid = jTable2.getValueAt(selectedRow, 1).toString();
-        String nama = jTable2.getValueAt(selectedRow, 2).toString();
+        String idMatkul = jTable2.getValueAt(selectedRow, 1).toString();
+        String namaMatkul = jTable2.getValueAt(selectedRow, 2).toString();
 
         int confirm = JOptionPane.showConfirmDialog(this,
-            "Apakah Anda yakin ingin menghapus dosen:\n" + nama + " (" + nid + ")?",
+            "Apakah Anda yakin ingin menghapus mata kuliah:\n" + namaMatkul + " (" + idMatkul + ")?",
             "Konfirmasi Hapus",
             JOptionPane.YES_NO_OPTION,
             JOptionPane.WARNING_MESSAGE);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            DosenRepository dosenRepo = new DosenRepository();
-            if (dosenRepo.deleteDosen(nid)) {
-                JOptionPane.showMessageDialog(this, "Dosen berhasil dihapus!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            MatkulRepository matkulRepo = new MatkulRepository();
+            if (matkulRepo.deleteMatkul(idMatkul)) {
+                JOptionPane.showMessageDialog(this, "Mata kuliah berhasil dihapus!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
                 refreshTable();
             } else {
-                JOptionPane.showMessageDialog(this, "Gagal menghapus dosen!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Gagal menghapus mata kuliah!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_hapusButtonActionPerformed
@@ -534,7 +553,7 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cariButton;
-    private javax.swing.JLabel cariDosenLabel;
+    private javax.swing.JLabel cariMatkulLabel;
     private javax.swing.JLabel clockLabel;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JButton editButton;

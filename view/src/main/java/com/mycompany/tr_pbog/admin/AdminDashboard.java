@@ -12,6 +12,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.Timer;
+import repo.DosenRepository;
+import repo.MahasiswaRepository;
+import repo.MatkulRepository;
 
 /**
  *
@@ -26,6 +29,21 @@ public class AdminDashboard extends javax.swing.JPanel implements Listener {
         initComponents();
         setDarkMode(DarkMode.isDarkMode);
         initDateTime();
+        loadStatistics();
+    }
+
+    private void loadStatistics() {
+        DosenRepository dosenRepo = new DosenRepository();
+        MahasiswaRepository mhsRepo = new MahasiswaRepository();
+        MatkulRepository matkulRepo = new MatkulRepository();
+
+        int totalDosen = dosenRepo.getTotalDosen();
+        int totalMahasiswa = mhsRepo.getTotalMahasiswa();
+        int totalMatkul = matkulRepo.getTotalMatkul();
+
+        jumlahDosen.setText(String.valueOf(totalDosen));
+        jumlahMahasiswa.setText(String.valueOf(totalMahasiswa));
+        jumlahKelas.setText(String.valueOf(totalMatkul));
     }
     private void initDateTime() {
         // lokalisasi Indonesia
@@ -336,16 +354,30 @@ public class AdminDashboard extends javax.swing.JPanel implements Listener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void shortcut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shortcut1ActionPerformed
-        // TODO add your handling code here:
+        // Shortcut ke panel Tambah Dosen
+        switchToPanel(new AdminDosenPanel());
     }//GEN-LAST:event_shortcut1ActionPerformed
 
     private void shortcut2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shortcut2ActionPerformed
-        // TODO add your handling code here:
+        // Shortcut ke panel Tambah Mahasiswa
+        switchToPanel(new AdminMahasiswaPanel());
     }//GEN-LAST:event_shortcut2ActionPerformed
 
     private void shortcut3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shortcut3ActionPerformed
-        // TODO add your handling code here:
+        // Shortcut ke panel Buat Kelas
+        switchToPanel(new AdminKelasPanel());
     }//GEN-LAST:event_shortcut3ActionPerformed
+
+    private void switchToPanel(javax.swing.JPanel newPanel) {
+        // Cari parent container (mainPanel dari AdminHomePage)
+        java.awt.Container parent = this.getParent();
+        if (parent != null) {
+            parent.removeAll();
+            parent.add(newPanel, java.awt.BorderLayout.CENTER);
+            parent.revalidate();
+            parent.repaint();
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
