@@ -27,3 +27,5 @@ replay_pid*
 #buat intelij
 .idea/
 *.iml
+
+.claude/
