@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import dbCon.Nilai;
 
 import DTO.LihatMahasiswa;
 import DTO.TranskripNilai;
@@ -15,11 +16,12 @@ public class NilaiRepository {
     public List<LihatMahasiswa> getMahasiswaByIdKelas(String idKelas){
         List<LihatMahasiswa> listMahasiswa = new ArrayList<>();
         String sql = """
-                select nilai.nim,mahasiswa.name from kelas
+                select nilai.nim, mahasiswa.name 
+                from kelas
                 inner join nilai on kelas.id_kelas = nilai.id_kelas
                 inner join mahasiswa on nilai.nim = mahasiswa.nim
-                where kelas.id_kelas = ? and status = false
-                """;;
+                where kelas.id_kelas = ? and nilai.status = false
+                """;
         try(Connection conn = db_config.getConn();PreparedStatement prep = conn.prepareStatement(sql)) {
             prep.setString(1, idKelas);
             ResultSet res = prep.executeQuery();
@@ -38,9 +40,12 @@ public class NilaiRepository {
     public List<TranskripNilai> getTranskripNilaiByNIM(String nim){
         List <TranskripNilai> listNilai = new ArrayList<>();
         String sql = """
-            select nilai.id_kelas,nama_kelas,nilai_akhir from nilai 
+            select nilai.id_kelas, kelas.nama_kelas, nilai.nilai_akhir 
+            from nilai 
             inner join kelas on nilai.id_kelas = kelas.id_kelas
-            where nilai.nim = ? and nilai.status = true 
+            where nilai.nim = ? 
+            and nilai.status = true 
+            and nilai.status_bayar = 'LUNAS' 
             """;
         try(Connection conn = db_config.getConn();PreparedStatement prep = conn.prepareStatement(sql)) {
             prep.setString(1, nim);
@@ -59,7 +64,7 @@ public class NilaiRepository {
         return listNilai;
     }
 
-    public boolean updateNilai(String idKelas,String nim,double nilai){
+    public boolean updateNilai(String idKelas, String nim, double nilai){
         int update = 0;
         String sql = "update nilai set nilai_akhir = ?, status = true where nim = ? and id_kelas = ? and status = false";
         try(Connection conn = db_config.getConn();PreparedStatement prep = conn.prepareStatement(sql)) {
@@ -68,7 +73,6 @@ public class NilaiRepository {
             prep.setString(3, idKelas);
             update = prep.executeUpdate();
         } catch (SQLException e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
         return update == 1;
@@ -118,11 +122,13 @@ public class NilaiRepository {
             // TODO: handle exception
             e.printStackTrace();
         }
+        if (maxId == null) return 0;
         return Integer.parseInt(maxId.substring(maxId.length()-3));
     }
+
     public boolean InputNilai (String nim,String idKelas){
         NilaiRepository nilaiRepo = new NilaiRepository();
-        String sql = "insert into nilai (id_nilai,nim,id_kelas,nilai_akhir,status) value (?,?,?,?,?)";
+        String sql = "insert into nilai (id_nilai, nim, id_kelas, nilai_akhir, status, status_bayar) values (?, ?, ?, ?, ?, ?)";
         int row = 0;
         int maxId = nilaiRepo.getMaxIdNilai()+1;
         String idNilai = "NL" + String.format("%03d", maxId);
@@ -132,6 +138,7 @@ public class NilaiRepository {
             prep.setString(3, idKelas);
             prep.setDouble(4, 0.0);
             prep.setBoolean(5, false);
+            prep.setString(6, "BELUM");
             row = prep.executeUpdate();
         } catch (SQLException e) {
             // TODO: handle exception
@@ -143,10 +150,9 @@ public class NilaiRepository {
     public boolean cekMatkulBisaAmbil(String nim, String idMatkul){
         boolean bisaAmbil = true;
         String sql = """
-                select nim, matkul.id_matkul from nilai 
+                select nilai.nim from nilai 
                 inner join kelas on nilai.id_kelas = kelas.id_kelas
-                inner join matkul on kelas.id_matkul = matkul.id_matkul
-                where nim = ? and matkul.id_matkul = ? and status = false
+                where nilai.nim = ? and kelas.id_matkul = ? and nilai.status = false
                 """;
         try(Connection conn = db_config.getConn();PreparedStatement prep = conn.prepareStatement(sql)) {
             prep.setString(1, nim);

@@ -89,6 +89,7 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         nilaiBtn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
         darkModeToggle = new javax.swing.JToggleButton();
+        btnKeuangan = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -190,6 +191,13 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
             }
         });
 
+        btnKeuangan.setText("Bayar Kuliah");
+        btnKeuangan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKeuanganActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sidebarMenuPanelLayout = new javax.swing.GroupLayout(sidebarMenuPanel);
         sidebarMenuPanel.setLayout(sidebarMenuPanelLayout);
         sidebarMenuPanelLayout.setHorizontalGroup(
@@ -202,6 +210,7 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
             .addGroup(sidebarMenuPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(darkModeToggle))
+            .addComponent(btnKeuangan, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         sidebarMenuPanelLayout.setVerticalGroup(
             sidebarMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,11 +223,13 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
                 .addComponent(jadwalBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(nilaiBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(2, 2, 2)
+                .addComponent(btnKeuangan, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(darkModeToggle)
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
 
         sidebarPanel.add(sidebarMenuPanel, java.awt.BorderLayout.CENTER);
@@ -313,9 +324,18 @@ private void setButtonIcon(javax.swing.JButton button, String path, int width, i
         this.dispose();
     }//GEN-LAST:event_logoutBtnActionPerformed
 
+    private void btnKeuanganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeuanganActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new MahasiswaKeuanganPanel(this.mhs), java.awt.BorderLayout.CENTER);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }//GEN-LAST:event_btnKeuanganActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackPanel;
     private javax.swing.JButton ambilKelasBtn;
+    private javax.swing.JButton btnKeuangan;
     private javax.swing.JToggleButton darkModeToggle;
     private javax.swing.JButton dashboardBtn;
     private javax.swing.JPanel headerPanel;

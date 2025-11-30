@@ -154,19 +154,19 @@ public class AdminMahasiswaPanel extends javax.swing.JPanel implements Listener{
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "672024125", "William Prasetyo", "672024125@student.uksw.edu", "S1 TI", "Aktif", null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                { new Integer(1), "672024125", "William Prasetyo", "672024125@student.uksw.edu", "S1 TI", "Aktif"},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "No", "NIM", "Mahasiswa", "Email", "Program Studi", "Status", "Aksi"
+                "No", "NIM", "Mahasiswa", "Email", "Program Studi", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {

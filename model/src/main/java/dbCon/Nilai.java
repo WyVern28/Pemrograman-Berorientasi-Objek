@@ -4,13 +4,22 @@ public class Nilai {
     private String id_nilai, nim, id_kelas;
     private float nilai_akhir;
     private boolean status;
+    private String status_bayar;
 
-    public Nilai(String id_nilai, String nim, String id_kelas, float nilai_akhir, boolean status) {
+    public Nilai(String id_nilai, String nim, String id_kelas, float nilai_akhir, boolean status, String status_bayar) {
         this.id_nilai = id_nilai;
         this.nim = nim;
         this.id_kelas = id_kelas;
         this.nilai_akhir = nilai_akhir;
         this.status = status;
+    }
+
+    public String getStatus_bayar() {
+        return status_bayar;
+    }
+
+    public void setStatus_bayar(String status_bayar) {
+        this.status_bayar = status_bayar;
     }
 
     public String getId_nilai() {
