@@ -238,13 +238,23 @@ public class AdminKelasPanel extends javax.swing.JPanel implements Listener{
             }
         });
 
-        editButton.setBackground(new java.awt.Color(0, 0, 255));
+        editButton. setBackground(new java.awt. Color(0, 0, 255));
         editButton.setText("Edit Kelas");
-        editButton.setActionCommand("editDosen");
-
-        hapusButton.setBackground(new java.awt.Color(255, 0, 0));
+        editButton.setActionCommand("editKelas");
+        editButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editButtonActionPerformed(evt);
+            }
+        });
+        
+        hapusButton. setBackground(new java.awt. Color(255, 0, 0));
         hapusButton.setText("Hapus Kelas");
-        hapusButton.setActionCommand("hapusDosen");
+        hapusButton.setActionCommand("hapusKelas");
+hapusButton. addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        hapusButtonActionPerformed(evt);
+    }
+});
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
