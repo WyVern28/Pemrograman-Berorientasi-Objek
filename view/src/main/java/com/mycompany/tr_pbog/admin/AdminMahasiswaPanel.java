@@ -52,7 +52,6 @@ public class AdminMahasiswaPanel extends javax.swing.JPanel implements Listener{
                 mhs.getNim() + "@student.uksw.edu", // Email generated from NIM
                 mhs.getId_prodi(),
                 "Aktif",
-                null // Aksi column
             };
             model.addRow(row);
         }
@@ -72,7 +71,6 @@ public class AdminMahasiswaPanel extends javax.swing.JPanel implements Listener{
         cm.getColumn(3).setPreferredWidth(250);  // Email
         cm.getColumn(4).setPreferredWidth(100);  // Progdi
         cm.getColumn(5).setPreferredWidth(140); // Status
-        cm.getColumn(6).setPreferredWidth(120); //Aksi
     }
     
     private void initDateTime() {
@@ -481,7 +479,6 @@ public class AdminMahasiswaPanel extends javax.swing.JPanel implements Listener{
                     mhs.getNim() + "@student.uksw.edu",
                     mhs.getId_prodi(),
                     "Aktif",
-                    null
                 };
                 model.addRow(row);
             }
