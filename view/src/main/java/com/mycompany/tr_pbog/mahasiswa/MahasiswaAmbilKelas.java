@@ -50,22 +50,26 @@ public class MahasiswaAmbilKelas extends javax.swing.JPanel implements Listener 
         boolean bisaAmbil = fMahasiswa.bisaAmbilMatkul(mhs.getNim(), matkul.getId_matkul());
         if (bisaAmbil) {
         List<RegistrasiKelas> lstKelas = fMahasiswa.getKelas(matkul);
+        System.out.println("Ukuran Kelas: " + lstKelas.size());
         detailJudulLabel.setText("Pilih Kelas untuk: " + matkul.getNama_matkul());
         kelasDetailContentPanel.removeAll();
         String[][] data = null;
         for (RegistrasiKelas kelas : lstKelas){
-            data = new String[][] {{kelas.getId_kelas(), kelas.getNama_kelas() +"   |   " + kelas.getNamaDosen() + "      " + "Kapasitas: " + kelas.getKapasitas()}};
-        }
-        
-        for (String[] kelas : data) {
-            String kodeKelas = kelas[0];
-            String infoText = kelas[1];
+            System.out.println("Menambahkan kelas: " + kelas.getId_kelas());
+            
+            String kodeKelas = kelas.getId_kelas();
+            String infoText = kelas.getNama_kelas() + "   |   " + 
+                            kelas.getNamaDosen() + "      " + 
+                            "Kapasitas: " + kelas.getKapasitas();
+            
             kelasDetailCardPanel card = new kelasDetailCardPanel(kodeKelas, infoText);
             card.getAmbilButton().addActionListener(e -> {
                 handleAmbilKelas(kodeKelas, mhs.getNim());
             });
+            
             kelasDetailContentPanel.add(card);
         }
+
 
         setDarkMode(DarkMode.isDarkMode);
         cardLayout.show(this, "detailCard");
