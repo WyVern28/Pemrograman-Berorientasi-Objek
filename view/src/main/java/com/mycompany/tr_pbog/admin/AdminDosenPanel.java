@@ -38,26 +38,25 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
     }
 
     private void loadDosenData() {
-        DosenRepository dosenRepo = new DosenRepository();
-        List<Dosen> listDosen = dosenRepo.getAllDosen();
+    DosenRepository dosenRepo = new DosenRepository();
+    List<Dosen> listDosen = dosenRepo.getAllDosen();
 
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-        model.setRowCount(0); // Clear existing data
+    DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+    model.setRowCount(0); // Clear existing data
 
-        int no = 1;
-        for (Dosen dosen : listDosen) {
-            Object[] row = {
-                no++,
-                dosen.getNid(),
-                dosen.getNama(),
-                dosen.getNid() + "@uksw.edu", // Email generated from NID
-                dosen.getId_prodi(),
-                "Aktif",
-                null // Aksi column
-            };
-            model.addRow(row);
-        }
+    int no = 1;
+    for (Dosen dosen : listDosen) {
+        Object[] row = {
+            no++,
+            dosen. getNid(),
+            dosen. getNama(),
+            dosen. getNid() + "@uksw.edu", // Email generated from NID
+            dosen.getId_prodi(),
+            "Aktif"
+        };
+        model.addRow(row);
     }
+}
 
     private void refreshTable() {
         loadDosenData();
@@ -83,17 +82,16 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
 
     
     private void initTableSize(){
-        jTable2.getTableHeader().setResizingAllowed(false);
-        jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        javax.swing.table.TableColumnModel cm = jTable2.getColumnModel();
-        cm.getColumn(0).setPreferredWidth(30);  // No
-        cm.getColumn(1).setPreferredWidth(100);  // NIDN
-        cm.getColumn(2).setPreferredWidth(331); // Nama Dosen
-        cm.getColumn(3).setPreferredWidth(250);  // Email
-        cm.getColumn(4).setPreferredWidth(100);  // Progdi
-        cm.getColumn(5).setPreferredWidth(140); // Status
-        cm.getColumn(6).setPreferredWidth(120); //Aksi
-    }
+    jTable2.getTableHeader().setResizingAllowed(false);
+    jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    javax.swing.table.TableColumnModel cm = jTable2.getColumnModel();
+    cm.getColumn(0).setPreferredWidth(30);  // No
+    cm.getColumn(1).setPreferredWidth(100);  // NIDN
+    cm.getColumn(2).setPreferredWidth(331); // Nama Dosen
+    cm.getColumn(3). setPreferredWidth(250);  // Email
+    cm.getColumn(4).setPreferredWidth(100);  // Progdi
+    cm.getColumn(5).setPreferredWidth(140); // Status
+}
     
     @Override
     public void setDarkMode(boolean isDark){
@@ -160,32 +158,32 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
         jScrollPane1.setOpaque(false);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                { new Integer(1), "67096", "PRATYAKSA OCSA N. SAIAN", "pratyaksa.ocsa@uksw.edu", "S1 TI", "Aktif"},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "No", "NIDN", "Dosen", "Email", "Program Studi", "Status"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
+        new Object [][] {
+            { new Integer(1), "67096", "PRATYAKSA OCSA N.  SAIAN", "pratyaksa.ocsa@uksw.edu", "S1 TI", "Aktif"},
+            {null, null, null, null, null, null},
+            {null, null, null, null, null, null},
+            {null, null, null, null, null, null},
+            {null, null, null, null, null, null}
+        },
+        new String [] {
+            "No", "NIDN", "Dosen", "Email", "Program Studi", "Status"
+        }
+    ) {
+        Class[] types = new Class [] {
+            java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+        };
+        boolean[] canEdit = new boolean [] {
+            false, false, false, false, false, false
+        };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
+        public Class getColumnClass(int columnIndex) {
+            return types [columnIndex];
+        }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit [columnIndex];
+        }
+    });
         jTable2.setShowGrid(true);
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable2);
@@ -211,6 +209,11 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
         hapusButton.setBackground(new java.awt.Color(255, 0, 0));
         hapusButton.setText("Hapus Dosen");
         hapusButton.setActionCommand("hapusDosen");
+        hapusButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusButtonActionPerformed(evt);
+            }
+        });
 
         editButton.setBackground(new java.awt.Color(0, 0, 255));
         editButton.setText("Edit Dosen");
@@ -438,7 +441,7 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
         // Combo box action
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void cariButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariButtonActionPerformed
+    private void cariButtonActionPerformed(java. awt.event.ActionEvent evt) {
         String keyword = jTextField1.getText().trim().toLowerCase();
 
         if (keyword.isEmpty()) {
@@ -450,27 +453,26 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
         List<Dosen> listDosen = dosenRepo.getAllDosen();
 
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-        model.setRowCount(0);
+        model. setRowCount(0);
 
         int no = 1;
         for (Dosen dosen : listDosen) {
             if (dosen.getNid().toLowerCase().contains(keyword) ||
-                dosen.getNama().toLowerCase().contains(keyword) ||
+                dosen.getNama().toLowerCase(). contains(keyword) ||
                 dosen.getId_prodi().toLowerCase().contains(keyword)) {
 
                 Object[] row = {
                     no++,
                     dosen.getNid(),
                     dosen.getNama(),
-                    dosen.getNid() + "@uksw.edu",
+                    dosen.getNid() + "@uksw. edu",
                     dosen.getId_prodi(),
-                    "Aktif",
-                    null
+                    "Aktif"
                 };
                 model.addRow(row);
             }
         }
-    }//GEN-LAST:event_cariButtonActionPerformed
+    }
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         int selectedRow = jTable2.getSelectedRow();

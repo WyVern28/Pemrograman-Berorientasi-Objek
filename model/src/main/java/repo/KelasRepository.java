@@ -167,8 +167,8 @@ public class KelasRepository {
             prep.setString(2, idKelas);
             prep.setString(3, idRuangan);
             prep.setString(4, hari);
-            prep.setString(5, jamMulai);
-            prep.setString(6, jamSelesai);
+            prep.setTime(5, java.sql.Time.valueOf(jamMulai));
+            prep.setTime(6, java. sql.Time.valueOf(jamSelesai));
             return prep.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
