@@ -61,4 +61,29 @@ public class JadwalKelasRepository {
         }
         return jadwal;
     }
+
+    public boolean isJadwalBentrok(String idRuangan, String hari, String jamMulai, String jamSelesai) {
+        String sql = """
+            SELECT COUNT(*) FROM jadwal_kelas 
+            WHERE id_ruangan = ? 
+            AND hari = ? 
+            AND (jam_mulai < ? AND jam_selesai > ?)
+            """;
+
+        try (Connection conn = db_config.getConn();
+             PreparedStatement prep = conn.prepareStatement(sql)) {
+
+            prep.setString(1, idRuangan);
+            prep.setString(2, hari);
+            prep.setString(3, jamSelesai);
+            prep.setString(4, jamMulai);
+            ResultSet res = prep.executeQuery();
+            if (res.next()) {
+                return res.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

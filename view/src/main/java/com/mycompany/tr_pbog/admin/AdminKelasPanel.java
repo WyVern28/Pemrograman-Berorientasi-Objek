@@ -583,6 +583,24 @@ hapusButton. addActionListener(new java.awt.event.ActionListener() {
         } else {
             JOptionPane.showMessageDialog(this, "Gagal menambahkan jadwal!", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
+        repo.JadwalKelasRepository jadwalRepo = new repo.JadwalKelasRepository();
+
+        // cek bentrok di kelas atau tidak
+        if (jadwalRepo.isJadwalBentrok(idRuangan, hari, jamMulai, jamSelesai)) {
+            JOptionPane.showMessageDialog(this,
+                    "GAGAL! Ruangan " + idRuangan + " sudah terpakai pada hari " + hari +
+                            " pukul " + jamMulai + "-" + jamSelesai + ".",
+                    "Jadwal Bentrok",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //ini kalo ga tabrakan
+        if (kelasRepo.createJadwalKelas(idJadwal, idKelas, idRuangan, hari, jamMulai, jamSelesai)) {
+            JOptionPane.showMessageDialog(this, "Jadwal berhasil ditambahkan!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Gagal menambahkan jadwal (Error Database)!");
+        }
     }
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
