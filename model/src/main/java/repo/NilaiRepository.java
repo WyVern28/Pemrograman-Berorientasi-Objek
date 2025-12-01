@@ -64,18 +64,108 @@ public class NilaiRepository {
         return listNilai;
     }
 
-    public boolean updateNilai(String idKelas, String nim, double nilai){
-        int update = 0;
-        String sql = "update nilai set nilai_akhir = ?, status = true where nim = ? and id_kelas = ? and status = false";
-        try(Connection conn = db_config.getConn();PreparedStatement prep = conn.prepareStatement(sql)) {
+    public boolean updateNilai(String idKelas, String nim, double nilai) {
+        Connection conn = null;
+        PreparedStatement prep = null;
+
+        try {
+            System.out.println("=== MULAI PROSES UPDATE NILAI ==="); // DEBUG
+            conn = db_config.getConn();
+            conn.setAutoCommit(false);
+
+            String sqlNilai = "update nilai set nilai_akhir = ?, status = true where nim = ? and id_kelas = ? and status = false";
+            prep = conn.prepareStatement(sqlNilai);
             prep.setDouble(1, nilai);
             prep.setString(2, nim);
             prep.setString(3, idKelas);
-            update = prep.executeUpdate();
+
+            int affected = prep.executeUpdate();
+            System.out.println("Langkah 1 Update Nilai: Baris terpengaruh = " + affected); // DEBUG
+
+            if (affected == 0) {
+                System.out.println("GAGAL: Data mungkin sudah dinilai sebelumnya (status sudah true) atau ID salah."); // DEBUG
+                conn.rollback();
+                return false;
+            }
+
+            float ipkBaru = hitungIPKInternal(conn, nim);
+            int totalSksBaru = hitungTotalSksInternal(conn, nim); // <-- Cek output method ini di bawah
+
+            System.out.println("Hitungan Baru -> IPK: " + ipkBaru + ", Total SKS: " + totalSksBaru); // DEBUG
+
+            String sqlMhs = "update mahasiswa set ipk = ?, total_sks = ? where nim = ?";
+            try (PreparedStatement prepMhs = conn.prepareStatement(sqlMhs)) {
+                prepMhs.setFloat(1, ipkBaru);
+                prepMhs.setInt(2, totalSksBaru);
+                prepMhs.setString(3, nim);
+                int mhsAffected = prepMhs.executeUpdate();
+                System.out.println("Langkah 3 Update Mahasiswa: Baris terpengaruh = " + mhsAffected); // DEBUG
+            }
+
+            conn.commit();
+            System.out.println("=== SUKSES COMMIT ==="); // DEBUG
+            return true;
+
         } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage()); // DEBUG
+            if (conn != null) {
+                try { conn.rollback(); } catch (SQLException ex) {}
+            }
             e.printStackTrace();
+            return false;
+        } finally {
+            try { if (prep != null) prep.close(); } catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
-        return update == 1;
+    }
+
+    private float hitungIPKInternal(Connection conn, String nim) throws SQLException {
+        float totalBobotKaliSks = 0;
+        int totalSks = 0;
+
+        String sql = """
+            SELECT n.nilai_akhir, m.sks 
+            FROM nilai n
+            JOIN kelas k ON n.id_kelas = k.id_kelas
+            JOIN matkul m ON k.id_matkul = m.id_matkul
+            WHERE n.nim = ? AND n.status = true
+            """;
+
+        try (PreparedStatement prep = conn.prepareStatement(sql)) {
+            prep.setString(1, nim);
+            ResultSet res = prep.executeQuery();
+            while (res.next()) {
+                double val = res.getDouble("nilai_akhir");
+                int sks = res.getInt("sks");
+                totalBobotKaliSks += (convertKeBobot(val) * sks);
+                totalSks += sks;
+            }
+        }
+        if (totalSks == 0) return 0.00f;
+        return totalBobotKaliSks / totalSks;
+    }
+
+    private int hitungTotalSksInternal(Connection conn, String nim) throws SQLException {
+        int totalSks = 0;
+
+        String sql = """
+        SELECT SUM(m.sks) as total_sks
+        FROM nilai n
+        JOIN kelas k ON n.id_kelas = k.id_kelas
+        JOIN matkul m ON k.id_matkul = m.id_matkul
+        WHERE n.nim = ? AND n.status = true
+        """;
+
+        try (PreparedStatement prep = conn.prepareStatement(sql)) {
+            prep.setString(1, nim);
+            ResultSet res = prep.executeQuery();
+            if (res.next()) {
+                totalSks = res.getInt("total_sks");
+            }
+        }
+
+        System.out.println("DEBUG SKS: Menghitung SKS untuk NIM " + nim + ". Hasil: " + totalSks); // DEBUG
+        return totalSks;
     }
 
     public int cekBanyakMahasiswa(String idKelas){
@@ -167,5 +257,15 @@ public class NilaiRepository {
             bisaAmbil = false;
         }
         return bisaAmbil;
+    }
+
+    private double convertKeBobot(double nilai) {
+        if (nilai >= 85) return 4.00;
+        if (nilai >= 80) return 3.50;
+        if (nilai >= 75) return 3.00;
+        if (nilai >= 70) return 2.50;
+        if (nilai >= 65) return 2.00;
+        if (nilai >= 50) return 1.00;
+        return 0.00;
     }
 }
