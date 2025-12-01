@@ -161,21 +161,21 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "67096", "PRATYAKSA OCSA N. SAIAN", "pratyaksa.ocsa@uksw.edu", "S1 TI", "Aktif", null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                { new Integer(1), "67096", "PRATYAKSA OCSA N. SAIAN", "pratyaksa.ocsa@uksw.edu", "S1 TI", "Aktif"},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "No", "NIDN", "Dosen", "Email", "Program Studi", "Status", "Aksi"
+                "No", "NIDN", "Dosen", "Email", "Program Studi", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -187,6 +187,7 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
             }
         });
         jTable2.setShowGrid(true);
+        jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable2);
 
         jPanel4.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -210,11 +211,6 @@ public class AdminDosenPanel extends javax.swing.JPanel implements Listener {
         hapusButton.setBackground(new java.awt.Color(255, 0, 0));
         hapusButton.setText("Hapus Dosen");
         hapusButton.setActionCommand("hapusDosen");
-        hapusButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hapusButtonActionPerformed(evt);
-            }
-        });
 
         editButton.setBackground(new java.awt.Color(0, 0, 255));
         editButton.setText("Edit Dosen");
