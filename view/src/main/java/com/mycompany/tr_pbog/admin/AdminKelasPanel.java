@@ -571,21 +571,6 @@ hapusButton. addActionListener(new java.awt.event.ActionListener() {
         if (jamSelesai == null || jamSelesai.trim().isEmpty()) return;
 
         KelasRepository kelasRepo = new KelasRepository();
-        if (kelasRepo.createJadwalKelas(idJadwal.trim(), kelas.getId_kelas(), idRuangan.trim(), hari, jamMulai.trim(), jamSelesai.trim())) {
-            JOptionPane.showMessageDialog(this, "Jadwal berhasil ditambahkan!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-            if(!kelasRepo.createKelas(kelas)){
-                JOptionPane.showMessageDialog(this,
-                    "Gagal menambahkan kelas!\n\nKemungkinan penyebab:\n" +
-                    "1. ID Kelas sudah terdaftar\n" +
-                    "2. Dosen atau Mata Kuliah tidak valid\n" +
-                    "3. Koneksi database bermasalah\n\n" +
-                    "Silakan cek console untuk detail error.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Gagal menambahkan jadwal!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
 
         repo.JadwalKelasRepository jadwalRepo = new repo.JadwalKelasRepository();
 
@@ -599,8 +584,18 @@ hapusButton. addActionListener(new java.awt.event.ActionListener() {
             return;
         }
         //ini kalo ga tabrakan
-        if (kelasRepo.createJadwalKelas(idJadwal, kelas.getId_kelas(), idRuangan, hari, jamMulai, jamSelesai)) {
+        if (kelasRepo.createJadwalKelas(idJadwal.trim(), kelas.getId_kelas(), idRuangan.trim(), hari, jamMulai.trim(), jamSelesai.trim())) {
             JOptionPane.showMessageDialog(this, "Jadwal berhasil ditambahkan!");
+            if(!kelasRepo.createKelas(kelas)){
+                JOptionPane.showMessageDialog(this,
+                    "Gagal menambahkan kelas!\n\nKemungkinan penyebab:\n" +
+                    "1. ID Kelas sudah terdaftar\n" +
+                    "2. Dosen atau Mata Kuliah tidak valid\n" +
+                    "3. Koneksi database bermasalah\n\n" +
+                    "Silakan cek console untuk detail error.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Gagal menambahkan jadwal (Error Database)!");
         }
