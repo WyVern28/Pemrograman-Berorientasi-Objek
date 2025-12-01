@@ -584,9 +584,7 @@ hapusButton. addActionListener(new java.awt.event.ActionListener() {
             return;
         }
         //ini kalo ga tabrakan
-        if (kelasRepo.createJadwalKelas(idJadwal.trim(), kelas.getId_kelas(), idRuangan.trim(), hari, jamMulai.trim(), jamSelesai.trim())) {
-            JOptionPane.showMessageDialog(this, "Jadwal berhasil ditambahkan!");
-            if(!kelasRepo.createKelas(kelas)){
+        if(!kelasRepo.createKelas(kelas)){
                 JOptionPane.showMessageDialog(this,
                     "Gagal menambahkan kelas!\n\nKemungkinan penyebab:\n" +
                     "1. ID Kelas sudah terdaftar\n" +
@@ -596,6 +594,8 @@ hapusButton. addActionListener(new java.awt.event.ActionListener() {
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
             }
+        if (kelasRepo.createJadwalKelas(idJadwal, kelas.getId_kelas(), idRuangan, hari, jamMulai, jamSelesai)) {
+            JOptionPane.showMessageDialog(this, "Jadwal berhasil ditambahkan!");
         } else {
             JOptionPane.showMessageDialog(this, "Gagal menambahkan jadwal (Error Database)!");
         }
